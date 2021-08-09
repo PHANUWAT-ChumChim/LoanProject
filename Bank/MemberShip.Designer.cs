@@ -138,6 +138,7 @@ namespace example.Bank
             this.BExit.TabIndex = 53;
             this.BExit.Text = "ออก";
             this.BExit.UseVisualStyleBackColor = false;
+            this.BExit.Click += new System.EventHandler(this.BExit_Click);
             // 
             // label1
             // 
