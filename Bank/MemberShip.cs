@@ -122,7 +122,10 @@ namespace example.Bank
         public void CenterRight(System.Drawing.Printing.PrintPageEventArgs e, string Text, Font fontText, Brush brush, float X, float Y, float Pointplus, float Pointdelete)
         {
             SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
-           e.Graphics.DrawString(Text, fontText, brush, new RectangleF(Pointplus + X - Pointdelete, Y,500f,500f));
+            int Xint = (Convert.ToInt32(SizeString.Width) / Convert.ToInt32(500f))+1;
+            float Fx = SizeString.Width / Xint;
+            X = 750 - Fx;
+            e.Graphics.DrawString(Text, fontText, brush, new RectangleF(Pointplus + X - Pointdelete, Y,500f,500f));
         }
         public void CenterLeft(System.Drawing.Printing.PrintPageEventArgs e, string Text, Font fontText, Brush brush, float X, float Y, float Pointplus, float Pointdelete)
         {
@@ -173,18 +176,16 @@ namespace example.Bank
             Center(e, Y + (SpacePerRow * CurrentRows++) - 10, "ใบสมัครสมาชิกสหกรณ์ครู", Header01, Normal);
             Center(e, Y + (SpacePerRow * CurrentRows++) - 10, "วิทยาลัยเทคโนโลยี อีอีซีเอ็นจิเนีย แหลมฉบัง", Header01, Normal);
 
-            //CenterRight(e, "เลขที่สมัคร...........................................................                         " +
-            //               "เขียนนที่.............................................................                             " +
-            //               "วันที่.........เดือน...................................พ.ศ.......................", Normal01, Normal, X + 200, Y + (SpacePerRow * CurrentRows++), XP, XD);
+            CenterRight(e, "เลขที่สมัคร...........................................................                        A" +
+                           "เขียนนที่...............................................................                             " +
+                           "วันที่.........เดือน...................................พ.ศ.......................", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++), XP, XD);
 
             //CenterRight(e, "ถึงคณะกรรมการดำเนืนการกิจกรรมสหกรณ์ครูวิทยาลัยเทคโนโลยีอีอีซี เอ็นจิเนีย เเหลมฉบัง                         " +
             //               "ข้าพเจ้า.........................................................เลขประจำตัวประชาชน..........................................................                             " +
             //               "อยู่บ้านเลขที่......................................หมู่....................ตำบล..................................อำเภอ........................................" +
             //               "จังหวัด...........................................................................เบอร์โทร.............................................................................", Normal01, Normal, X + 50, Y + (SpacePerRow * CurrentRows++ + 3), XP, XD);
 
-            CenterRight(e, $"{DTPStartDate.Text}", Normal01, Normal, X + 500, Y + (SpacePerRow * CurrentRows++), XP, XD);
-            CenterRight(e, $"{TBIDNo.Text}", Normal01, Normal, X + 500, Y + (SpacePerRow * CurrentRows++), XP, XD);
-            CenterRight(e, $"{TBTeacherName.Text}", Normal01, Normal, X + 500, Y + (SpacePerRow * CurrentRows++), XP, XD);
+
 
             //CenterRight(e, "เลขที่...........................................................", Normal01, Normal, X + 750, Y + (SpacePerRow * CurrentRows++), XP, XD);
             //CenterRight(e, "เขียนนที่...........................................................", Normal01, Normal, X + 750, Y + (SpacePerRow * CurrentRows++), XP, XD);
