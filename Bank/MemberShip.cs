@@ -112,13 +112,20 @@ namespace example.Bank
         {
             e.Graphics.DrawString(Text, fontText, brush, new PointF(Pointplus + X - Pointdelete, Y));
         }
-        public int Centerset(System.Drawing.Printing.PrintPageEventArgs e, string Text, Font fontText, Brush brush, float X, float Y, float set)
+        public int Centerset(System.Drawing.Printing.PrintPageEventArgs e, string Text,Font fontText, Brush brush, float X, float Y, float Rfwidth, float height, Boolean Debug = false)
         {
+           
+
             SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
-            int ExtraRow = (Convert.ToInt32(SizeString.Width) / Convert.ToInt32(set)) + 1;
-            e.Graphics.DrawString(Text, fontText, brush, new RectangleF(X, Y, set, 200f));
+            float startingpoint = X+750 - Rfwidth; 
+            if (Debug)
+            {
+                e.Graphics.DrawRectangle(Pens.Black, startingpoint , Y, Rfwidth,height);
+            }
+            int ExtraRow = (Convert.ToInt32(SizeString.Width) / Convert.ToInt32(Rfwidth)) + 1;
+            e.Graphics.DrawString(Text, fontText, brush, new RectangleF(startingpoint, Y,Rfwidth,height));
             return ExtraRow;
-        }
+        } 
       
         public void ExpPrint()
         {
@@ -175,37 +182,56 @@ namespace example.Bank
             m = M; m = m.Remove(0,2);
 
             // ส่วนหัว
-            Center(e, Y + (SpacePerRow * CurrentRows++) - 10, "ใบสมัครสมาชิกสหกรณ์ครู", Header01, Normal);
-            Center(e, Y + (SpacePerRow * CurrentRows++) - 10, "วิทยาลัยเทคโนโลยี อีอีซีเอ็นจิเนีย แหลมฉบัง", Header01, Normal);
+            Center(e, Y + (SpacePerRow * CurrentRows++) , "ใบสมัครสมาชิกสหกรณ์ครู", Header01, Normal);
+            Center(e, Y + (SpacePerRow * CurrentRows++) , "วิทยาลัยเทคโนโลยี อีอีซีเอ็นจิเนีย แหลมฉบัง", Header01, Normal);
             // วันที่
-            CenterRight(e, "สมาชิกเลขที่.........................................................", Normal01, Normal, X + 750, Y + (SpacePerRow * CurrentRows++), XP, XD);
-            CenterRight(e, "เขียนนที่...........................................................", Normal01, Normal, X + 750, Y + (SpacePerRow * CurrentRows++), XP, XD);
-            CenterRight(e, $"วันที่....{D}...เดือน................{m}..................พ.ศ............{y}...........", Normal01, Normal, X + 750, Y + (SpacePerRow * CurrentRows++), XP, XD);
-            // ส่วนข้อมูล
-            CenterLeft(e, "ถึงคณะกรรมการดำเนืนการกิจกรรมสหกรณ์ครูวิทยาลัยเทคโนโลยีอีอีซี เอ็นจิเนีย เเหลมฉบัง", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++), XP, XD);
-            CenterRight(e, "ข้าพเจ้า.........................................................เลขประจำตัวประชาชน..........................................................", Normal01, Normal, X + 750, Y + (SpacePerRow * CurrentRows++), XP, XD);
-            CenterRight(e, "อยู่บ้านเลขที่......................................หมู่....................ตำบล..................................อำเภอ........................................", Normal01, Normal, X + 750, Y + (SpacePerRow * CurrentRows++), XP, XD);
-            CenterRight(e, "จังหวัด...........................................................................เบอร์โทร.............................................................................", Normal01, Normal, X + 750, Y + (SpacePerRow * CurrentRows++), XP, XD);
+            string member = "สมาชิกเลขที่ 1946";
+            //string member = ".............................................................................................";
 
-            CurrentRows += Centerset(e, "ได้ทราบข้อบังคับของกิจกรรมสหกรณ์ครูวิทยาลัยเทคโนโลยีอีอีซี เอ็นจิเนีย เเหลมฉบัง ขอสมัครเป็นสมาชิกของสหกรณ์ครู  เเละขอให้คำเป็นหลักฐานดังต่อไปนี้",Normal01, Normal, X, Y + (SpacePerRow * CurrentRows), 700);
+            //SizeF SizeString = e.Graphics.MeasureString(member,Normal01);
+            string school = "เขียนที่ วิทยาลัยเทคโนโลยี อีอีซีเอ็นจิเนีย แหลมฉบัง";
+            // 227
+            string empty = ".";
+            SizeF SizeT1 = e.Graphics.MeasureString(member, Normal01);
+            float Num = 94 - member.Length;
+            for (int EM = 0; EM < Num; EM++)
+            {
+                empty += ".";
+            }
+            empty += member;
+            member = empty;
 
-            CenterLeft(e, "ข้อที่ 1 ข้าพเจ้าเป็นผู้มีคุณสมบัติถูกต้องตามข้อบังคับทุกประการ", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++ ), XP + 50, XD);
-            CenterLeft(e, "1.เป็นครู - อาจารย์", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++ ), XP + 70, XD);
-            CenterLeft(e, "2.เป็นเจ้าหน้าที่ - ภารโรง", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++ ), XP + 70, XD);
+            CurrentRows += Centerset(e, $"{member}\r\n" +
+                                      $"{school}\r\n" +
+                                      $"วันที่ {D} เดือน {m} พ.ศ. {y}",
+          Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++), 400f, 200,true);
 
-            CenterLeft(e, "ข้อ 2 ข้าพเจ้าขอถือหุ้นของกิจกรรมสหกรณ์ครู ซึ่งมีค่าหุ้นล่ะ 500 บาท", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++ ), XP + 50, XD);
-            CenterLeft(e, $"2.1 ข้อซื้อหุ้นจำนวน{TBStartAmountShare.Text}หุ้น", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++ ), XP + 70, XD);
-            CenterLeft(e, "2.2 รับโอนหุ้นจาก........................................................สมาชิกเลขที่.........................................................", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++), XP + 70, XD);
 
-            CurrentRows += Centerset(e, "จำนวน..............................หุ้น (ถ้ามี) เเละชำระค่าหุ้น.....................................................บาท ทันทีที่ได้รับเเจ้งให้เข้าเป็นสมาชิก", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++ ), 700);
 
-            CurrentRows += Centerset(e, "ข้อที่ 3 เมื่อ ข้าพเจ้าเป็นสมาชิกจะปฎิบัติตามข้อบังคับทุกประการ เเละจะพยายามส่งเสริมให้กิจกรรมสหกณ์ครูให้เจริญก้าวหน้ายิี่งขึ้นไป", Normal01, Normal, X + 50, Y + (SpacePerRow * CurrentRows++), 700);
-            // ตกลง
-            CurrentRows += Centerset(e, "ลงชื่อ......................................................." +
-                                        "(..............................................................)", Normal01, Normal, X + 400, Y + (SpacePerRow * CurrentRows++)+50, 400);
+            //CenterLeft(e, "ถึงคณะกรรมการดำเนืนการกิจกรรมสหกรณ์ครูวิทยาลัยเทคโนโลยีอีอีซี เอ็นจิเนีย เเหลมฉบัง", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++), XP, XD);
+            //CenterRight(e, "ข้าพเจ้า.........................................................เลขประจำตัวประชาชน..........................................................", Normal01, Normal, X + 750, Y + (SpacePerRow * CurrentRows++), XP, XD);
+            //CenterRight(e, "อยู่บ้านเลขที่......................................หมู่....................ตำบล..................................อำเภอ........................................", Normal01, Normal, X + 750, Y + (SpacePerRow * CurrentRows++), XP, XD);
+            //CenterRight(e, "จังหวัด...........................................................................เบอร์โทร.............................................................................", Normal01, Normal, X + 750, Y + (SpacePerRow * CurrentRows++), XP, XD);
 
-            CenterRight(e, "ผู้สมัคร", Normal01, Normal, X + 550 , Y + (SpacePerRow * CurrentRows++)+50, XP , XD );
-          
+            //CurrentRows += Centerset(e, "ได้ทราบข้อบังคับของกิจกรรมสหกรณ์ครูวิทยาลัยเทคโนโลยีอีอีซี เอ็นจิเนีย เเหลมฉบัง ขอสมัครเป็นสมาชิกของสหกรณ์ครู  เเละขอให้คำเป็นหลักฐานดังต่อไปนี้", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows), 7, 7);
+
+            //CenterLeft(e, "ข้อที่ 1 ข้าพเจ้าเป็นผู้มีคุณสมบัติถูกต้องตามข้อบังคับทุกประการ", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++), XP + 50, XD);
+            //CenterLeft(e, "1.เป็นครู - อาจารย์", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++), XP + 70, XD);
+            //CenterLeft(e, "2.เป็นเจ้าหน้าที่ - ภารโรง", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++), XP + 70, XD);
+
+            //CenterLeft(e, "ข้อ 2 ข้าพเจ้าขอถือหุ้นของกิจกรรมสหกรณ์ครู ซึ่งมีค่าหุ้นล่ะ 500 บาท", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++), XP + 50, XD);
+            //CenterLeft(e, $"2.1 ข้อซื้อหุ้นจำนวน{TBStartAmountShare.Text}หุ้น", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++), XP + 70, XD);
+            //CenterLeft(e, "2.2 รับโอนหุ้นจาก........................................................สมาชิกเลขที่.........................................................", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++), XP + 70, XD);
+
+            //CurrentRows += Centerset(e, "จำนวน..............................หุ้น (ถ้ามี) เเละชำระค่าหุ้น.....................................................บาท ทันทีที่ได้รับเเจ้งให้เข้าเป็นสมาชิก", Normal01, Normal, X, Y + (SpacePerRow * CurrentRows++), 700, 700);
+
+            //CurrentRows += Centerset(e, "ข้อที่ 3 เมื่อ ข้าพเจ้าเป็นสมาชิกจะปฎิบัติตามข้อบังคับทุกประการ เเละจะพยายามส่งเสริมให้กิจกรรมสหกณ์ครูให้เจริญก้าวหน้ายิี่งขึ้นไป", Normal01, Normal, X + 50, Y + (SpacePerRow * CurrentRows++), 700, 700);
+            //// ตกลง
+            //CurrentRows += Centerset(e, "ลงชื่อ......................................................." +
+            //                            "(..............................................................)", Normal01, Normal, X + 400, Y + (SpacePerRow * CurrentRows++) + 50, 400, 700);
+
+            //CenterRight(e, "ผู้สมัคร", Normal01, Normal, X + 550, Y + (SpacePerRow * CurrentRows++) + 50, XP, XD);
+
         }
 
         private void BExit_Click(object sender, EventArgs e)
