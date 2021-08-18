@@ -27,7 +27,7 @@ namespace example.GOODS
                     return;
             }
             F.MdiParent = this;
-            //F.WindowState = FormWindowState.Maximized;
+            F.WindowState = FormWindowState.Maximized;
             F.Show();
         }
         public void shareinformation(object sender, EventArgs e)
@@ -73,6 +73,12 @@ namespace example.GOODS
         {
             Home Hm = new Home();
             CloseFrom(Hm);
+        }
+
+        private void SettingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Bank.Setting St = new Bank.Setting();
+            St.Show();
         }
     }
 }

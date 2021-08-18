@@ -126,6 +126,7 @@ namespace example.Bank
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(900, 541);
             this.panel1.TabIndex = 18;
+            this.panel1.SizeChanged += new System.EventHandler(this.panel1_SizeChanged);
             // 
             // BExit
             // 

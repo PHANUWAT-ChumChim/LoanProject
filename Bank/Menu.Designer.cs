@@ -31,7 +31,7 @@ namespace example.GOODS
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.หนาเเรกToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Home_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pay = new System.Windows.Forms.ToolStripMenuItem();
             this.จายยอดToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,7 +39,8 @@ namespace example.GOODS
             this.ขอมลสมาชกToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.กToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ปดยอดToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.สมครสมาชกToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Member_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SentingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,11 +49,12 @@ namespace example.GOODS
             this.menuStrip1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.หนาเเรกToolStripMenuItem,
+            this.Home_ToolStripMenuItem,
             this.pay,
             this.กToolStripMenuItem,
             this.ปดยอดToolStripMenuItem,
-            this.สมครสมาชกToolStripMenuItem});
+            this.Member_ToolStripMenuItem,
+            this.SentingToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1176, 45);
@@ -60,15 +62,15 @@ namespace example.GOODS
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemAdded += new System.Windows.Forms.ToolStripItemEventHandler(this.menuStrip1_ItemAdded);
             // 
-            // หนาเเรกToolStripMenuItem
+            // Home_ToolStripMenuItem
             // 
-            this.หนาเเรกToolStripMenuItem.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.หนาเเรกToolStripMenuItem.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.หนาเเรกToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("หนาเเรกToolStripMenuItem.Image")));
-            this.หนาเเรกToolStripMenuItem.Name = "หนาเเรกToolStripMenuItem";
-            this.หนาเเรกToolStripMenuItem.Size = new System.Drawing.Size(117, 41);
-            this.หนาเเรกToolStripMenuItem.Text = "หน้าเเรก";
-            this.หนาเเรกToolStripMenuItem.Click += new System.EventHandler(this.หนาเเรกToolStripMenuItem_Click);
+            this.Home_ToolStripMenuItem.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Home_ToolStripMenuItem.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Home_ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("Home_ToolStripMenuItem.Image")));
+            this.Home_ToolStripMenuItem.Name = "Home_ToolStripMenuItem";
+            this.Home_ToolStripMenuItem.Size = new System.Drawing.Size(117, 41);
+            this.Home_ToolStripMenuItem.Text = "หน้าเเรก";
+            this.Home_ToolStripMenuItem.Click += new System.EventHandler(this.หนาเเรกToolStripMenuItem_Click);
             // 
             // pay
             // 
@@ -86,28 +88,28 @@ namespace example.GOODS
             // จายยอดToolStripMenuItem
             // 
             this.จายยอดToolStripMenuItem.Name = "จายยอดToolStripMenuItem";
-            this.จายยอดToolStripMenuItem.Size = new System.Drawing.Size(222, 42);
+            this.จายยอดToolStripMenuItem.Size = new System.Drawing.Size(224, 42);
             this.จายยอดToolStripMenuItem.Text = "จ่ายยอด";
             this.จายยอดToolStripMenuItem.Click += new System.EventHandler(this.จายยอดToolStripMenuItem_Click);
             // 
             // ToolStripMenuItem
             // 
             this.ToolStripMenuItem.Name = "ToolStripMenuItem";
-            this.ToolStripMenuItem.Size = new System.Drawing.Size(222, 42);
+            this.ToolStripMenuItem.Size = new System.Drawing.Size(224, 42);
             this.ToolStripMenuItem.Text = "ข้อมูลหุ้นสะสม";
             this.ToolStripMenuItem.Click += new System.EventHandler(this.shareinformation);
             // 
             // ขอมลกToolStripMenuItem
             // 
             this.ขอมลกToolStripMenuItem.Name = "ขอมลกToolStripMenuItem";
-            this.ขอมลกToolStripMenuItem.Size = new System.Drawing.Size(222, 42);
+            this.ขอมลกToolStripMenuItem.Size = new System.Drawing.Size(224, 42);
             this.ขอมลกToolStripMenuItem.Text = "ข้อมูลกู้";
             this.ขอมลกToolStripMenuItem.Click += new System.EventHandler(this.loaninformation);
             // 
             // ขอมลสมาชกToolStripMenuItem
             // 
             this.ขอมลสมาชกToolStripMenuItem.Name = "ขอมลสมาชกToolStripMenuItem";
-            this.ขอมลสมาชกToolStripMenuItem.Size = new System.Drawing.Size(222, 42);
+            this.ขอมลสมาชกToolStripMenuItem.Size = new System.Drawing.Size(224, 42);
             this.ขอมลสมาชกToolStripMenuItem.Text = "ข้อมูลสมาชิก";
             this.ขอมลสมาชกToolStripMenuItem.Click += new System.EventHandler(this.member);
             // 
@@ -127,14 +129,23 @@ namespace example.GOODS
             this.ปดยอดToolStripMenuItem.Size = new System.Drawing.Size(107, 41);
             this.ปดยอดToolStripMenuItem.Text = "ปิดยอด";
             // 
-            // สมครสมาชกToolStripMenuItem
+            // Member_ToolStripMenuItem
             // 
-            this.สมครสมาชกToolStripMenuItem.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.สมครสมาชกToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("สมครสมาชกToolStripMenuItem.Image")));
-            this.สมครสมาชกToolStripMenuItem.Name = "สมครสมาชกToolStripMenuItem";
-            this.สมครสมาชกToolStripMenuItem.Size = new System.Drawing.Size(149, 41);
-            this.สมครสมาชกToolStripMenuItem.Text = "สมัครสมาชิก";
-            this.สมครสมาชกToolStripMenuItem.Click += new System.EventHandler(this.สมครสมาชกToolStripMenuItem_Click);
+            this.Member_ToolStripMenuItem.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Member_ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("Member_ToolStripMenuItem.Image")));
+            this.Member_ToolStripMenuItem.Name = "Member_ToolStripMenuItem";
+            this.Member_ToolStripMenuItem.Size = new System.Drawing.Size(149, 41);
+            this.Member_ToolStripMenuItem.Text = "สมัครสมาชิก";
+            this.Member_ToolStripMenuItem.Click += new System.EventHandler(this.สมครสมาชกToolStripMenuItem_Click);
+            // 
+            // SentingToolStripMenuItem
+            // 
+            this.SentingToolStripMenuItem.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SentingToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("SentingToolStripMenuItem.Image")));
+            this.SentingToolStripMenuItem.Name = "SentingToolStripMenuItem";
+            this.SentingToolStripMenuItem.Size = new System.Drawing.Size(88, 41);
+            this.SentingToolStripMenuItem.Text = "ตั้งค่า";
+            this.SentingToolStripMenuItem.Click += new System.EventHandler(this.SettingToolStripMenuItem_Click);
             // 
             // Menu
             // 
@@ -159,7 +170,7 @@ namespace example.GOODS
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem หนาเเรกToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Home_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pay;
         private System.Windows.Forms.ToolStripMenuItem จายยอดToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem;
@@ -167,6 +178,7 @@ namespace example.GOODS
         private System.Windows.Forms.ToolStripMenuItem ปดยอดToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ขอมลกToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ขอมลสมาชกToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem สมครสมาชกToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Member_ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SentingToolStripMenuItem;
     }
 }
