@@ -95,12 +95,9 @@ namespace example.Method
         }
 
 
-        public static void TeacherMember(string TeacherNo, int StartAmount, string DocUploadPath)
+        public static void TeacherMember(string TeacherNo,string TeacherAddBy, int StartAmount, string DocUploadPath)
         {
-            Font Header01 = new Font("TH Sarabun New", 30, FontStyle.Bold);
-            Brush Normal = Brushes.Black;
-
-            //string text = "โปรดเลือกสมาชิกในการสมัคร"
+          
             DataTable dt = Method.SQLMethod.InputSQLMSSQL
             ($"SELECT  TeacherNo FROM EmployeeBank.dbo.tblMember WHERE TeacherNo = '{TeacherNo}';;");
             if (TeacherNo != "")
@@ -108,7 +105,7 @@ namespace example.Method
                 if (dt.Rows.Count == 0)
                 {
                     DataTable INSERTMember = Method.SQLMethod.InputSQLMSSQL
-                    ($"INSERT INTO EmployeeBank.dbo.tblMember(TeacherNo,StartAmount,DocUploadPath,DateAdd)VALUES('{TeacherNo}',{StartAmount},'{DocUploadPath}',CURRENT_TIMESTAMP);");
+                    ($"INSERT INTO EmployeeBank.dbo.tblMember(TeacherNo,TeacherAddBy,StartAmount,DocUploadPath,DateAdd)VALUES('{TeacherNo}','{TeacherAddBy}',{StartAmount},'{DocUploadPath}',CURRENT_TIMESTAMP);");
                 }
                 else
                 {

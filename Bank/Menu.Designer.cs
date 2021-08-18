@@ -40,6 +40,8 @@ namespace example.GOODS
             this.กToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ปดยอดToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Member_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TMLCancelMembers = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReportCancelMember = new System.Windows.Forms.ToolStripMenuItem();
             this.SentingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -88,28 +90,28 @@ namespace example.GOODS
             // จายยอดToolStripMenuItem
             // 
             this.จายยอดToolStripMenuItem.Name = "จายยอดToolStripMenuItem";
-            this.จายยอดToolStripMenuItem.Size = new System.Drawing.Size(224, 42);
+            this.จายยอดToolStripMenuItem.Size = new System.Drawing.Size(222, 42);
             this.จายยอดToolStripMenuItem.Text = "จ่ายยอด";
             this.จายยอดToolStripMenuItem.Click += new System.EventHandler(this.จายยอดToolStripMenuItem_Click);
             // 
             // ToolStripMenuItem
             // 
             this.ToolStripMenuItem.Name = "ToolStripMenuItem";
-            this.ToolStripMenuItem.Size = new System.Drawing.Size(224, 42);
+            this.ToolStripMenuItem.Size = new System.Drawing.Size(222, 42);
             this.ToolStripMenuItem.Text = "ข้อมูลหุ้นสะสม";
             this.ToolStripMenuItem.Click += new System.EventHandler(this.shareinformation);
             // 
             // ขอมลกToolStripMenuItem
             // 
             this.ขอมลกToolStripMenuItem.Name = "ขอมลกToolStripMenuItem";
-            this.ขอมลกToolStripMenuItem.Size = new System.Drawing.Size(224, 42);
+            this.ขอมลกToolStripMenuItem.Size = new System.Drawing.Size(222, 42);
             this.ขอมลกToolStripMenuItem.Text = "ข้อมูลกู้";
             this.ขอมลกToolStripMenuItem.Click += new System.EventHandler(this.loaninformation);
             // 
             // ขอมลสมาชกToolStripMenuItem
             // 
             this.ขอมลสมาชกToolStripMenuItem.Name = "ขอมลสมาชกToolStripMenuItem";
-            this.ขอมลสมาชกToolStripMenuItem.Size = new System.Drawing.Size(224, 42);
+            this.ขอมลสมาชกToolStripMenuItem.Size = new System.Drawing.Size(222, 42);
             this.ขอมลสมาชกToolStripMenuItem.Text = "ข้อมูลสมาชิก";
             this.ขอมลสมาชกToolStripMenuItem.Click += new System.EventHandler(this.member);
             // 
@@ -131,6 +133,8 @@ namespace example.GOODS
             // 
             // Member_ToolStripMenuItem
             // 
+            this.Member_ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TMLCancelMembers});
             this.Member_ToolStripMenuItem.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Member_ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("Member_ToolStripMenuItem.Image")));
             this.Member_ToolStripMenuItem.Name = "Member_ToolStripMenuItem";
@@ -138,12 +142,29 @@ namespace example.GOODS
             this.Member_ToolStripMenuItem.Text = "สมัครสมาชิก";
             this.Member_ToolStripMenuItem.Click += new System.EventHandler(this.สมครสมาชกToolStripMenuItem_Click);
             // 
+            // TMLCancelMembers
+            // 
+            this.TMLCancelMembers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ReportCancelMember});
+            this.TMLCancelMembers.Image = ((System.Drawing.Image)(resources.GetObject("TMLCancelMembers.Image")));
+            this.TMLCancelMembers.Name = "TMLCancelMembers";
+            this.TMLCancelMembers.Size = new System.Drawing.Size(224, 42);
+            this.TMLCancelMembers.Text = "ยกเลิกสมาชิก";
+            this.TMLCancelMembers.Click += new System.EventHandler(this.TMLCancelMembers_Click);
+            // 
+            // ReportCancelMember
+            // 
+            this.ReportCancelMember.Name = "ReportCancelMember";
+            this.ReportCancelMember.Size = new System.Drawing.Size(277, 42);
+            this.ReportCancelMember.Text = "รายชื่อผู้ยกเลิกสมาชิก";
+            this.ReportCancelMember.Click += new System.EventHandler(this.ReportCancelMember_Click);
+            // 
             // SentingToolStripMenuItem
             // 
             this.SentingToolStripMenuItem.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SentingToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("SentingToolStripMenuItem.Image")));
             this.SentingToolStripMenuItem.Name = "SentingToolStripMenuItem";
-            this.SentingToolStripMenuItem.Size = new System.Drawing.Size(88, 41);
+            this.SentingToolStripMenuItem.Size = new System.Drawing.Size(92, 41);
             this.SentingToolStripMenuItem.Text = "ตั้งค่า";
             this.SentingToolStripMenuItem.Click += new System.EventHandler(this.SettingToolStripMenuItem_Click);
             // 
@@ -180,5 +201,7 @@ namespace example.GOODS
         private System.Windows.Forms.ToolStripMenuItem ขอมลสมาชกToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Member_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SentingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TMLCancelMembers;
+        private System.Windows.Forms.ToolStripMenuItem ReportCancelMember;
     }
 }

@@ -80,5 +80,16 @@ namespace example.GOODS
             Bank.Setting St = new Bank.Setting();
             St.Show();
         }
+        private void TMLCancelMembers_Click(object sender, EventArgs e)
+        {
+            Bank.CancelMembership Cm = new Bank.CancelMembership();
+            CloseFrom(Cm);
+        }
+
+        private void ReportCancelMember_Click(object sender, EventArgs e)
+        {
+            Bank.ReportCancelMember Rc = new Bank.ReportCancelMember();
+            CloseFrom(Rc);
+        }
     }
 }

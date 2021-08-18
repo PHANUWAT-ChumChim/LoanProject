@@ -83,6 +83,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bank\CancelMembership.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bank\CancelMembership.Designer.cs">
+      <DependentUpon>CancelMembership.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bank\ReportCancelMember.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bank\ReportCancelMember.Designer.cs">
+      <DependentUpon>ReportCancelMember.cs</DependentUpon>
+    </Compile>
     <Compile Include="Bank\Search.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +146,12 @@
     <Compile Include="Method\SQLMethod.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Bank\CancelMembership.resx">
+      <DependentUpon>CancelMembership.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bank\ReportCancelMember.resx">
+      <DependentUpon>ReportCancelMember.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Bank\Search.resx">
       <DependentUpon>Search.cs</DependentUpon>
     </EmbeddedResource>

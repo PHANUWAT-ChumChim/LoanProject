@@ -16,6 +16,7 @@ namespace example.GOODS
         {
             InitializeComponent();
         }
+     
 
         private void Form2_SizeChanged(object sender, EventArgs e)
         {

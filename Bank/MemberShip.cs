@@ -1,12 +1,16 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ShareFileSMB.ConnectSMB;
 
 namespace example.Bank
 {
@@ -58,6 +62,9 @@ namespace example.Bank
         }
         private void TBStartAmountShare_KeyPress(object sender, KeyPressEventArgs e)
         {
+            
+
+
             if ((e.KeyChar < '0' || e.KeyChar > '9') && (e.KeyChar != '\b'))
             {
                 e.Handled = true;
@@ -71,7 +78,7 @@ namespace example.Bank
         }
         private void BSave_Click(object sender, EventArgs e)
         {
-            Method.SQLMethod.TeacherMember(TBTeacherNo.Text, int.Parse(TBStartAmountShare.Text), pictureBox1.ToString());
+            Method.SQLMethod.TeacherMember(TBTeacherNo.Text,"TeacherText", int.Parse(TBStartAmountShare.Text),"file");
             //if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
             //{
             //    printDocument1.Print();
@@ -79,29 +86,29 @@ namespace example.Bank
             //}
         }
         
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Image File;
-            //String imgeLocation = "";
-            try
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "jpg files(*.jpg)|*.jpg| PNG files(*.png)|*.png| All Files(*.*)|*.*";
-                if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    //imgeLocation = dialog.FileName;
-                    File = Image.FromFile(dialog.FileName);
-                    pictureBox1.Image = File;
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //    Image File;
+        //    //String imgeLocation = "";
+        //    try
+        //    {
+        //        OpenFileDialog dialog = new OpenFileDialog();
+        //        dialog.Filter = "jpg files(*.jpg)|*.jpg| PNG files(*.png)|*.png| All Files(*.*)|*.*";
+        //        if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //        {
+        //            //imgeLocation = dialog.FileName;
+        //            File = Image.FromFile(dialog.FileName);
+        //            pictureBox1.Image = File;
 
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("An Error Occured","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            }
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        MessageBox.Show("An Error Occured","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+        //    }
 
 
-        }
+        //}
 
         public void Center(System.Drawing.Printing.PrintPageEventArgs e, float LocY , String Text, Font fontText, Brush brush)
         {
@@ -297,9 +304,43 @@ namespace example.Bank
             //Center(e, Y + (SpacePerRow * CurrentRows++) - 10, "สมาชิกเลขที่", Normal01, Normal);
         }
 
-        private void panel1_SizeChanged(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            //Method.SQLMethod.CenterSize(this, panel1);
+            var smb = new SmbFileContainer();
+            String FileName = "";
+            String Path = "";
+            String FilePath = Path + FileName + ".pdf";
+            //String filePath = @"\166.166.4.123\New folder\testFile.txt";
+            if (File.Exists(FilePath))
+            {
+                //File.OpenRead(filePath);
+                Process.Start(FilePath);
+            }
+            else
+            {
+                MessageBox.Show("ไม่มีไฟล์ชื่อนี้อยู่", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
+
+        private void BTdeletefile_Click(object sender, EventArgs e)
+        {
+            var smb = new SmbFileContainer();
+            String filePath = Path + FileName + ".pdf";
+            //String filePath = @"\166.166.4.123\New folder\testFile.txt";
+            if (File.Exists(filePath) && MessageBox.Show("ต้องการลบไฟล์นี้หรือไม่", "แจ้งเตือน", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                File.Delete(filePath);
+            }
+            else if (!File.Exists(filePath))
+            {
+                MessageBox.Show("ไม่มีไฟล์นี้อยู่ในที่เก็บข้อมูล", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+            public String
+            FileName = @"",
+            Path = @"";
+
+        
     }
+    
 }

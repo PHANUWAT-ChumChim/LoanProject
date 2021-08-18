@@ -53,9 +53,9 @@ namespace example.Bank
             this.P1.BackColor = System.Drawing.Color.White;
             this.P1.Controls.Add(this.LBsetting);
             this.P1.Controls.Add(this.tabControl1);
-            this.P1.Location = new System.Drawing.Point(25, 42);
+            this.P1.Location = new System.Drawing.Point(18, 42);
             this.P1.Name = "P1";
-            this.P1.Size = new System.Drawing.Size(759, 671);
+            this.P1.Size = new System.Drawing.Size(732, 657);
             this.P1.TabIndex = 99;
             // 
             // LBsetting
@@ -72,10 +72,10 @@ namespace example.Bank
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(9, 92);
+            this.tabControl1.Location = new System.Drawing.Point(32, 92);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1138, 625);
+            this.tabControl1.Size = new System.Drawing.Size(678, 535);
             this.tabControl1.TabIndex = 98;
             // 
             // tabPage1
@@ -94,7 +94,7 @@ namespace example.Bank
             this.tabPage1.Location = new System.Drawing.Point(4, 45);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1130, 576);
+            this.tabPage1.Size = new System.Drawing.Size(670, 486);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "กำหนดค่าเริ่มต้น";
             // 
@@ -171,7 +171,7 @@ namespace example.Bank
             // TBtest
             // 
             this.TBtest.AutoSize = true;
-            this.TBtest.Location = new System.Drawing.Point(526, 464);
+            this.TBtest.Location = new System.Drawing.Point(541, 387);
             this.TBtest.Name = "TBtest";
             this.TBtest.Size = new System.Drawing.Size(27, 37);
             this.TBtest.TabIndex = 1;
@@ -181,12 +181,13 @@ namespace example.Bank
             // PBSilder
             // 
             this.PBSilder.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.PBSilder.Location = new System.Drawing.Point(22, 465);
+            this.PBSilder.Location = new System.Drawing.Point(21, 387);
             this.PBSilder.Name = "PBSilder";
-            this.PBSilder.Size = new System.Drawing.Size(487, 36);
+            this.PBSilder.Size = new System.Drawing.Size(487, 34);
             this.PBSilder.TabIndex = 0;
             this.PBSilder.TabStop = false;
             this.PBSilder.Visible = false;
+            this.PBSilder.Click += new System.EventHandler(this.PBSilder_Click);
             this.PBSilder.Paint += new System.Windows.Forms.PaintEventHandler(this.PBSilder_Paint);
             this.PBSilder.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PBSilder_MouseDown);
             this.PBSilder.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PBSilder_MouseMove);
@@ -197,7 +198,7 @@ namespace example.Bank
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(809, 755);
+            this.ClientSize = new System.Drawing.Size(769, 712);
             this.Controls.Add(this.P1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Setting";
