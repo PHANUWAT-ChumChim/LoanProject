@@ -37,7 +37,7 @@ namespace example.GOODS
             this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ขอมลกToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ขอมลสมาชกToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.กToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Loan = new System.Windows.Forms.ToolStripMenuItem();
             this.ปดยอดToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Member_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TMLCancelMembers = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,13 +53,13 @@ namespace example.GOODS
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Home_ToolStripMenuItem,
             this.pay,
-            this.กToolStripMenuItem,
+            this.Loan,
             this.ปดยอดToolStripMenuItem,
             this.Member_ToolStripMenuItem,
             this.SentingToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1176, 40);
+            this.menuStrip1.Size = new System.Drawing.Size(1176, 44);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemAdded += new System.Windows.Forms.ToolStripItemEventHandler(this.menuStrip1_ItemAdded);
@@ -67,10 +67,10 @@ namespace example.GOODS
             // Home_ToolStripMenuItem
             // 
             this.Home_ToolStripMenuItem.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Home_ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Home_ToolStripMenuItem.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Home_ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("Home_ToolStripMenuItem.Image")));
             this.Home_ToolStripMenuItem.Name = "Home_ToolStripMenuItem";
-            this.Home_ToolStripMenuItem.Size = new System.Drawing.Size(147, 36);
+            this.Home_ToolStripMenuItem.Size = new System.Drawing.Size(114, 40);
             this.Home_ToolStripMenuItem.Text = "หน้าเเรก";
             this.Home_ToolStripMenuItem.Click += new System.EventHandler(this.หนาเเรกToolStripMenuItem_Click);
             // 
@@ -81,65 +81,66 @@ namespace example.GOODS
             this.ToolStripMenuItem,
             this.ขอมลกToolStripMenuItem,
             this.ขอมลสมาชกToolStripMenuItem});
-            this.pay.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pay.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pay.Image = ((System.Drawing.Image)(resources.GetObject("pay.Image")));
             this.pay.Name = "pay";
-            this.pay.Size = new System.Drawing.Size(188, 36);
+            this.pay.Size = new System.Drawing.Size(145, 40);
             this.pay.Text = "จ่าย สะสม/กู้";
             this.pay.Click += new System.EventHandler(this.pay_Click);
             // 
             // จายยอดToolStripMenuItem
             // 
             this.จายยอดToolStripMenuItem.Name = "จายยอดToolStripMenuItem";
-            this.จายยอดToolStripMenuItem.Size = new System.Drawing.Size(268, 36);
+            this.จายยอดToolStripMenuItem.Size = new System.Drawing.Size(224, 40);
             this.จายยอดToolStripMenuItem.Text = "จ่ายยอด";
             this.จายยอดToolStripMenuItem.Click += new System.EventHandler(this.จายยอดToolStripMenuItem_Click);
             // 
             // ToolStripMenuItem
             // 
             this.ToolStripMenuItem.Name = "ToolStripMenuItem";
-            this.ToolStripMenuItem.Size = new System.Drawing.Size(268, 36);
+            this.ToolStripMenuItem.Size = new System.Drawing.Size(224, 40);
             this.ToolStripMenuItem.Text = "ข้อมูลหุ้นสะสม";
             this.ToolStripMenuItem.Click += new System.EventHandler(this.shareinformation);
             // 
             // ขอมลกToolStripMenuItem
             // 
             this.ขอมลกToolStripMenuItem.Name = "ขอมลกToolStripMenuItem";
-            this.ขอมลกToolStripMenuItem.Size = new System.Drawing.Size(268, 36);
+            this.ขอมลกToolStripMenuItem.Size = new System.Drawing.Size(224, 40);
             this.ขอมลกToolStripMenuItem.Text = "ข้อมูลกู้";
             this.ขอมลกToolStripMenuItem.Click += new System.EventHandler(this.loaninformation);
             // 
             // ขอมลสมาชกToolStripMenuItem
             // 
             this.ขอมลสมาชกToolStripMenuItem.Name = "ขอมลสมาชกToolStripMenuItem";
-            this.ขอมลสมาชกToolStripMenuItem.Size = new System.Drawing.Size(268, 36);
+            this.ขอมลสมาชกToolStripMenuItem.Size = new System.Drawing.Size(224, 40);
             this.ขอมลสมาชกToolStripMenuItem.Text = "ข้อมูลสมาชิก";
             this.ขอมลสมาชกToolStripMenuItem.Click += new System.EventHandler(this.member);
             // 
-            // กToolStripMenuItem
+            // Loan
             // 
-            this.กToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.กToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("กToolStripMenuItem.Image")));
-            this.กToolStripMenuItem.Name = "กToolStripMenuItem";
-            this.กToolStripMenuItem.Size = new System.Drawing.Size(65, 36);
-            this.กToolStripMenuItem.Text = "กู้";
+            this.Loan.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Loan.Image = ((System.Drawing.Image)(resources.GetObject("Loan.Image")));
+            this.Loan.Name = "Loan";
+            this.Loan.Size = new System.Drawing.Size(60, 40);
+            this.Loan.Text = "กู้";
+            this.Loan.Click += new System.EventHandler(this.Loan_Click);
             // 
             // ปดยอดToolStripMenuItem
             // 
-            this.ปดยอดToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ปดยอดToolStripMenuItem.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ปดยอดToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ปดยอดToolStripMenuItem.Image")));
             this.ปดยอดToolStripMenuItem.Name = "ปดยอดToolStripMenuItem";
-            this.ปดยอดToolStripMenuItem.Size = new System.Drawing.Size(131, 36);
+            this.ปดยอดToolStripMenuItem.Size = new System.Drawing.Size(104, 40);
             this.ปดยอดToolStripMenuItem.Text = "ปิดยอด";
             // 
             // Member_ToolStripMenuItem
             // 
             this.Member_ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TMLCancelMembers});
-            this.Member_ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Member_ToolStripMenuItem.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Member_ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("Member_ToolStripMenuItem.Image")));
             this.Member_ToolStripMenuItem.Name = "Member_ToolStripMenuItem";
-            this.Member_ToolStripMenuItem.Size = new System.Drawing.Size(194, 36);
+            this.Member_ToolStripMenuItem.Size = new System.Drawing.Size(144, 40);
             this.Member_ToolStripMenuItem.Text = "สมัครสมาชิก";
             this.Member_ToolStripMenuItem.Click += new System.EventHandler(this.สมครสมาชกToolStripMenuItem_Click);
             // 
@@ -149,23 +150,23 @@ namespace example.GOODS
             this.ReportCancelMember});
             this.TMLCancelMembers.Image = ((System.Drawing.Image)(resources.GetObject("TMLCancelMembers.Image")));
             this.TMLCancelMembers.Name = "TMLCancelMembers";
-            this.TMLCancelMembers.Size = new System.Drawing.Size(255, 36);
+            this.TMLCancelMembers.Size = new System.Drawing.Size(224, 40);
             this.TMLCancelMembers.Text = "ยกเลิกสมาชิก";
             this.TMLCancelMembers.Click += new System.EventHandler(this.TMLCancelMembers_Click);
             // 
             // ReportCancelMember
             // 
             this.ReportCancelMember.Name = "ReportCancelMember";
-            this.ReportCancelMember.Size = new System.Drawing.Size(349, 36);
+            this.ReportCancelMember.Size = new System.Drawing.Size(267, 40);
             this.ReportCancelMember.Text = "รายชื่อผู้ยกเลิกสมาชิก";
             this.ReportCancelMember.Click += new System.EventHandler(this.ReportCancelMember_Click);
             // 
             // SentingToolStripMenuItem
             // 
-            this.SentingToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SentingToolStripMenuItem.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SentingToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("SentingToolStripMenuItem.Image")));
             this.SentingToolStripMenuItem.Name = "SentingToolStripMenuItem";
-            this.SentingToolStripMenuItem.Size = new System.Drawing.Size(109, 36);
+            this.SentingToolStripMenuItem.Size = new System.Drawing.Size(88, 40);
             this.SentingToolStripMenuItem.Text = "ตั้งค่า";
             this.SentingToolStripMenuItem.Click += new System.EventHandler(this.SettingToolStripMenuItem_Click);
             // 
@@ -177,7 +178,7 @@ namespace example.GOODS
             this.ClientSize = new System.Drawing.Size(1176, 791);
             this.Controls.Add(this.menuStrip1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Menu";
@@ -197,7 +198,7 @@ namespace example.GOODS
         private System.Windows.Forms.ToolStripMenuItem pay;
         private System.Windows.Forms.ToolStripMenuItem จายยอดToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem กToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Loan;
         private System.Windows.Forms.ToolStripMenuItem ปดยอดToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ขอมลกToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ขอมลสมาชกToolStripMenuItem;

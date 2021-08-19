@@ -117,5 +117,11 @@ namespace example.GOODS
         {
 
         }
+
+        private void Loan_Click(object sender, EventArgs e)
+        {
+            Bank.Loan Ln = new Bank.Loan();
+            CloseFrom(Ln);
+        }
     }
 }

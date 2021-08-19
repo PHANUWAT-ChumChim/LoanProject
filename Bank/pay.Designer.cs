@@ -30,6 +30,13 @@ namespace example.GOODS
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(pay));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel7 = new System.Windows.Forms.Panel();
             this.BSearchTeacher = new System.Windows.Forms.Button();
             this.TBTeacherBill = new System.Windows.Forms.TextBox();
@@ -43,9 +50,6 @@ namespace example.GOODS
             this.LB8pay = new System.Windows.Forms.Label();
             this.CBB4Oppay = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BTsave = new System.Windows.Forms.Button();
             this.CBStatus = new System.Windows.Forms.ComboBox();
             this.BTAdd = new System.Windows.Forms.Button();
@@ -132,6 +136,9 @@ namespace example.GOODS
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel8.SuspendLayout();
@@ -171,7 +178,7 @@ namespace example.GOODS
             this.panel7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.panel7.Location = new System.Drawing.Point(0, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1156, 72);
+            this.panel7.Size = new System.Drawing.Size(1155, 72);
             this.panel7.TabIndex = 63;
             // 
             // BSearchTeacher
@@ -179,9 +186,10 @@ namespace example.GOODS
             this.BSearchTeacher.BackColor = System.Drawing.Color.White;
             this.BSearchTeacher.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BSearchTeacher.BackgroundImage")));
             this.BSearchTeacher.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BSearchTeacher.Font = new System.Drawing.Font("TH Sarabun New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BSearchTeacher.ImageKey = "(none)";
-            this.BSearchTeacher.Location = new System.Drawing.Point(241, 14);
-            this.BSearchTeacher.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
+            this.BSearchTeacher.Location = new System.Drawing.Point(242, 14);
+            this.BSearchTeacher.Margin = new System.Windows.Forms.Padding(3, 7, 3, 7);
             this.BSearchTeacher.Name = "BSearchTeacher";
             this.BSearchTeacher.Size = new System.Drawing.Size(43, 43);
             this.BSearchTeacher.TabIndex = 85;
@@ -191,27 +199,27 @@ namespace example.GOODS
             // TBTeacherBill
             // 
             this.TBTeacherBill.Enabled = false;
-            this.TBTeacherBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBTeacherBill.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TBTeacherBill.Location = new System.Drawing.Point(776, 14);
             this.TBTeacherBill.Name = "TBTeacherBill";
-            this.TBTeacherBill.Size = new System.Drawing.Size(366, 38);
+            this.TBTeacherBill.Size = new System.Drawing.Size(366, 43);
             this.TBTeacherBill.TabIndex = 84;
             // 
             // TBTeacherName
             // 
             this.TBTeacherName.Enabled = false;
-            this.TBTeacherName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBTeacherName.Location = new System.Drawing.Point(375, 14);
+            this.TBTeacherName.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBTeacherName.Location = new System.Drawing.Point(374, 14);
             this.TBTeacherName.Name = "TBTeacherName";
-            this.TBTeacherName.Size = new System.Drawing.Size(320, 38);
+            this.TBTeacherName.Size = new System.Drawing.Size(321, 43);
             this.TBTeacherName.TabIndex = 83;
             // 
             // TBTeacherNo
             // 
-            this.TBTeacherNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBTeacherNo.Location = new System.Drawing.Point(71, 14);
+            this.TBTeacherNo.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBTeacherNo.Location = new System.Drawing.Point(70, 14);
             this.TBTeacherNo.Name = "TBTeacherNo";
-            this.TBTeacherNo.Size = new System.Drawing.Size(154, 38);
+            this.TBTeacherNo.Size = new System.Drawing.Size(154, 43);
             this.TBTeacherNo.TabIndex = 82;
             this.TBTeacherNo.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -219,11 +227,11 @@ namespace example.GOODS
             // 
             this.LB3Bi.AutoSize = true;
             this.LB3Bi.BackColor = System.Drawing.Color.White;
-            this.LB3Bi.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB3Bi.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB3Bi.ForeColor = System.Drawing.Color.Black;
             this.LB3Bi.Location = new System.Drawing.Point(701, 17);
             this.LB3Bi.Name = "LB3Bi";
-            this.LB3Bi.Size = new System.Drawing.Size(88, 32);
+            this.LB3Bi.Size = new System.Drawing.Size(66, 36);
             this.LB3Bi.TabIndex = 69;
             this.LB3Bi.Text = "เลขบิล";
             // 
@@ -231,11 +239,11 @@ namespace example.GOODS
             // 
             this.LB2Ne.AutoSize = true;
             this.LB2Ne.BackColor = System.Drawing.Color.White;
-            this.LB2Ne.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB2Ne.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB2Ne.ForeColor = System.Drawing.Color.Black;
             this.LB2Ne.Location = new System.Drawing.Point(291, 17);
             this.LB2Ne.Name = "LB2Ne";
-            this.LB2Ne.Size = new System.Drawing.Size(106, 32);
+            this.LB2Ne.Size = new System.Drawing.Size(76, 36);
             this.LB2Ne.TabIndex = 68;
             this.LB2Ne.Text = "ชื่อ-สกุล";
             // 
@@ -245,7 +253,7 @@ namespace example.GOODS
             this.label1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(244, 17);
+            this.label1.Location = new System.Drawing.Point(243, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 32);
             this.label1.TabIndex = 68;
@@ -254,11 +262,11 @@ namespace example.GOODS
             // 
             this.LB1Id.AutoSize = true;
             this.LB1Id.BackColor = System.Drawing.Color.White;
-            this.LB1Id.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB1Id.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB1Id.ForeColor = System.Drawing.Color.Black;
             this.LB1Id.Location = new System.Drawing.Point(16, 17);
             this.LB1Id.Name = "LB1Id";
-            this.LB1Id.Size = new System.Drawing.Size(64, 32);
+            this.LB1Id.Size = new System.Drawing.Size(47, 36);
             this.LB1Id.TabIndex = 67;
             this.LB1Id.Text = "รหัส";
             // 
@@ -266,8 +274,8 @@ namespace example.GOODS
             // 
             this.button4.BackColor = System.Drawing.Color.White;
             this.button4.Enabled = false;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(481, 14);
+            this.button4.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Location = new System.Drawing.Point(482, 14);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(98, 45);
             this.button4.TabIndex = 86;
@@ -279,11 +287,11 @@ namespace example.GOODS
             // 
             this.LB8pay.AutoSize = true;
             this.LB8pay.BackColor = System.Drawing.Color.White;
-            this.LB8pay.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB8pay.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB8pay.ForeColor = System.Drawing.Color.Black;
             this.LB8pay.Location = new System.Drawing.Point(6, 478);
             this.LB8pay.Name = "LB8pay";
-            this.LB8pay.Size = new System.Drawing.Size(232, 32);
+            this.LB8pay.Size = new System.Drawing.Size(159, 36);
             this.LB8pay.TabIndex = 91;
             this.LB8pay.Text = "ช่องทางการจ่ายเงิน";
             // 
@@ -291,23 +299,33 @@ namespace example.GOODS
             // 
             this.CBB4Oppay.BackColor = System.Drawing.Color.White;
             this.CBB4Oppay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CBB4Oppay.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBB4Oppay.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBB4Oppay.ForeColor = System.Drawing.Color.Black;
             this.CBB4Oppay.FormattingEnabled = true;
             this.CBB4Oppay.Items.AddRange(new object[] {
             "เงินสด",
             "เงินโอน",
             "บัตรเครดิต"});
-            this.CBB4Oppay.Location = new System.Drawing.Point(199, 475);
+            this.CBB4Oppay.Location = new System.Drawing.Point(198, 475);
             this.CBB4Oppay.Name = "CBB4Oppay";
-            this.CBB4Oppay.Size = new System.Drawing.Size(171, 39);
+            this.CBB4Oppay.Size = new System.Drawing.Size(170, 44);
             this.CBB4Oppay.TabIndex = 92;
             // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -319,32 +337,8 @@ namespace example.GOODS
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1124, 303);
+            this.dataGridView1.Size = new System.Drawing.Size(1123, 303);
             this.dataGridView1.TabIndex = 93;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "ปี/เดือน";
-            this.Column1.MinimumWidth = 6;
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 150;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "รายการ";
-            this.Column2.MinimumWidth = 6;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 350;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "ยอดเงิน";
-            this.Column3.MinimumWidth = 6;
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 340;
             // 
             // BTsave
             // 
@@ -352,7 +346,7 @@ namespace example.GOODS
             this.BTsave.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTsave.Location = new System.Drawing.Point(781, 491);
             this.BTsave.Name = "BTsave";
-            this.BTsave.Size = new System.Drawing.Size(343, 79);
+            this.BTsave.Size = new System.Drawing.Size(342, 79);
             this.BTsave.TabIndex = 94;
             this.BTsave.Text = "บันทึก";
             this.BTsave.UseVisualStyleBackColor = false;
@@ -360,14 +354,14 @@ namespace example.GOODS
             // CBStatus
             // 
             this.CBStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CBStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBStatus.Font = new System.Drawing.Font("TH Sarabun New", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBStatus.FormattingEnabled = true;
             this.CBStatus.Items.AddRange(new object[] {
             "สะสม",
             "กู้"});
-            this.CBStatus.Location = new System.Drawing.Point(100, 15);
+            this.CBStatus.Location = new System.Drawing.Point(99, 15);
             this.CBStatus.Name = "CBStatus";
-            this.CBStatus.Size = new System.Drawing.Size(103, 37);
+            this.CBStatus.Size = new System.Drawing.Size(103, 39);
             this.CBStatus.TabIndex = 88;
             this.CBStatus.SelectedIndexChanged += new System.EventHandler(this.CBB3_SelectedIndexChanged);
             // 
@@ -375,10 +369,10 @@ namespace example.GOODS
             // 
             this.BTAdd.BackColor = System.Drawing.Color.White;
             this.BTAdd.Enabled = false;
-            this.BTAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTAdd.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTAdd.Location = new System.Drawing.Point(560, 10);
             this.BTAdd.Name = "BTAdd";
-            this.BTAdd.Size = new System.Drawing.Size(340, 50);
+            this.BTAdd.Size = new System.Drawing.Size(339, 50);
             this.BTAdd.TabIndex = 95;
             this.BTAdd.Text = "เพิ่มรายการ";
             this.BTAdd.UseVisualStyleBackColor = false;
@@ -402,7 +396,7 @@ namespace example.GOODS
             // BTClean
             // 
             this.BTClean.BackColor = System.Drawing.Color.White;
-            this.BTClean.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTClean.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTClean.Location = new System.Drawing.Point(923, 10);
             this.BTClean.Name = "BTClean";
             this.BTClean.Size = new System.Drawing.Size(96, 50);
@@ -413,10 +407,10 @@ namespace example.GOODS
             // 
             // TBStartAmountShare
             // 
-            this.TBStartAmountShare.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBStartAmountShare.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TBStartAmountShare.Location = new System.Drawing.Point(334, 14);
             this.TBStartAmountShare.Name = "TBStartAmountShare";
-            this.TBStartAmountShare.Size = new System.Drawing.Size(187, 38);
+            this.TBStartAmountShare.Size = new System.Drawing.Size(186, 43);
             this.TBStartAmountShare.TabIndex = 96;
             this.TBStartAmountShare.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             this.TBStartAmountShare.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TBStartAmountShare_KeyPress);
@@ -425,11 +419,11 @@ namespace example.GOODS
             // 
             this.LB7Qty.AutoSize = true;
             this.LB7Qty.BackColor = System.Drawing.Color.White;
-            this.LB7Qty.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB7Qty.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB7Qty.ForeColor = System.Drawing.Color.Black;
             this.LB7Qty.Location = new System.Drawing.Point(240, 15);
             this.LB7Qty.Name = "LB7Qty";
-            this.LB7Qty.Size = new System.Drawing.Size(94, 32);
+            this.LB7Qty.Size = new System.Drawing.Size(69, 36);
             this.LB7Qty.TabIndex = 97;
             this.LB7Qty.Text = "จำนวน";
             // 
@@ -437,11 +431,11 @@ namespace example.GOODS
             // 
             this.LB6Op.AutoSize = true;
             this.LB6Op.BackColor = System.Drawing.Color.White;
-            this.LB6Op.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB6Op.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB6Op.ForeColor = System.Drawing.Color.Black;
-            this.LB6Op.Location = new System.Drawing.Point(17, 18);
+            this.LB6Op.Location = new System.Drawing.Point(18, 18);
             this.LB6Op.Name = "LB6Op";
-            this.LB6Op.Size = new System.Drawing.Size(102, 32);
+            this.LB6Op.Size = new System.Drawing.Size(72, 36);
             this.LB6Op.TabIndex = 98;
             this.LB6Op.Text = "รายการ";
             // 
@@ -451,7 +445,7 @@ namespace example.GOODS
             this.label11.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(244, 17);
+            this.label11.Location = new System.Drawing.Point(243, 17);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(0, 32);
             this.label11.TabIndex = 68;
@@ -460,18 +454,18 @@ namespace example.GOODS
             // 
             this.LB5Ye.AutoSize = true;
             this.LB5Ye.BackColor = System.Drawing.Color.White;
-            this.LB5Ye.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB5Ye.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB5Ye.ForeColor = System.Drawing.Color.Black;
-            this.LB5Ye.Location = new System.Drawing.Point(17, 18);
+            this.LB5Ye.Location = new System.Drawing.Point(18, 18);
             this.LB5Ye.Name = "LB5Ye";
-            this.LB5Ye.Size = new System.Drawing.Size(32, 32);
+            this.LB5Ye.Size = new System.Drawing.Size(27, 36);
             this.LB5Ye.TabIndex = 99;
             this.LB5Ye.Text = "ปี";
             // 
             // CByeartap1
             // 
             this.CByeartap1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CByeartap1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CByeartap1.Font = new System.Drawing.Font("TH Sarabun New", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CByeartap1.FormattingEnabled = true;
             this.CByeartap1.Items.AddRange(new object[] {
             "2021",
@@ -480,9 +474,9 @@ namespace example.GOODS
             "2018",
             "2017",
             "2015"});
-            this.CByeartap1.Location = new System.Drawing.Point(100, 17);
+            this.CByeartap1.Location = new System.Drawing.Point(99, 17);
             this.CByeartap1.Name = "CByeartap1";
-            this.CByeartap1.Size = new System.Drawing.Size(103, 37);
+            this.CByeartap1.Size = new System.Drawing.Size(103, 39);
             this.CByeartap1.TabIndex = 84;
             this.CByeartap1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -492,7 +486,7 @@ namespace example.GOODS
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl1.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(8, 78);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -509,10 +503,10 @@ namespace example.GOODS
             this.tabPage1.Controls.Add(this.CBB4Oppay);
             this.tabPage1.Controls.Add(this.LB8pay);
             this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage1.Location = new System.Drawing.Point(4, 40);
+            this.tabPage1.Location = new System.Drawing.Point(4, 45);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1130, 581);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Size = new System.Drawing.Size(1130, 576);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "จ่ายยอด";
             // 
@@ -534,7 +528,7 @@ namespace example.GOODS
             // 
             this.CBMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBMonth.Enabled = false;
-            this.CBMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBMonth.Font = new System.Drawing.Font("TH Sarabun New", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBMonth.FormattingEnabled = true;
             this.CBMonth.Items.AddRange(new object[] {
             "1",
@@ -551,7 +545,7 @@ namespace example.GOODS
             "12"});
             this.CBMonth.Location = new System.Drawing.Point(334, 17);
             this.CBMonth.Name = "CBMonth";
-            this.CBMonth.Size = new System.Drawing.Size(130, 37);
+            this.CBMonth.Size = new System.Drawing.Size(130, 39);
             this.CBMonth.TabIndex = 101;
             this.CBMonth.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
@@ -559,11 +553,11 @@ namespace example.GOODS
             // 
             this.LB5Mo.AutoSize = true;
             this.LB5Mo.BackColor = System.Drawing.Color.White;
-            this.LB5Mo.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB5Mo.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB5Mo.ForeColor = System.Drawing.Color.Black;
             this.LB5Mo.Location = new System.Drawing.Point(240, 18);
             this.LB5Mo.Name = "LB5Mo";
-            this.LB5Mo.Size = new System.Drawing.Size(75, 32);
+            this.LB5Mo.Size = new System.Drawing.Size(55, 36);
             this.LB5Mo.TabIndex = 100;
             this.LB5Mo.Text = "เดือน";
             // 
@@ -574,10 +568,10 @@ namespace example.GOODS
             this.tabPage2.Controls.Add(this.panel2);
             this.tabPage2.Controls.Add(this.dataGridView2);
             this.tabPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage2.Location = new System.Drawing.Point(4, 40);
+            this.tabPage2.Location = new System.Drawing.Point(4, 45);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1130, 581);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Size = new System.Drawing.Size(1130, 576);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "ข้อมูลหุ้นสะสม";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -589,7 +583,8 @@ namespace example.GOODS
             this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel10.Controls.Add(this.label21);
             this.panel10.Controls.Add(this.TBAmountShareofsystem);
-            this.panel10.Location = new System.Drawing.Point(823, 15);
+            this.panel10.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel10.Location = new System.Drawing.Point(822, 15);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(287, 112);
             this.panel10.TabIndex = 107;
@@ -598,11 +593,11 @@ namespace example.GOODS
             // 
             this.label21.AutoSize = true;
             this.label21.BackColor = System.Drawing.Color.White;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.Color.Black;
-            this.label21.Location = new System.Drawing.Point(47, 11);
+            this.label21.Location = new System.Drawing.Point(46, 11);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(290, 32);
+            this.label21.Size = new System.Drawing.Size(196, 36);
             this.label21.TabIndex = 102;
             this.label21.Text = "หุ้นสะสมทั้งหมดในระบบ";
             // 
@@ -611,7 +606,7 @@ namespace example.GOODS
             this.TBAmountShareofsystem.Enabled = false;
             this.TBAmountShareofsystem.Location = new System.Drawing.Point(24, 56);
             this.TBAmountShareofsystem.Name = "TBAmountShareofsystem";
-            this.TBAmountShareofsystem.Size = new System.Drawing.Size(236, 38);
+            this.TBAmountShareofsystem.Size = new System.Drawing.Size(236, 43);
             this.TBAmountShareofsystem.TabIndex = 103;
             // 
             // panel6
@@ -630,18 +625,18 @@ namespace example.GOODS
             // 
             this.label24.AutoSize = true;
             this.label24.BackColor = System.Drawing.Color.White;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label24.ForeColor = System.Drawing.Color.Black;
-            this.label24.Location = new System.Drawing.Point(17, 18);
+            this.label24.Location = new System.Drawing.Point(18, 18);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(32, 32);
+            this.label24.Size = new System.Drawing.Size(27, 36);
             this.label24.TabIndex = 99;
             this.label24.Text = "ปี";
             // 
             // CByeartap2
             // 
             this.CByeartap2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CByeartap2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CByeartap2.Font = new System.Drawing.Font("TH Sarabun New", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CByeartap2.FormattingEnabled = true;
             this.CByeartap2.Items.AddRange(new object[] {
             "2021",
@@ -652,7 +647,7 @@ namespace example.GOODS
             "2015"});
             this.CByeartap2.Location = new System.Drawing.Point(64, 17);
             this.CByeartap2.Name = "CByeartap2";
-            this.CByeartap2.Size = new System.Drawing.Size(103, 37);
+            this.CByeartap2.Size = new System.Drawing.Size(103, 39);
             this.CByeartap2.TabIndex = 84;
             this.CByeartap2.SelectedIndexChanged += new System.EventHandler(this.comboBox6_SelectedIndexChanged);
             // 
@@ -660,10 +655,10 @@ namespace example.GOODS
             // 
             this.BTResearchtap2.BackColor = System.Drawing.Color.White;
             this.BTResearchtap2.Enabled = false;
-            this.BTResearchtap2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTResearchtap2.Location = new System.Drawing.Point(183, 14);
+            this.BTResearchtap2.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTResearchtap2.Location = new System.Drawing.Point(182, 14);
             this.BTResearchtap2.Name = "BTResearchtap2";
-            this.BTResearchtap2.Size = new System.Drawing.Size(89, 45);
+            this.BTResearchtap2.Size = new System.Drawing.Size(90, 45);
             this.BTResearchtap2.TabIndex = 86;
             this.BTResearchtap2.Text = "ค้นหา";
             this.BTResearchtap2.UseVisualStyleBackColor = false;
@@ -674,6 +669,7 @@ namespace example.GOODS
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.TBAmountShareofyear);
             this.panel2.Controls.Add(this.label10);
+            this.panel2.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.Location = new System.Drawing.Point(515, 15);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(287, 112);
@@ -684,26 +680,36 @@ namespace example.GOODS
             this.TBAmountShareofyear.Enabled = false;
             this.TBAmountShareofyear.Location = new System.Drawing.Point(24, 54);
             this.TBAmountShareofyear.Name = "TBAmountShareofyear";
-            this.TBAmountShareofyear.Size = new System.Drawing.Size(236, 38);
+            this.TBAmountShareofyear.Size = new System.Drawing.Size(236, 43);
             this.TBAmountShareofyear.TabIndex = 103;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.White;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Black;
             this.label10.Location = new System.Drawing.Point(56, 14);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(244, 32);
+            this.label10.Size = new System.Drawing.Size(166, 36);
             this.label10.TabIndex = 102;
             this.label10.Text = "หุ้นสะสมทั้งหมดในปี";
             // 
             // dataGridView2
             // 
             this.dataGridView2.AllowDrop = true;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle20;
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle21;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column4,
@@ -725,7 +731,7 @@ namespace example.GOODS
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(1121, 424);
+            this.dataGridView2.Size = new System.Drawing.Size(1122, 424);
             this.dataGridView2.TabIndex = 0;
             // 
             // Column4
@@ -813,10 +819,10 @@ namespace example.GOODS
             this.tabPage3.Controls.Add(this.panel11);
             this.tabPage3.Controls.Add(this.dataGridView3);
             this.tabPage3.Controls.Add(this.panel3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 40);
+            this.tabPage3.Location = new System.Drawing.Point(4, 45);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1130, 581);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Size = new System.Drawing.Size(1130, 576);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "ข้อมูลกู้";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -829,7 +835,7 @@ namespace example.GOODS
             this.panel12.Controls.Add(this.label9);
             this.panel12.Location = new System.Drawing.Point(898, 15);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(222, 112);
+            this.panel12.Size = new System.Drawing.Size(223, 112);
             this.panel12.TabIndex = 113;
             // 
             // textBox5
@@ -837,18 +843,18 @@ namespace example.GOODS
             this.textBox5.Enabled = false;
             this.textBox5.Location = new System.Drawing.Point(13, 51);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(194, 38);
+            this.textBox5.Size = new System.Drawing.Size(194, 43);
             this.textBox5.TabIndex = 103;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.White;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(36, 0);
+            this.label9.Location = new System.Drawing.Point(35, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(213, 32);
+            this.label9.Size = new System.Drawing.Size(146, 36);
             this.label9.TabIndex = 102;
             this.label9.Text = "กู้คงเหลือในระบบ";
             // 
@@ -862,7 +868,7 @@ namespace example.GOODS
             this.panel5.Controls.Add(this.label18);
             this.panel5.Location = new System.Drawing.Point(648, 15);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(222, 112);
+            this.panel5.Size = new System.Drawing.Size(223, 112);
             this.panel5.TabIndex = 112;
             // 
             // textBox6
@@ -870,26 +876,26 @@ namespace example.GOODS
             this.textBox6.Enabled = false;
             this.textBox6.Location = new System.Drawing.Point(19, 51);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(91, 38);
+            this.textBox6.Size = new System.Drawing.Size(90, 43);
             this.textBox6.TabIndex = 111;
             // 
             // textBox3
             // 
             this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(116, 51);
+            this.textBox3.Location = new System.Drawing.Point(115, 51);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(91, 38);
+            this.textBox3.Size = new System.Drawing.Size(90, 43);
             this.textBox3.TabIndex = 103;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.BackColor = System.Drawing.Color.White;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.Black;
             this.label16.Location = new System.Drawing.Point(26, 7);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(105, 32);
+            this.label16.Size = new System.Drawing.Size(76, 36);
             this.label16.TabIndex = 106;
             this.label16.Text = "ดอกเบี้ย";
             // 
@@ -897,11 +903,11 @@ namespace example.GOODS
             // 
             this.label18.AutoSize = true;
             this.label18.BackColor = System.Drawing.Color.White;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.Black;
             this.label18.Location = new System.Drawing.Point(125, 7);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(90, 32);
+            this.label18.Size = new System.Drawing.Size(64, 36);
             this.label18.TabIndex = 110;
             this.label18.Text = "เงินต้น";
             // 
@@ -913,26 +919,26 @@ namespace example.GOODS
             this.panel11.Controls.Add(this.label17);
             this.panel11.Location = new System.Drawing.Point(398, 15);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(222, 112);
+            this.panel11.Size = new System.Drawing.Size(223, 112);
             this.panel11.TabIndex = 111;
             // 
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(23, 51);
+            this.textBox2.Location = new System.Drawing.Point(22, 51);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(175, 38);
+            this.textBox2.Size = new System.Drawing.Size(175, 43);
             this.textBox2.TabIndex = 103;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.BackColor = System.Drawing.Color.White;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.Black;
             this.label17.Location = new System.Drawing.Point(46, 8);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(178, 32);
+            this.label17.Size = new System.Drawing.Size(124, 36);
             this.label17.TabIndex = 108;
             this.label17.Text = "ยอดที่กู้ทั้งหมด";
             // 
@@ -962,7 +968,7 @@ namespace example.GOODS
             this.dataGridView3.RowHeadersVisible = false;
             this.dataGridView3.RowHeadersWidth = 51;
             this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(1121, 424);
+            this.dataGridView3.Size = new System.Drawing.Size(1122, 424);
             this.dataGridView3.TabIndex = 110;
             // 
             // dataGridViewTextBoxColumn1
@@ -1059,18 +1065,18 @@ namespace example.GOODS
             // 
             this.label23.AutoSize = true;
             this.label23.BackColor = System.Drawing.Color.White;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.Black;
-            this.label23.Location = new System.Drawing.Point(17, 18);
+            this.label23.Location = new System.Drawing.Point(18, 18);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(32, 32);
+            this.label23.Size = new System.Drawing.Size(27, 36);
             this.label23.TabIndex = 99;
             this.label23.Text = "ปี";
             // 
             // CByeartap3
             // 
             this.CByeartap3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CByeartap3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CByeartap3.Font = new System.Drawing.Font("TH Sarabun New", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CByeartap3.FormattingEnabled = true;
             this.CByeartap3.Items.AddRange(new object[] {
             "2021",
@@ -1081,7 +1087,7 @@ namespace example.GOODS
             "2015"});
             this.CByeartap3.Location = new System.Drawing.Point(64, 17);
             this.CByeartap3.Name = "CByeartap3";
-            this.CByeartap3.Size = new System.Drawing.Size(103, 37);
+            this.CByeartap3.Size = new System.Drawing.Size(103, 39);
             this.CByeartap3.TabIndex = 84;
             this.CByeartap3.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
             // 
@@ -1089,10 +1095,10 @@ namespace example.GOODS
             // 
             this.BTResearchtap3.BackColor = System.Drawing.Color.White;
             this.BTResearchtap3.Enabled = false;
-            this.BTResearchtap3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTResearchtap3.Location = new System.Drawing.Point(183, 14);
+            this.BTResearchtap3.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTResearchtap3.Location = new System.Drawing.Point(182, 14);
             this.BTResearchtap3.Name = "BTResearchtap3";
-            this.BTResearchtap3.Size = new System.Drawing.Size(89, 45);
+            this.BTResearchtap3.Size = new System.Drawing.Size(90, 45);
             this.BTResearchtap3.TabIndex = 86;
             this.BTResearchtap3.Text = "ค้นหา";
             this.BTResearchtap3.UseVisualStyleBackColor = false;
@@ -1100,10 +1106,10 @@ namespace example.GOODS
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.panel9);
-            this.tabPage4.Location = new System.Drawing.Point(4, 40);
+            this.tabPage4.Location = new System.Drawing.Point(4, 45);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1130, 581);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage4.Size = new System.Drawing.Size(1130, 576);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "ข้อมูลสมาชิก";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1115,7 +1121,7 @@ namespace example.GOODS
             this.panel9.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel9.Location = new System.Drawing.Point(3, 3);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(1121, 575);
+            this.panel9.Size = new System.Drawing.Size(1122, 570);
             this.panel9.TabIndex = 109;
             // 
             // panel4
@@ -1133,7 +1139,7 @@ namespace example.GOODS
             this.panel4.Controls.Add(this.label14);
             this.panel4.Controls.Add(this.label6);
             this.panel4.Controls.Add(this.label4);
-            this.panel4.Location = new System.Drawing.Point(15, 8);
+            this.panel4.Location = new System.Drawing.Point(14, 8);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1095, 520);
             this.panel4.TabIndex = 122;
@@ -1141,72 +1147,72 @@ namespace example.GOODS
             // textBox1
             // 
             this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(835, 78);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(207, 38);
+            this.textBox1.Size = new System.Drawing.Size(207, 43);
             this.textBox1.TabIndex = 128;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.White;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("TH Sarabun New", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(623, 81);
+            this.label2.Location = new System.Drawing.Point(622, 81);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(134, 36);
+            this.label2.Size = new System.Drawing.Size(96, 40);
             this.label2.TabIndex = 127;
             this.label2.Text = "หุ้นเริ่มต้น";
             // 
             // textBox4
             // 
             this.textBox4.Enabled = false;
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox4.Location = new System.Drawing.Point(256, 286);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(207, 38);
+            this.textBox4.Size = new System.Drawing.Size(207, 43);
             this.textBox4.TabIndex = 126;
             // 
             // textBox19
             // 
             this.textBox19.Enabled = false;
-            this.textBox19.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox19.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox19.Location = new System.Drawing.Point(256, 210);
             this.textBox19.Name = "textBox19";
-            this.textBox19.Size = new System.Drawing.Size(207, 38);
+            this.textBox19.Size = new System.Drawing.Size(207, 43);
             this.textBox19.TabIndex = 125;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.White;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Font = new System.Drawing.Font("TH Sarabun New", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(23, 15);
+            this.label12.Location = new System.Drawing.Point(22, 15);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(262, 46);
+            this.label12.Size = new System.Drawing.Size(196, 53);
             this.label12.TabIndex = 124;
             this.label12.Text = "ข้อมูลสมาชิกครู";
             // 
             // textBox18
             // 
             this.textBox18.Enabled = false;
-            this.textBox18.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox18.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox18.Location = new System.Drawing.Point(256, 78);
             this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(207, 38);
+            this.textBox18.Size = new System.Drawing.Size(207, 43);
             this.textBox18.TabIndex = 121;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.White;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("TH Sarabun New", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(44, 283);
+            this.label7.Location = new System.Drawing.Point(45, 283);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(219, 36);
+            this.label7.Size = new System.Drawing.Size(155, 40);
             this.label7.TabIndex = 114;
             this.label7.Text = "สถานะการใช้งาน";
             // 
@@ -1215,18 +1221,18 @@ namespace example.GOODS
             this.textBox17.Enabled = false;
             this.textBox17.Location = new System.Drawing.Point(256, 142);
             this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(207, 38);
+            this.textBox17.Size = new System.Drawing.Size(207, 43);
             this.textBox17.TabIndex = 120;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.BackColor = System.Drawing.Color.White;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Font = new System.Drawing.Font("TH Sarabun New", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(44, 142);
+            this.label14.Location = new System.Drawing.Point(45, 142);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(283, 36);
+            this.label14.Size = new System.Drawing.Size(204, 40);
             this.label14.TabIndex = 104;
             this.label14.Text = "เลขประจำตัวประชาชน";
             // 
@@ -1234,11 +1240,11 @@ namespace example.GOODS
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.White;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("TH Sarabun New", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(44, 213);
+            this.label6.Location = new System.Drawing.Point(45, 213);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(123, 36);
+            this.label6.Size = new System.Drawing.Size(88, 40);
             this.label6.TabIndex = 113;
             this.label6.Text = "เบอร์โทร";
             // 
@@ -1246,11 +1252,11 @@ namespace example.GOODS
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.White;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("TH Sarabun New", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(44, 81);
+            this.label4.Location = new System.Drawing.Point(45, 81);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(160, 36);
+            this.label4.Size = new System.Drawing.Size(117, 40);
             this.label4.TabIndex = 102;
             this.label4.Text = "สมาชิกเลขที่";
             // 
@@ -1259,10 +1265,40 @@ namespace example.GOODS
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Controls.Add(this.panel7);
-            this.panel1.Location = new System.Drawing.Point(25, 42);
+            this.panel1.Location = new System.Drawing.Point(26, 42);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1156, 712);
+            this.panel1.Size = new System.Drawing.Size(1155, 712);
             this.panel1.TabIndex = 98;
+            // 
+            // Column1
+            // 
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle17;
+            this.Column1.HeaderText = "ปี/เดือน";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 150;
+            // 
+            // Column2
+            // 
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle18;
+            this.Column2.HeaderText = "รายการ";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 350;
+            // 
+            // Column3
+            // 
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle19;
+            this.Column3.HeaderText = "ยอดเงิน";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 340;
             // 
             // pay
             // 
@@ -1399,9 +1435,6 @@ namespace example.GOODS
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.Button BSearchTeacher;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBox4;
@@ -1417,5 +1450,8 @@ namespace example.GOODS
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox6;
         public System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
     }
 }
