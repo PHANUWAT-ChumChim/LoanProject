@@ -49,20 +49,20 @@ namespace example.Bank
             this.label4 = new System.Windows.Forms.Label();
             this.TBStartAmountShare = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.BTdeletefile = new System.Windows.Forms.Button();
+            this.BTOpenfile = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.DTPStartDate = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.BSave = new System.Windows.Forms.Button();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -126,7 +126,6 @@ namespace example.Bank
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(900, 541);
             this.panel1.TabIndex = 18;
-            this.panel1.SizeChanged += new System.EventHandler(this.panel1_SizeChanged);
             // 
             // BExit
             // 
@@ -144,7 +143,7 @@ namespace example.Bank
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(571, 104);
+            this.label1.Location = new System.Drawing.Point(490, 104);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 32);
             this.label1.TabIndex = 52;
@@ -277,8 +276,9 @@ namespace example.Bank
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.button2);
-            this.tabPage3.Controls.Add(this.pictureBox1);
+            this.tabPage3.Controls.Add(this.button1);
+            this.tabPage3.Controls.Add(this.BTdeletefile);
+            this.tabPage3.Controls.Add(this.BTOpenfile);
             this.tabPage3.Controls.Add(this.label5);
             this.tabPage3.Location = new System.Drawing.Point(4, 40);
             this.tabPage3.Name = "tabPage3";
@@ -288,35 +288,38 @@ namespace example.Bank
             this.tabPage3.Text = "เอกสาร";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // BTdeletefile
             // 
-            this.button2.BackColor = System.Drawing.Color.White;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button2.Location = new System.Drawing.Point(555, 6);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(131, 47);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "เเนบรูปอ้างอิง";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.BTdeletefile.BackColor = System.Drawing.Color.White;
+            this.BTdeletefile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BTdeletefile.Cursor = System.Windows.Forms.Cursors.Default;
+            this.BTdeletefile.Location = new System.Drawing.Point(270, 90);
+            this.BTdeletefile.Name = "BTdeletefile";
+            this.BTdeletefile.Size = new System.Drawing.Size(131, 47);
+            this.BTdeletefile.TabIndex = 21;
+            this.BTdeletefile.Text = "ลบไฟล์";
+            this.BTdeletefile.UseVisualStyleBackColor = false;
+            this.BTdeletefile.Click += new System.EventHandler(this.BTdeletefile_Click);
             // 
-            // pictureBox1
+            // BTOpenfile
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(286, 16);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(252, 194);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 19;
-            this.pictureBox1.TabStop = false;
+            this.BTOpenfile.BackColor = System.Drawing.Color.White;
+            this.BTOpenfile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BTOpenfile.Cursor = System.Windows.Forms.Cursors.Default;
+            this.BTOpenfile.Location = new System.Drawing.Point(270, 22);
+            this.BTOpenfile.Name = "BTOpenfile";
+            this.BTOpenfile.Size = new System.Drawing.Size(131, 47);
+            this.BTOpenfile.TabIndex = 20;
+            this.BTOpenfile.Text = "เปิดไฟล์";
+            this.BTOpenfile.UseVisualStyleBackColor = false;
+            this.BTOpenfile.Click += new System.EventHandler(this.button2_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(20, 16);
+            this.label5.Location = new System.Drawing.Point(4, 3);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(359, 32);
@@ -371,6 +374,18 @@ namespace example.Bank
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button1.Location = new System.Drawing.Point(27, 134);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(191, 47);
+            this.button1.TabIndex = 22;
+            this.button1.Text = "เอกสารการสมัคร";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // MemberShip
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
@@ -382,9 +397,7 @@ namespace example.Bank
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
             this.Name = "MemberShip";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "membership";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.membership_Load);
             this.SizeChanged += new System.EventHandler(this.membership_SizeChanged);
             this.panel1.ResumeLayout(false);
@@ -396,7 +409,6 @@ namespace example.Bank
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -425,9 +437,10 @@ namespace example.Bank
         private System.Windows.Forms.TextBox TBStartAmountShare;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button BTOpenfile;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Windows.Forms.Button BTdeletefile;
+        private System.Windows.Forms.Button button1;
     }
 }

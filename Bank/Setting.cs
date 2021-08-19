@@ -80,6 +80,11 @@ namespace example.Bank
             }
         }
 
+        private void PBSilder_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void TB_Max_KeyPress_1(object sender, KeyPressEventArgs e)
         {
             if ((e.KeyChar < '0' || e.KeyChar > '9') && (e.KeyChar != '\b'))
