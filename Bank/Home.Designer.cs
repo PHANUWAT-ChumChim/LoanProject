@@ -161,6 +161,7 @@ namespace example.GOODS
             // P1
             // 
             this.P1.BackColor = System.Drawing.Color.White;
+            this.P1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.P1.Controls.Add(this.dataGridView3);
             this.P1.Controls.Add(this.button6);
             this.P1.Controls.Add(this.panel7);
@@ -243,7 +244,6 @@ namespace example.GOODS
             this.Name = "Home";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Workformhome";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.SizeChanged += new System.EventHandler(this.Form2_SizeChanged);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();

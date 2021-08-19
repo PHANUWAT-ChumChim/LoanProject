@@ -1275,7 +1275,6 @@ namespace example.GOODS
             this.Name = "pay";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ทำเป็นFormจ่าย";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.pay_Load);
             this.SizeChanged += new System.EventHandler(this.Menuf_SizeChanged);
             this.panel7.ResumeLayout(false);

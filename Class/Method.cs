@@ -18,6 +18,7 @@ namespace example.Class
         /// <para>[0] Write to Search ID Teacher INPUT: {TeacherNo} </para> 
         /// <para>[1] Check Register INPUT: {TeacherNo} </para>
         /// <para>[2] INSERT Register Member INPUT:  {TeacherNo} {TeacherAddBy} {StartAmount} {DocPath} </para>
+        /// <para>[3] Search Member INPUT: -</para>
         /// </summary> 
         private static String[] SQLDefault = new String[]
          { 
@@ -39,6 +40,15 @@ namespace example.Class
           "INSERT INTO EmployeeBank.dbo.tblMember(TeacherNo,TeacherAddBy,StartAmount,DocUploadPath,DateAdd) \r\n " +
           "VALUES('{TeacherNo}','{TeacherAddBy}',{StartAmount},'{DocPath}',CURRENT_TIMESTAMP); "
           ,
+         //[3] Search Member INPUT: -
+          "SELECT a.TeacherNo,CAST(d.PrefixName+' '+Fname +' '+ Lname as NVARCHAR),IdNo \r\n " +
+          "FROM EmployeeBank.dbo.tblMember as a \r\n " +
+          "LEFT JOIN Personal.dbo.tblTeacherHis as b ON a.TeacherNo = b.TeacherNo \r\n " +
+          "LEFT JOIN Personal.dbo.tblGroupPosition as c ON b.GroupPositionNo = c.GroupPositionNo \r\n " +
+          "LEFT JOIN BaseData.dbo.tblPrefix as d ON d.PrefixNo = b.PrefixNo \r\n " +
+          "WHERE a.MemberStatusNo = 1 \r\n" +
+          "ORDER BY a.TeacherNo; "
+          ,
 
          };
 
@@ -48,7 +58,7 @@ namespace example.Class
             myForm.Height / 2 - myPanal.Size.Height / 2);
         }
 
-        public static void Research(string TBTeacherNo, TextBox TBTeacherName, TextBox TBTeacherBill)
+        public static void Research(string TBTeacherNo, TextBox TBTeacherName, TextBox TBTeacherBill )
         {
             DataTable dt = Class.SQL.InputSQLMSSQL(SQLDefault[0].Replace("T{TeacherNo}", TBTeacherNo));
             if (dt.Rows.Count != 0)
@@ -57,9 +67,20 @@ namespace example.Class
                 TBTeacherBill.Text = dt.Rows[0][2].ToString();
             }
         }
-        public static void Search(DataGridView G)
+        ///<summary>
+        /// <para>[AllTeacher_or_Member]</para> 
+        /// <para>ถ้าใส่ 0 จะหาอาจารย์ทั้งหมด</para>
+        /// <para>ใส่ 1 จะหาแค่อาจารยฺ์ที่สมัครสมาชิกแล้ว ( สถาณะ ใช้งานเท่านั้น )</para>
+        ///</summary>
+        public static void Search(DataGridView G , int AllTeacher_or_Member)
         {
-            DataTable dt = Class.SQL.InputSQLMSSQL(SQLDefault[0].Replace("{TeacherNo}",""));
+            int y = 0;
+
+            if (AllTeacher_or_Member == 1)
+            {
+                y = 3;
+            }
+            DataTable dt = Class.SQL.InputSQLMSSQL(SQLDefault[y].Replace("{TeacherNo}",""));
             int count = dt.Rows.Count;
             for (int x = 0; x < count; x++)
             {

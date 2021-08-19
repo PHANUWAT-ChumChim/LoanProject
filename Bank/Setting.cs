@@ -33,6 +33,8 @@ namespace example.Bank
         public Setting()
         {
             InitializeComponent();
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             TB_Min.Text = example.GOODS.Menu.startAmountMin.ToString();
             TB_Max.Text = example.GOODS.Menu.startAmountMax.ToString();
             if (example.GOODS.Menu.DateAmountChange == 1)

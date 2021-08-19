@@ -14,10 +14,18 @@ namespace example.Bank
     {
         public static String[] Return = {""};
 
-        public Search()
+        ///<summary>
+        /// <para>[AllTeacher_or_Member]</para> 
+        /// <para>ถ้าใส่ 0 จะหาอาจารย์ทั้งหมด</para>
+        /// <para>ใส่ 1 จะหาแค่อาจารยฺ์ที่สมัครสมาชิกแล้ว ( สถาณะ ใช้งานเท่านั้น )</para>
+        ///</summary>
+        public Search(int AllTeacher_or_Member)
         {
             InitializeComponent();
             Return = new String[]{""};
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            Class.Method.Search(dataGridView1, AllTeacher_or_Member);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -25,9 +33,9 @@ namespace example.Bank
 
         }
 
-        private void Search_Load(object sender, EventArgs e)
+        private void Search_Load(object sender, EventArgs e, int AllTeacher_or_Member)
         {
-            Class.Method.Search(dataGridView1);
+            
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)

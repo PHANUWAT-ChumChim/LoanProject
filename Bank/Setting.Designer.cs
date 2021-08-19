@@ -68,7 +68,7 @@ namespace example.Bank
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(32, 92);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -89,7 +89,7 @@ namespace example.Bank
             this.tabPage1.Location = new System.Drawing.Point(4, 40);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(670, 486);
+            this.tabPage1.Size = new System.Drawing.Size(670, 491);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "กำหนดค่าเริ่มต้น";
             // 
@@ -163,15 +163,10 @@ namespace example.Bank
             this.TB_Min.TabIndex = 6;
             this.TB_Min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TB_Min_KeyPress_1);
             // 
-            // TBtest
-            // 
-      
-            // 
             // Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(769, 712);
             this.Controls.Add(this.P1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;

@@ -31,7 +31,6 @@ namespace example.GOODS
         public Menu()
         {
             InitializeComponent();
-
             Class.UserInfo.SetTeacherInformation("T53036", "John YouSuck", "1");
 
                 dt = Class.SQL.InputSQLMSSQL(SQLDefault[0]);
@@ -112,6 +111,11 @@ namespace example.GOODS
         {
             Bank.ReportCancelMember Rc = new Bank.ReportCancelMember();
             CloseFrom(Rc);
+        }
+
+        private void pay_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

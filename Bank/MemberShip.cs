@@ -83,7 +83,7 @@ namespace example.Bank
         }
         private void BSearchTeacher_Click(object sender, EventArgs e)
         {
-            Search IN = new Search();
+            Search IN = new Search(0);
             IN.ShowDialog();
             TBTeacherNo.Text = Search.Return[0];
         }

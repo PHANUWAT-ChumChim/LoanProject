@@ -31,5 +31,10 @@ namespace example.Bank
         {
 
         }
+
+        private void BSearchTeacher_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

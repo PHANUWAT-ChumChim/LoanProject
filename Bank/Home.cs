@@ -40,7 +40,7 @@ namespace example.GOODS
         {
             try
             {
-                Bank.Search IN = new Bank.Search();
+                Bank.Search IN = new Bank.Search(1);
                 IN.ShowDialog();
                 TBTeacherNo.Text = Bank.Search.Return[0];
                 TBTeacherName.Text = Bank.Search.Return[1];
