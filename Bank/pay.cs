@@ -41,7 +41,7 @@ namespace example.GOODS
         //LEFT JOIN Personal.dbo.tblGroupPosition as b ON a.GroupPositionNo = b.GroupPositionNo
         //LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = a.PrefixNo
         //WHERE TeacherNo = 'T54001'
-            Method.SQLMethod.Research(TBTeacherNo.Text, TBTeacherName, TBTeacherBill);
+            Class.Method.Research(TBTeacherNo.Text, TBTeacherName, TBTeacherBill);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -186,6 +186,11 @@ namespace example.GOODS
             {
                 e.Handled = true;
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

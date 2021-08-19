@@ -27,23 +27,31 @@ namespace example.Bank
 
         private void Search_Load(object sender, EventArgs e)
         {
-            Method.SQLMethod.Search(dataGridView1);
+            Class.Method.Search(dataGridView1);
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
-                Return = new String[] 
+
+                Return = new String[]
                 {
                     dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(),
                     dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString(),
-                    dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString() 
+                    dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString()
                 };
                 this.Dispose();
+
             }
-            
-            
+        }
+
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+        }
+
+        private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
         }
     }
 }

@@ -31,7 +31,7 @@ namespace example.GOODS
             //dataGridView1.Rows.Add(textBox1.Text[0], textBox2.Text[1]/*, textBox3.Text, checkedListBox1.CheckedItems[0].ToString()*/);
            a = textBox1.Text;
            b = textBox2.Text;
-            DataSet dss = Method.SQLMethod.InputSQLMSSQLDS
+            DataSet dss = Class.SQL.InputSQLMSSQLDS
             ($"INSERT INTO Poon_Item.dbo.tblItem(ItemID,ItemName)VALUES('{a}','{b}');");
             //DataTable dt = dss.Tables[0];
         }
@@ -75,7 +75,7 @@ namespace example.GOODS
             table.Columns.Add("ประเภท", Type.GetType("System.String"));
             dataGridView3.DataSource = table;
 
-            DataSet ds = Method.SQLMethod.InputSQLMSSQLDS
+            DataSet ds = Class.SQL.InputSQLMSSQLDS
             ("SELECT ItemID,CAST(ItemName as NVARCHAR) FROM Poon_Item.dbo.tblItem;");
            
             DataTable dt = ds.Tables[0];

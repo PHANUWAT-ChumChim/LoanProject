@@ -19,21 +19,27 @@ namespace example.GOODS
 
         private void Form2_SizeChanged(object sender, EventArgs e)
         {
-            Method.SQLMethod.ChangeSizePanal(this, P1);
+            Class.Method.ChangeSizePanal(this, P1);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            Method.SQLMethod.Research(TBTeacherNo.Text,TBTeacherName,TBTeacherBill);
+            Class.Method.Research(TBTeacherNo.Text,TBTeacherName,TBTeacherBill);
         }
 
         private void BSearchTeacher_Click(object sender, EventArgs e)
         {
-            Bank.Search IN = new Bank.Search();
-            IN.ShowDialog();
-            TBTeacherNo.Text = Bank.Search.Return[0];
-            
-           
+            try
+            {
+                Bank.Search IN = new Bank.Search();
+                IN.ShowDialog();
+                TBTeacherNo.Text = Bank.Search.Return[0];
+            }
+            catch
+            {
+
+            }
+
         }
     }
 }

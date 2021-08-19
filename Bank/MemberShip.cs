@@ -38,6 +38,7 @@ namespace example.Bank
         public MemberShip()
         {
             InitializeComponent();
+            TBStartAmountShare.Text = example.GOODS.Menu.startAmountMin.ToString();
             //Class.UserInfo.GetTeacherNo();
         }
 
@@ -50,11 +51,11 @@ namespace example.Bank
 
         private void membership_SizeChanged(object sender,EventArgs e)
         {
-            Method.SQLMethod.ChangeSizePanal(this,panel1);
+            Class.Method.ChangeSizePanal(this,panel1);
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            Method.SQLMethod.Research(TBTeacherNo.Text, TBTeacherName,TBIDNo);
+            Class.Method.Research(TBTeacherNo.Text, TBTeacherName,TBIDNo);
         }
         private void TBStartAmountShare_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -71,12 +72,44 @@ namespace example.Bank
         }
         private void BSave_Click(object sender, EventArgs e)
         {
-            Method.SQLMethod.TeacherMember(TBTeacherNo.Text, int.Parse(TBStartAmountShare.Text), pictureBox1.ToString());
-            //if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
-            //{
-            //    printDocument1.Print();
+            if(Convert.ToInt32(TBStartAmountShare.Text) >= example.GOODS.Menu.startAmountMin && Convert.ToInt32(TBStartAmountShare.Text) <= example.GOODS.Menu.startAmountMax)
+            {
+                Class.Method.TeacherMember(TBTeacherNo.Text, int.Parse(TBStartAmountShare.Text), pictureBox1.ToString());
+                Font Header01 = new Font("TH Sarabun New", 30, FontStyle.Bold);
+                Brush Normal = Brushes.Black;
 
-            //}
+                //string text = "โปรดเลือกสมาชิกในการสมัคร"
+                DataTable dt = Class.SQL.InputSQLMSSQL(SQLDefault[1].Replace("{TeacherNo}", TBTeacherNo.Text));
+                if (TBTeacherNo.Text != "")
+                {
+                    if (dt.Rows.Count == 0)
+                    {
+                        DataTable INSERTMember = Class.SQL.InputSQLMSSQL(SQLDefault[2].Replace("{TeacherNo}", TBTeacherNo.Text)
+                            .Replace("{StartAmount}", TBStartAmountShare.Text
+                            .Replace("{DocPath}", pictureBox1.ToString())));
+                        MessageBox.Show("Register Complete.", "System", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("รายชื่อซ้ำ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("โปรดเลือกสมาชิกในการสมัคร", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                //if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
+                //{
+                //    printDocument1.Print();
+
+                //}
+            }
+            else
+            {
+                MessageBox.Show("ไม่สามารถสมัครสมาชิกได้เนื่องจาก \r\n ราคาหุ้นเริ่มต้นต่ำหรือสูงเกินไป \r\n โปรดแก้ไข ราคาหุ้นขั้นต่ำ หรือ สูงสุด ที่หน้าตั้งค่า","System Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
+            
+
         }
         
         private void button2_Click(object sender, EventArgs e)
@@ -86,7 +119,7 @@ namespace example.Bank
             try
             {
                 OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "jpg files(*.jpg)|*.jpg| PNG files(*.png)|*.png| All Files(*.*)|*.*";
+                dialog.Filter = "pdf files(*.pdf)|*.pdf";
                 if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     //imgeLocation = dialog.FileName;
@@ -300,6 +333,10 @@ namespace example.Bank
         private void panel1_SizeChanged(object sender, EventArgs e)
         {
             //Method.SQLMethod.CenterSize(this, panel1);
+        }
+
+        private void TBStartAmountShare_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 }

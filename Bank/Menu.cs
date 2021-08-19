@@ -12,10 +12,32 @@ namespace example.GOODS
 {
     public partial class Menu : Form
     {
+        public static int startAmountMin;
+        public static int startAmountMax;
+        public static int DateAmountChange;
+        static DataTable dt;
+        /// <summary> 
+        /// SQLDafault 
+        /// <para>[0]Check Setting INPUT: - </para> 
+        /// </summary> 
+        private String[] SQLDefault = new String[]
+         { 
+             //[0]Check Setting INPUT: - 
+             "SELECT DateAmountChange , StartAmountMin , StartAmountMax \r\n" +
+             "FROM EmployeeBank.dbo.tblSettingAmount;"
+          ,
+
+         };
         public Menu()
         {
             InitializeComponent();
+
             Class.UserInfo.SetTeacherInformation("T53036", "John YouSuck", "1");
+
+                dt = Class.SQL.InputSQLMSSQL(SQLDefault[0]);
+                DateAmountChange = Convert.ToInt32(dt.Rows[0][0]);
+                startAmountMin = Convert.ToInt32(dt.Rows[0][1]);
+                startAmountMax = Convert.ToInt32(dt.Rows[0][2]);
         }
         private void CloseFrom(Form F)
         {
