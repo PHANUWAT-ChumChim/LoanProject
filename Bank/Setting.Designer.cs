@@ -165,28 +165,7 @@ namespace example.Bank
             // 
             // TBtest
             // 
-            this.TBtest.AutoSize = true;
-            this.TBtest.Location = new System.Drawing.Point(541, 387);
-            this.TBtest.Name = "TBtest";
-            this.TBtest.Size = new System.Drawing.Size(27, 37);
-            this.TBtest.TabIndex = 1;
-            this.TBtest.Text = "0";
-            this.TBtest.Visible = false;
-            // 
-            // PBSilder
-            // 
-            this.PBSilder.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.PBSilder.Location = new System.Drawing.Point(21, 387);
-            this.PBSilder.Name = "PBSilder";
-            this.PBSilder.Size = new System.Drawing.Size(487, 34);
-            this.PBSilder.TabIndex = 0;
-            this.PBSilder.TabStop = false;
-            this.PBSilder.Visible = false;
-            this.PBSilder.Click += new System.EventHandler(this.PBSilder_Click);
-            this.PBSilder.Paint += new System.Windows.Forms.PaintEventHandler(this.PBSilder_Paint);
-            this.PBSilder.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PBSilder_MouseDown);
-            this.PBSilder.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PBSilder_MouseMove);
-            this.PBSilder.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PBSilder_MouseUp);
+      
             // 
             // Setting
             // 

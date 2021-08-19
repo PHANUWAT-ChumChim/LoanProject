@@ -1341,7 +1341,6 @@ namespace example.GOODS
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Button BTClean;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Panel panel16;
@@ -1418,5 +1417,6 @@ namespace example.GOODS
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox6;
+        public System.Windows.Forms.TabControl tabControl1;
     }
 }

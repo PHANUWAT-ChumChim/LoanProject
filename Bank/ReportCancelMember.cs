@@ -24,7 +24,7 @@ namespace example.Bank
 
         private void ReportCancelMember_SizeChanged(object sender, EventArgs e)
         {
-            Method.SQLMethod.ChangeSizePanal(this, panel1);
+            Class.Method.ChangeSizePanal(this, panel1);
         }
 
         private void ReportCancelMember_Load(object sender, EventArgs e)

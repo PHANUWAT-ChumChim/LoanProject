@@ -12,10 +12,9 @@ namespace example.GOODS
 {
     public partial class pay : Form
     {
-        
-        public pay(int TabIndex = 0)
+        public pay(int TabIndex)
         {
-            InitializeComponent();
+            InitializeComponent(); 
             tabControl1.SelectedIndex = TabIndex;
         }
         //private void pictureBox13_Click(object sender, EventArgs e)
@@ -35,13 +34,22 @@ namespace example.GOODS
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-        //            SELECT TeacherNo, CAST(c.PrefixNameFull + Fname + ' ' + Lname as NVARCHAR),
-        //CASE WHEN IdNo = '' THEN 'null' ELSE IdNo END as id, b.GroupPositionName
-        //FROM Personal.dbo.tblTeacherHis as a
-        //LEFT JOIN Personal.dbo.tblGroupPosition as b ON a.GroupPositionNo = b.GroupPositionNo
-        //LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = a.PrefixNo
-        //WHERE TeacherNo = 'T54001'
-            Class.Method.Research(TBTeacherNo.Text, TBTeacherName, TBTeacherBill);
+            //            SELECT TeacherNo, CAST(c.PrefixNameFull + Fname + ' ' + Lname as NVARCHAR),
+            //CASE WHEN IdNo = '' THEN 'null' ELSE IdNo END as id, b.GroupPositionName
+            //FROM Personal.dbo.tblTeacherHis as a
+            //LEFT JOIN Personal.dbo.tblGroupPosition as b ON a.GroupPositionNo = b.GroupPositionNo
+            //LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = a.PrefixNo
+            //WHERE TeacherNo = 'T54001'
+            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
+            if (TBTeacherNo.Text.Length == 6)
+            {
+                Class.Method.Research(TBTeacherNo.Text, TBTeacherName, TBTeacherBill);
+            }
+            else
+            {
+                TBTeacherBill.Text = "";
+                TBTeacherName.Text = "";
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -104,8 +112,9 @@ namespace example.GOODS
         }
         public void tabPage2_Click(object sender, EventArgs e)
         {
-            TabPage t = tabControl1.TabPages[1];
-            tabControl1.SelectTab(t); //go to tab
+            //TabPage t = tabControl1.TabPages[1];
+            //tabControl1.SelectTab(t); 
+            ////go to tab
         }
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {

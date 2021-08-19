@@ -19,7 +19,7 @@ namespace example.Bank
 
         private void CancelMembership_SizeChanged(object sender, EventArgs e)
         {
-            Method.SQLMethod.ChangeSizePanal(this, panel1);
+            Class.Method.ChangeSizePanal(this, panel1);
         }
 
         private void CancelMembership_Load(object sender, EventArgs e)

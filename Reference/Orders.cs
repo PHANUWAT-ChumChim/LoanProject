@@ -43,7 +43,7 @@ namespace example.GOODS
 
         private void button9_Click(object sender, EventArgs e)
         {
-            pay prod = new pay();
+            pay prod = new pay(0);
             prod.Show();
             this.Hide();
         }
