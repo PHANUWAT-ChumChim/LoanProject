@@ -15,6 +15,7 @@ namespace example.GOODS
         public static int startAmountMin;
         public static int startAmountMax;
         public static int DateAmountChange;
+        public static string FontSize;
         static DataTable dt;
         /// <summary> 
         /// SQLDafault 
@@ -48,7 +49,7 @@ namespace example.GOODS
                     return;
             }
             F.MdiParent = this;
-            F.WindowState = FormWindowState.Maximized;
+            //F.WindowState = FormWindowState.Maximized;
             F.Show();
         }
         public void shareinformation(object sender, EventArgs e)

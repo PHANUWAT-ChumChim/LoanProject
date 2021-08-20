@@ -17,6 +17,8 @@ namespace example.Bank
         static int Min;
         static int Max;
         static bool chb;
+        static Font FontSetting;
+       
 
         /// <summary>
         /// SQLDafault
@@ -37,6 +39,7 @@ namespace example.Bank
             this.MinimizeBox = false;
             TB_Min.Text = example.GOODS.Menu.startAmountMin.ToString();
             TB_Max.Text = example.GOODS.Menu.startAmountMax.ToString();
+            comboBox2.Text = example.GOODS.Menu.FontSize;
             if (example.GOODS.Menu.DateAmountChange == 1)
             {
                 CHB_edittime.Checked = true;
@@ -44,7 +47,6 @@ namespace example.Bank
             chb = CHB_edittime.Checked;
             Min = Convert.ToInt32(TB_Min.Text);
             Max = Convert.ToInt32(TB_Max.Text);
-
         }
 
         private void B_Cancel_Click_1(object sender, EventArgs e)
@@ -81,20 +83,38 @@ namespace example.Bank
 
             }
         }
+     
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        { 
+            Class.FromSettingMedtod.SetFont(comboBox1, int.Parse(comboBox2.SelectedItem.ToString()),label3);
+            FontSetting = example.GOODS.Home.F;
+            label3.Font = FontSetting;
+            label1.Font = FontSetting;
+            label2.Font = FontSetting;
+            label3.Font = FontSetting;
+            label4.Font = FontSetting;
+            comboBox1.Font  = FontSetting;
+            comboBox2.Font = FontSetting;
+            TB_Max.Font = FontSetting;
+            TB_Min.Font = FontSetting;
+            B_Save.Font = FontSetting;
+            B_Cancel.Font = FontSetting;
 
-        private void PBSilder_Click(object sender, EventArgs e)
-        {
-
+            GOODS.Home H = new GOODS.Home();
+            H.Refresh();
+            H.ResetText();
+            Class.FromSettingMedtod.ResetAllControls(H);
         }
 
-        private void TB_Max_KeyPress_1(object sender, KeyPressEventArgs e)
+        private void TB_Min_KeyPress(object sender, KeyPressEventArgs e)
         {
             if ((e.KeyChar < '0' || e.KeyChar > '9') && (e.KeyChar != '\b'))
             {
                 e.Handled = true;
             }
         }
-        private void TB_Min_KeyPress_1(object sender, KeyPressEventArgs e)
+
+        private void TB_Max_KeyPress(object sender, KeyPressEventArgs e)
         {
             if ((e.KeyChar < '0' || e.KeyChar > '9') && (e.KeyChar != '\b'))
             {

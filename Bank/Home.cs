@@ -12,9 +12,11 @@ namespace example.GOODS
 {
     public partial class Home : Form
     {
+        public static Font F = new Font("TH Sarabun New",16,FontStyle.Regular);
         public Home()
         {
             InitializeComponent();
+            label12.Font = F;
         }
      
 
@@ -52,5 +54,7 @@ namespace example.GOODS
             }
 
         }
+
+        
     }
 }
