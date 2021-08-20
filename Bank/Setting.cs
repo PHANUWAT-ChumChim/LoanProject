@@ -69,7 +69,7 @@ namespace example.Bank
                         example.GOODS.Menu.DateAmountChange = TranChbToInt;
                     }
 
-                    Class.SQL.InputSQLMSSQL(SQLDefault[0].Replace("{DateAmountChange}", TranChbToInt.ToString())
+                    Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("{DateAmountChange}", TranChbToInt.ToString())
                         .Replace("{StartAmountMin}", TB_Min.Text)
                         .Replace("{StartAmountMax}", TB_Max.Text));
                     example.GOODS.Menu.startAmountMin = Convert.ToInt32(TB_Min.Text);

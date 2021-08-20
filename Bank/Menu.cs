@@ -33,7 +33,7 @@ namespace example.GOODS
             InitializeComponent();
             Class.UserInfo.SetTeacherInformation("T53036", "John YouSuck", "1");
 
-                dt = Class.SQL.InputSQLMSSQL(SQLDefault[0]);
+                dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[0]);
                 DateAmountChange = Convert.ToInt32(dt.Rows[0][0]);
                 startAmountMin = Convert.ToInt32(dt.Rows[0][1]);
                 startAmountMax = Convert.ToInt32(dt.Rows[0][2]);

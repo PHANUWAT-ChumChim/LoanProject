@@ -11,7 +11,7 @@ using System.Drawing;
 namespace example.Class
 
 {
-    class SQL
+    class SQLConnection
     {
         static OleDbConnection con = new OleDbConnection("Provider=SQLOLEDB; \r\n"+
             "Data Source=166.166.1.24; \r\n" +

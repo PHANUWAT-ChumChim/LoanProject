@@ -97,9 +97,9 @@ namespace example.Bank
             // 
             this.CHB_edittime.AutoSize = true;
             this.CHB_edittime.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CHB_edittime.Location = new System.Drawing.Point(155, 158);
+            this.CHB_edittime.Location = new System.Drawing.Point(417, 28);
             this.CHB_edittime.Name = "CHB_edittime";
-            this.CHB_edittime.Size = new System.Drawing.Size(185, 40);
+            this.CHB_edittime.Size = new System.Drawing.Size(196, 41);
             this.CHB_edittime.TabIndex = 7;
             this.CHB_edittime.Text = "อณุญาตให้แก้ไขเวลา";
             this.CHB_edittime.UseVisualStyleBackColor = true;
@@ -110,7 +110,7 @@ namespace example.Bank
             this.label2.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(6, 93);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 36);
+            this.label2.Size = new System.Drawing.Size(150, 37);
             this.label2.TabIndex = 8;
             this.label2.Text = "จำนวนที่มากที่สุด";
             // 
@@ -120,7 +120,7 @@ namespace example.Bank
             this.label1.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(6, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(129, 36);
+            this.label1.Size = new System.Drawing.Size(139, 37);
             this.label1.TabIndex = 9;
             this.label1.Text = "จำนวนน้อยที่สุด";
             // 
@@ -172,9 +172,10 @@ namespace example.Bank
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(769, 712);
             this.Controls.Add(this.P1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Setting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Setting";

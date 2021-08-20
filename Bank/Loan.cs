@@ -19,7 +19,17 @@ namespace example.Bank
 
         private void Loan_SizeChanged(object sender, EventArgs e)
         {
-            Class.Method.ChangeSizePanal(this, panel1);
+            Class.FromSettingMedtod.ChangeSizePanal(this, panel1);
+        }
+
+        private void CBB4Oppay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Loan_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

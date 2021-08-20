@@ -105,7 +105,7 @@ namespace example.Bank
             this.label16.Location = new System.Drawing.Point(90, 89);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(147, 36);
+            this.label16.Size = new System.Drawing.Size(161, 37);
             this.label16.TabIndex = 15;
             this.label16.Text = "เลือกจำนวนเริ่มต้น";
             // 
@@ -146,7 +146,7 @@ namespace example.Bank
             this.label1.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(490, 104);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 36);
+            this.label1.Size = new System.Drawing.Size(70, 37);
             this.label1.TabIndex = 52;
             this.label1.Text = "label1";
             // 
@@ -250,10 +250,10 @@ namespace example.Bank
             this.tabPage2.Controls.Add(this.TBStartAmountShare);
             this.tabPage2.Controls.Add(this.label16);
             this.tabPage2.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage2.Location = new System.Drawing.Point(4, 40);
+            this.tabPage2.Location = new System.Drawing.Point(4, 45);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(779, 221);
+            this.tabPage2.Size = new System.Drawing.Size(779, 216);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "ข้อมูลหุ้น";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -266,7 +266,7 @@ namespace example.Bank
             this.label4.Location = new System.Drawing.Point(13, 14);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(494, 36);
+            this.label4.Size = new System.Drawing.Size(515, 37);
             this.label4.TabIndex = 17;
             this.label4.Text = "*โปรดทราบ หุ้นที่ซื้อ สามารถเปลี่ยนแปลงราคาซื้อได้ ตามที่กำหนด";
             // 
@@ -289,10 +289,10 @@ namespace example.Bank
             this.tabPage3.Controls.Add(this.BTOpenfile);
             this.tabPage3.Controls.Add(this.label5);
             this.tabPage3.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage3.Location = new System.Drawing.Point(4, 40);
+            this.tabPage3.Location = new System.Drawing.Point(4, 45);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(779, 221);
+            this.tabPage3.Size = new System.Drawing.Size(779, 216);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "เอกสาร";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -349,10 +349,11 @@ namespace example.Bank
             // 
             this.DTPStartDate.CalendarFont = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DTPStartDate.Enabled = false;
+            this.DTPStartDate.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DTPStartDate.Location = new System.Drawing.Point(159, 101);
             this.DTPStartDate.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
             this.DTPStartDate.Name = "DTPStartDate";
-            this.DTPStartDate.Size = new System.Drawing.Size(199, 38);
+            this.DTPStartDate.Size = new System.Drawing.Size(199, 43);
             this.DTPStartDate.TabIndex = 48;
             // 
             // label7

@@ -46,11 +46,11 @@ namespace example.GOODS
             this.label12 = new System.Windows.Forms.Label();
             this.P1 = new System.Windows.Forms.Panel();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.button6 = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button6 = new System.Windows.Forms.Button();
             this.panel7.SuspendLayout();
             this.P1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
@@ -91,28 +91,28 @@ namespace example.GOODS
             // TBTeacherBill
             // 
             this.TBTeacherBill.Enabled = false;
-            this.TBTeacherBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBTeacherBill.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TBTeacherBill.Location = new System.Drawing.Point(761, 15);
             this.TBTeacherBill.Name = "TBTeacherBill";
-            this.TBTeacherBill.Size = new System.Drawing.Size(360, 38);
+            this.TBTeacherBill.Size = new System.Drawing.Size(360, 43);
             this.TBTeacherBill.TabIndex = 84;
             // 
             // TBTeacherName
             // 
             this.TBTeacherName.Enabled = false;
-            this.TBTeacherName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBTeacherName.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TBTeacherName.Location = new System.Drawing.Point(360, 15);
             this.TBTeacherName.Name = "TBTeacherName";
-            this.TBTeacherName.Size = new System.Drawing.Size(320, 38);
+            this.TBTeacherName.Size = new System.Drawing.Size(320, 43);
             this.TBTeacherName.TabIndex = 83;
             // 
             // TBTeacherNo
             // 
-            this.TBTeacherNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBTeacherNo.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TBTeacherNo.Location = new System.Drawing.Point(69, 12);
             this.TBTeacherNo.MaxLength = 6;
             this.TBTeacherNo.Name = "TBTeacherNo";
-            this.TBTeacherNo.Size = new System.Drawing.Size(154, 38);
+            this.TBTeacherNo.Size = new System.Drawing.Size(154, 43);
             this.TBTeacherNo.TabIndex = 82;
             this.TBTeacherNo.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -124,7 +124,7 @@ namespace example.GOODS
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(686, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 36);
+            this.label3.Size = new System.Drawing.Size(69, 37);
             this.label3.TabIndex = 69;
             this.label3.Text = "เลขบิล";
             // 
@@ -136,7 +136,7 @@ namespace example.GOODS
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(276, 15);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 36);
+            this.label2.Size = new System.Drawing.Size(78, 37);
             this.label2.TabIndex = 68;
             this.label2.Text = "ชื่อ-สกุล";
             // 
@@ -159,7 +159,7 @@ namespace example.GOODS
             this.label12.ForeColor = System.Drawing.Color.Black;
             this.label12.Location = new System.Drawing.Point(14, 12);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(47, 36);
+            this.label12.Size = new System.Drawing.Size(49, 37);
             this.label12.TabIndex = 67;
             this.label12.Text = "รหัส";
             // 
@@ -203,17 +203,6 @@ namespace example.GOODS
             this.dataGridView3.Size = new System.Drawing.Size(1133, 554);
             this.dataGridView3.TabIndex = 66;
             // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.White;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(970, 648);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(171, 56);
-            this.button6.TabIndex = 96;
-            this.button6.Text = "จ่ายยอด";
-            this.button6.UseVisualStyleBackColor = false;
-            // 
             // dataGridViewTextBoxColumn1
             // 
             dataGridViewCellStyle2.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -245,6 +234,17 @@ namespace example.GOODS
             this.dataGridViewTextBoxColumn4.HeaderText = "เงิน";
             this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.White;
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Location = new System.Drawing.Point(970, 648);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(171, 56);
+            this.button6.TabIndex = 96;
+            this.button6.Text = "จ่ายยอด";
+            this.button6.UseVisualStyleBackColor = false;
             // 
             // Home
             // 

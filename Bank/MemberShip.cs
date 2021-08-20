@@ -55,14 +55,14 @@ namespace example.Bank
 
         private void membership_SizeChanged(object sender, EventArgs e)
         {
-            Class.Method.ChangeSizePanal(this, panel1);
+            Class.FromSettingMedtod.ChangeSizePanal(this, panel1);
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
             if (TBTeacherNo.Text.Length == 6)
             {
-                Class.Method.Research(TBTeacherNo.Text, TBTeacherName, TBIDNo);
+                Class.SQLMethod.Research(TBTeacherNo.Text, TBTeacherName, TBIDNo);
             }
             else
             {
@@ -89,14 +89,14 @@ namespace example.Bank
         }
         private void BSave_Click_1(object sender, EventArgs e)
         {
-            DataTable dt = Class.SQL.InputSQLMSSQL(SQLDefault[1].Replace("{TeacherNo}", TBTeacherNo.Text));
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[1].Replace("{TeacherNo}", TBTeacherNo.Text));
             if (TBTeacherName.Text != "")
             {
                 if (Convert.ToInt32(TBStartAmountShare.Text) >= example.GOODS.Menu.startAmountMin && Convert.ToInt32(TBStartAmountShare.Text) <= example.GOODS.Menu.startAmountMax)
                 {
                     if (dt.Rows.Count == 0)
                     {
-                        Class.SQL.InputSQLMSSQL(SQLDefault[0].Replace("{TeacherNo}", TBTeacherNo.Text)
+                        Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("{TeacherNo}", TBTeacherNo.Text)
                             .Replace("{TeacherAddBy}", "Teacher")
                             .Replace("{StartAmount}", TBStartAmountShare.Text)
                             .Replace("{DocPath}", "file"));

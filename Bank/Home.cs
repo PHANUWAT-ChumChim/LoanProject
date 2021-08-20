@@ -20,14 +20,14 @@ namespace example.GOODS
 
         private void Form2_SizeChanged(object sender, EventArgs e)
         {
-            Class.Method.ChangeSizePanal(this, P1);
+            Class.FromSettingMedtod.ChangeSizePanal(this, P1);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
             if (TBTeacherNo.Text.Length == 6)
             {
-                Class.Method.Research(TBTeacherNo.Text, TBTeacherName, TBTeacherBill);
+                Class.SQLMethod.Research(TBTeacherNo.Text, TBTeacherName, TBTeacherBill);
             }
             else
             {

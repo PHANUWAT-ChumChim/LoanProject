@@ -10,7 +10,7 @@ using System.Drawing;
 
 namespace example.Class
 {
-    class Method
+    class SQLMethod
     {
 
         /// <summary> 
@@ -52,15 +52,9 @@ namespace example.Class
 
          };
 
-        public static void ChangeSizePanal(Form myForm, Panel myPanal)
-        {
-            myPanal.Location = new System.Drawing.Point(myForm.Width / 2 - myPanal.Size.Width / 2,
-            myForm.Height / 2 - myPanal.Size.Height / 2);
-        }
-
         public static void Research(string TBTeacherNo, TextBox TBTeacherName, TextBox TBTeacherBill )
         {
-            DataTable dt = Class.SQL.InputSQLMSSQL(SQLDefault[0].Replace("T{TeacherNo}", TBTeacherNo));
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("T{TeacherNo}", TBTeacherNo));
             if (dt.Rows.Count != 0)
             {
                 TBTeacherName.Text = dt.Rows[0][1].ToString();
@@ -80,7 +74,7 @@ namespace example.Class
             {
                 y = 3;
             }
-            DataTable dt = Class.SQL.InputSQLMSSQL(SQLDefault[y].Replace("{TeacherNo}",""));
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[y].Replace("{TeacherNo}",""));
             int count = dt.Rows.Count;
             for (int x = 0; x < count; x++)
             {
@@ -99,12 +93,12 @@ namespace example.Class
             Brush Normal = Brushes.Black;
 
             //string text = "โปรดเลือกสมาชิกในการสมัคร"
-            DataTable dt = Class.SQL.InputSQLMSSQL(SQLDefault[1].Replace("{TeacherNo}",TeacherNo));
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[1].Replace("{TeacherNo}",TeacherNo));
             if (TeacherNo != "")
             {
                 if (dt.Rows.Count == 0)
                 {
-                    DataTable INSERTMember = Class.SQL.InputSQLMSSQL(SQLDefault[2].Replace("{TeacherNo}", TeacherNo)
+                    DataTable INSERTMember = Class.SQLConnection.InputSQLMSSQL(SQLDefault[2].Replace("{TeacherNo}", TeacherNo)
                         .Replace("{TeacherAddBy}", TeacherAddBy)
                         .Replace("{StartAmount}", StartAmount.ToString())
                         .Replace("{DocPath}",DocUploadPath));
