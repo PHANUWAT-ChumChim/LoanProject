@@ -19,6 +19,7 @@ namespace example.Class
         /// <para>[1] Check Register INPUT: {TeacherNo} </para>
         /// <para>[2] INSERT Register Member INPUT:  {TeacherNo} {TeacherAddBy} {StartAmount} {DocPath} </para>
         /// <para>[3] Search Member INPUT: -</para>
+        /// <para>[4] paydataMember INPUT:{TeacherNo} {TeacherLicenseNo} {TeacherIdNo} {TelMobile} {MemberStatusName} {StartAmount}  </para>
         /// </summary> 
         private static String[] SQLDefault = new String[]
          { 
@@ -49,6 +50,15 @@ namespace example.Class
           "WHERE a.MemberStatusNo = 1 \r\n" +
           "ORDER BY a.TeacherNo; "
           ,
+         //[4]  paydataMember INPUT:{TeacherNo}
+          "SELECT Pn.TeacherLicenseNo,Pn.IdNo,Pn.TelMobile,CAST(Ms.MemberStatusName as nvarchar),Mb.StartAmount" +
+          "FROM[Personal].[dbo].[tblTeacherHis] as PnINNER " +
+          "JOIN EmployeeBank.dbo.tblMember as Mb on Pn.TeacherNo = Mb.TeacherNoINNER " +
+          "JOIN EmployeeBank.dbo.tblMemberStatus as Ms on Mb.MemberStatusNo = Ms.MemberStatusNoWHERE    " +
+          "Mb.TeacherNo LIKE '{TeacherNo}' " +
+          "ORDER BY Mb.TeacherNo;"
+          ,
+
 
          };
 
@@ -86,13 +96,26 @@ namespace example.Class
             }
         }
 
+        public static void paydataMember(string TeacherNo,TextBox TeacherLicenseNo,TextBox TeacherIdNo,TextBox TelMobile ,TextBox MemberStatusName,TextBox StartAmount)
+        {
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL
+            (SQLDefault[4].Replace("{TeacherNo}",TeacherNo));
+            if (dt.Rows.Count != 0)
+            {
+                TeacherLicenseNo.Text = dt.Rows[0][1].ToString();
+                TeacherIdNo.Text = dt.Rows[0][2].ToString();
+                TelMobile.Text = dt.Rows[0][3].ToString();
+                MemberStatusName.Text = dt.Rows[0][4].ToString();
+                StartAmount.Text = dt.Rows[0][5].ToString();
+            }
+                
+            
+        }
+
+
 
         public static void TeacherMember(string TeacherNo,string TeacherAddBy, int StartAmount, string DocUploadPath)
         {
-            Font Header01 = new Font("TH Sarabun New", 30, FontStyle.Bold);
-            Brush Normal = Brushes.Black;
-
-            //string text = "โปรดเลือกสมาชิกในการสมัคร"
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[1].Replace("{TeacherNo}",TeacherNo));
             if (TeacherNo != "")
             {

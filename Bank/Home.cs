@@ -16,7 +16,6 @@ namespace example.GOODS
         public Home()
         {
             InitializeComponent();
-            label12.Font = F;
         }
      
 

@@ -12,6 +12,7 @@ namespace example.GOODS
 {
     public partial class pay : Form
     {
+       public static int x = 0;
         public pay(int TabIndex)
         {
             InitializeComponent(); 
@@ -44,6 +45,7 @@ namespace example.GOODS
             if (TBTeacherNo.Text.Length == 6)
             {
                 Class.SQLMethod.Research(TBTeacherNo.Text, TBTeacherName, TBTeacherBill);
+                Class.SQLMethod.paydataMember(TBTeacherNo.Text,TBRl, TBidno, TBTel, TBstatus, TBstra);
             }
             else
             {
@@ -80,34 +82,16 @@ namespace example.GOODS
         }
         private void pay_Load(object sender, EventArgs e)
         {
-         //   List<string[]> sumarrayy = new List<string[]> { };
-         //   //string[] arrayy = new string[sqlite_datareader.FieldCount];
-
-         //   DataSet ID = Method.SQLMethod.InputSQLMSSQLDS
-         //("SELECT [TeacherNo] FROM[Personal].[dbo].[tblTeacherHis]");
-         //   //DataTableReader Dr = ID.CreateDataReader();
-         //   DataTable dt = ID.Tables[0];
-         //   int count = dt.Rows.Count;
-            
-         //   for (int x = 0; x < count; x++)
-         //   {
-         //       if(TB1.Text == dt.Rows[x][0].ToString())
-         //       {
-         //           TB2.Text = dt.Rows[1][0].ToString();
-         //       }
-             
-         //   }
-         
-
-            //DataTable dt = ds.Tables[0];
+            //DataTable dt.Tables[0];
             //int count = dt.Rows.Count;
+
             //for (int x = 0; x < count; x++)
             //{
-            //    dataGridView1.Rows.Add(dt.Rows[x][0], dt.Rows[x][1]);
-            //    if (x % 2 == 1)
+            //    if (TB1.Text == dt.Rows[x][0].ToString())
             //    {
-            //        dataGridView1.Rows[x].DefaultCellStyle.BackColor = Color.AntiqueWhite;
+            //        TB2.Text = dt.Rows[1][0].ToString();
             //    }
+
             //}
         }
         public void tabPage2_Click(object sender, EventArgs e)
@@ -200,6 +184,35 @@ namespace example.GOODS
         private void button4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void CBB4Oppay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void BTAdd_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.Rows.ToString() != "")
+            {
+                CBB4Oppay.Enabled = true;
+                x += int.Parse(TBStartAmountShare.Text);
+                label5.Text = x.ToString();
+            }
+            dataGridView1.Rows.Add(DateTime.Today.Date.ToString(),CBStatus.Text, TBStartAmountShare.Text);
+           
+            //DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[];
+            //row.Cells[1].Value = CBStatus.SelectedItem.ToString();
+            //row.Cells[2].Value = TBStartAmountShare.Text;
+            //dataGridView1.Rows.Add(row);
+        }
+
+        private void CBB4Oppay_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (CBB4Oppay.SelectedIndex != -1)
+            {
+                BTsave.Enabled = true;
+            }
         }
     }
 }

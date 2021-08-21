@@ -99,11 +99,6 @@ namespace example.Bank
             TB_Min.Font = FontSetting;
             B_Save.Font = FontSetting;
             B_Cancel.Font = FontSetting;
-
-            GOODS.Home H = new GOODS.Home();
-            H.Refresh();
-            H.ResetText();
-            Class.FromSettingMedtod.ResetAllControls(H);
         }
 
         private void TB_Min_KeyPress(object sender, KeyPressEventArgs e)

@@ -39,7 +39,7 @@ namespace example.GOODS
                 startAmountMin = Convert.ToInt32(dt.Rows[0][1]);
                 startAmountMax = Convert.ToInt32(dt.Rows[0][2]);
         }
-        private void CloseFrom(Form F)
+        public void CloseFrom(Form F)
         {
             foreach (Form Menu in this.MdiChildren)
             {
@@ -49,7 +49,7 @@ namespace example.GOODS
                     return;
             }
             F.MdiParent = this;
-            //F.WindowState = FormWindowState.Maximized;
+            F.WindowState = FormWindowState.Maximized;
             F.Show();
         }
         public void shareinformation(object sender, EventArgs e)

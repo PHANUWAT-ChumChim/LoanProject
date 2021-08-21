@@ -27,13 +27,11 @@ namespace example.GOODS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string a ="",b ="";
-            //dataGridView1.Rows.Add(textBox1.Text[0], textBox2.Text[1]/*, textBox3.Text, checkedListBox1.CheckedItems[0].ToString()*/);
-           a = textBox1.Text;
-           b = textBox2.Text;
-            DataSet dss = Class.SQLConnection.InputSQLMSSQLDS
-            ($"INSERT INTO Poon_Item.dbo.tblItem(ItemID,ItemName)VALUES('{a}','{b}');");
-            //DataTable dt = dss.Tables[0];
+            dataGridView1.Rows.Add(textBox1.Text[0], textBox2.Text[1]/*, textBox3.Text, checkedListBox1.CheckedItems[0].ToString()*/);
+           
+            //DataSet dss = Class.SQLConnection.InputSQLMSSQLDS
+            //($"INSERT INTO Poon_Item.dbo.tblItem(ItemID,ItemName)VALUES('{a}','{b}');");
+            ////DataTable dt = dss.Tables[0];
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -69,25 +67,25 @@ namespace example.GOODS
 
         public void Orders_Load(object sender, EventArgs e)
         {
-            table.Columns.Add("ID",Type.GetType("System.String"));
-            table.Columns.Add("ชื่อสินค้า", Type.GetType("System.String"));
-            table.Columns.Add("ราคา", Type.GetType("System.String"));
-            table.Columns.Add("ประเภท", Type.GetType("System.String"));
-            dataGridView3.DataSource = table;
+            //table.Columns.Add("ID",Type.GetType("System.String"));
+            //table.Columns.Add("ชื่อสินค้า", Type.GetType("System.String"));
+            //table.Columns.Add("ราคา", Type.GetType("System.String"));
+            //table.Columns.Add("ประเภท", Type.GetType("System.String"));
+            //dataGridView3.DataSource = table;
 
-            DataSet ds = Class.SQLConnection.InputSQLMSSQLDS
-            ("SELECT ItemID,CAST(ItemName as NVARCHAR) FROM Poon_Item.dbo.tblItem;");
+            //DataSet ds = Class.SQLConnection.InputSQLMSSQLDS
+            //("SELECT ItemID,CAST(ItemName as NVARCHAR) FROM Poon_Item.dbo.tblItem;");
            
-            DataTable dt = ds.Tables[0];
-            int count = dt.Rows.Count;
-            for (int x = 0; x < count; x++)
-            {
-                dataGridView1.Rows.Add(dt.Rows[x][0], dt.Rows[x][1]);
-                if (x % 2 == 1)
-                {
-                    dataGridView1.Rows[x].DefaultCellStyle.BackColor = Color.AntiqueWhite;
-                }
-            }
+            //DataTable dt = ds.Tables[0];
+            //int count = dt.Rows.Count;
+            //for (int x = 0; x < count; x++)
+            //{
+            //    dataGridView1.Rows.Add(dt.Rows[x][0], dt.Rows[x][1]);
+            //    if (x % 2 == 1)
+            //    {
+            //        dataGridView1.Rows[x].DefaultCellStyle.BackColor = Color.AntiqueWhite;
+            //    }
+            //}
 
            
         }
