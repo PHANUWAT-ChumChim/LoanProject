@@ -39,6 +39,9 @@ namespace example.Bank
             this.CLpassword = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CLname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CLdepartment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CBStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CLIDBILL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CLSaving = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,7 +64,10 @@ namespace example.Bank
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CLpassword,
             this.CLname,
-            this.CLdepartment});
+            this.CLdepartment,
+            this.CBStatus,
+            this.CLIDBILL,
+            this.CLSaving});
             this.dataGridView1.Location = new System.Drawing.Point(1, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -111,12 +117,39 @@ namespace example.Bank
             // 
             dataGridViewCellStyle4.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CLdepartment.DefaultCellStyle = dataGridViewCellStyle4;
-            this.CLdepartment.HeaderText = "สถานะการใช้งาน";
+            this.CLdepartment.HeaderText = "เลขบัตรประชาชน";
             this.CLdepartment.MinimumWidth = 6;
             this.CLdepartment.Name = "CLdepartment";
             this.CLdepartment.ReadOnly = true;
             this.CLdepartment.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.CLdepartment.Width = 179;
+            // 
+            // CBStatus
+            // 
+            this.CBStatus.HeaderText = "สถาณะการใช้งาน";
+            this.CBStatus.MinimumWidth = 6;
+            this.CBStatus.Name = "CBStatus";
+            this.CBStatus.ReadOnly = true;
+            this.CBStatus.Visible = false;
+            this.CBStatus.Width = 125;
+            // 
+            // CLIDBILL
+            // 
+            this.CLIDBILL.HeaderText = "เลขบิล";
+            this.CLIDBILL.MinimumWidth = 6;
+            this.CLIDBILL.Name = "CLIDBILL";
+            this.CLIDBILL.ReadOnly = true;
+            this.CLIDBILL.Visible = false;
+            this.CLIDBILL.Width = 125;
+            // 
+            // CLSaving
+            // 
+            this.CLSaving.HeaderText = "หุ้นสะสม";
+            this.CLSaving.MinimumWidth = 6;
+            this.CLSaving.Name = "CLSaving";
+            this.CLSaving.ReadOnly = true;
+            this.CLSaving.Visible = false;
+            this.CLSaving.Width = 125;
             // 
             // Search
             // 
@@ -141,5 +174,8 @@ namespace example.Bank
         private System.Windows.Forms.DataGridViewTextBoxColumn CLpassword;
         private System.Windows.Forms.DataGridViewTextBoxColumn CLname;
         private System.Windows.Forms.DataGridViewTextBoxColumn CLdepartment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CBStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CLIDBILL;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CLSaving;
     }
 }
