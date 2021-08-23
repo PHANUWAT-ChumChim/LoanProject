@@ -108,12 +108,7 @@ namespace example.Class
                 MemberStatusName.Text = dt.Rows[0][4].ToString();
                 StartAmount.Text = dt.Rows[0][5].ToString();
             }
-                
-            
         }
-
-
-
         public static void TeacherMember(string TeacherNo,string TeacherAddBy, int StartAmount, string DocUploadPath)
         {
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[1].Replace("{TeacherNo}",TeacherNo));
