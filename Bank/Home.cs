@@ -25,7 +25,8 @@ namespace example.GOODS
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
-        {            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
+        { 
+            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
             if (TBTeacherNo.Text.Length == 6)
             {
                 Class.SQLMethod.Research(TBTeacherNo.Text, TBTeacherName, TBTeacherBill);
@@ -47,9 +48,9 @@ namespace example.GOODS
                 TBTeacherName.Text = Bank.Search.Return[1];
                 TBTeacherBill.Text = Bank.Search.Return[2];
             }
-            catch
+            catch(Exception x)
             {
-
+                Console.WriteLine( x );
             }
 
         }
