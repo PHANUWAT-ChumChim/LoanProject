@@ -631,8 +631,8 @@ namespace example.Bank
             this.panel7.Location = new System.Drawing.Point(0, 0);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(1165, 134);
-            this.panel7.TabIndex = 63;
-            // 
+            this.panel7.TabIndex = 63
+            //
             // TBSavingAmount
             // 
             this.TBSavingAmount.Enabled = false;
@@ -653,7 +653,6 @@ namespace example.Bank
             this.label4.Size = new System.Drawing.Size(85, 37);
             this.label4.TabIndex = 90;
             this.label4.Text = "หุ้นสะสม";
-            // 
             // TBLoanStatus
             // 
             this.TBLoanStatus.Enabled = false;
@@ -674,7 +673,6 @@ namespace example.Bank
             this.BL.Size = new System.Drawing.Size(71, 37);
             this.BL.TabIndex = 88;
             this.BL.Text = "สถานะ";
-            // 
             // TBLoanNo
             // 
             this.TBLoanNo.Enabled = false;
@@ -709,6 +707,7 @@ namespace example.Bank
             this.BSearchTeacher.Size = new System.Drawing.Size(43, 43);
             this.BSearchTeacher.TabIndex = 85;
             this.BSearchTeacher.UseVisualStyleBackColor = false;
+            this.BSearchTeacher.Click += new System.EventHandler(this.BSearchTeacher_Click);
             // 
             // TBTeacherName
             // 
@@ -726,6 +725,7 @@ namespace example.Bank
             this.TBTeacherNo.Name = "TBTeacherNo";
             this.TBTeacherNo.Size = new System.Drawing.Size(230, 43);
             this.TBTeacherNo.TabIndex = 82;
+            this.TBTeacherNo.TextChanged += new System.EventHandler(this.TBTeacherNo_TextChanged);
             // 
             // LB2Ne
             // 

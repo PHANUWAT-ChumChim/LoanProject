@@ -20,6 +20,7 @@ namespace example.Class
         /// <para>[2] INSERT Register Member INPUT:  {TeacherNo} {TeacherAddBy} {StartAmount} {DocPath} </para>
         /// <para>[3] Search Member INPUT: -</para>
         /// <para>[4] paydataMember INPUT:{TeacherNo} {TeacherLicenseNo} {TeacherIdNo} {TelMobile} {MemberStatusName} {StartAmount}  </para>
+        /// <para>[5] Search LoanMember INPUT: {TeacherNo} </para>
         /// </summary> 
         private static String[] SQLDefault = new String[]
          { 
@@ -58,6 +59,17 @@ namespace example.Class
           "Mb.TeacherNo LIKE '{TeacherNo}' " +
           "ORDER BY Mb.TeacherNo;"
           ,
+          //[5] Search LoanMember INPUT: {TeacherNo}
+          "SELECT a.TeacherNo , CAST(c.PrefixName+' '+[Fname] +' '+ [Lname] as NVARCHAR), b.IdNo , e.LoanStatusName, d.LoanNo,f.SavingAmount \r\n " +
+          "FROM EmployeeBank.dbo.tblMember as a \r\n " +
+          "LEFT JOIN Personal.dbo.tblTeacherHis as b ON a.TeacherNo = b.TeacherNo \r\n " +
+          "LEFT JOIN BaseData.dbo.tblPrefix as c ON b.PrefixNo = c.PrefixNo \r\n " +
+          "LEFT JOIN EmployeeBank.dbo.tblLoan as d ON a.TeacherNo = d.TeacherNo \r\n " +
+          "LEFT JOIN EmployeeBank.dbo.tblLoanStatus as e ON d.LoanStatusNo = e.LoanStatusNo \r\n " +
+          "LEFT JOIN EmployeeBank.dbo.tblShare as f ON a.TeacherNo = f.TeacherNo \r\n " +
+          "WHERE a.TeacherNo LIKE 'T{TeacherNo}%' and a.MemberStatusNo = 1 \r\n" +
+          "ORDER BY a.TeacherNo ; "
+          ,
 
 
          };
@@ -71,10 +83,22 @@ namespace example.Class
                 TBTeacherBill.Text = dt.Rows[0][2].ToString();
             }
         }
+        public static void ReSearchLoan (String TBTeacherNo , TextBox TBTeacherNane , TextBox TBLoanid , TextBox TBLoanStatus , TextBox TBSaving)
+        {
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[5].Replace("T{TeacherNo}", TBTeacherNo));
+            if (dt.Rows.Count != 0)
+            {
+                TBTeacherNane.Text = dt.Rows[0][1].ToString();
+                TBLoanStatus.Text = dt.Rows[0][3].ToString();
+                TBLoanid.Text = dt.Rows[0][4].ToString();
+                TBSaving.Text = dt.Rows[0][5].ToString();
+            }
+        }
         ///<summary>
         /// <para>[AllTeacher_or_Member]</para> 
         /// <para>ถ้าใส่ 0 จะหาอาจารย์ทั้งหมด</para>
-        /// <para>ใส่ 1 จะหาแค่อาจารยฺ์ที่สมัครสมาชิกแล้ว ( สถาณะ ใช้งานเท่านั้น )</para>
+        /// <para>ใส่ 1 จะหาแค่อาจารยฺ์ที่สมัครสมาชิกแล้ว ( สถาณะ ใช้งานเท่านั้น ) Return : รหัสอาจารย์ ชื่อ เลขบัตรปชช.</para>
+        /// <para>ใส่ 2 จะหาอาจารย์ที่สมัครสมาชิกแล้ว แต่มีข้อมูลสำหรับการกู้เพิ่มเข้ามา (สถาณะใช้งานเท่านั้น) Return : รหัสอาจารย์ ชื่อ เลขบัตรปชช. สถาณะ เลขที่สัญญากู้ หุ้นสะสม</para>
         ///</summary>
         public static void Search(DataGridView G , int AllTeacher_or_Member)
         {
@@ -84,14 +108,34 @@ namespace example.Class
             {
                 y = 3;
             }
-            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[y].Replace("{TeacherNo}",""));
-            int count = dt.Rows.Count;
-            for (int x = 0; x < count; x++)
+            else if(AllTeacher_or_Member == 2)
             {
-                G.Rows.Add(dt.Rows[x][0], dt.Rows[x][1], dt.Rows[x][2]);
-                if (x % 2 == 1)
+                y = 5;
+            }
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[y].Replace("{TeacherNo}",""));
+
+            if (y == 0 || y == 3)
+            {
+                for (int x = 0; x < dt.Rows.Count; x++)
                 {
-                    G.Rows[x].DefaultCellStyle.BackColor = Color.AliceBlue;
+                    G.Rows.Add(dt.Rows[x][0], dt.Rows[x][1], dt.Rows[x][2],"","","","");
+
+                    if (x % 2 == 1)
+                    {
+                        G.Rows[x].DefaultCellStyle.BackColor = Color.AliceBlue;
+                    }
+                }
+            }
+            else if (y == 5)
+            {
+                for (int x = 0; x < dt.Rows.Count; x++)
+                {
+                    G.Rows.Add(dt.Rows[x][0], dt.Rows[x][1], dt.Rows[x][2], dt.Rows[x][3], dt.Rows[x][4], dt.Rows[x][5]);
+
+                    if (x % 2 == 1)
+                    {
+                        G.Rows[x].DefaultCellStyle.BackColor = Color.AliceBlue;
+                    }
                 }
             }
         }
