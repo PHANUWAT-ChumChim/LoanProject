@@ -279,7 +279,6 @@ namespace example.Bank
             this.TBStartAmountShare.Size = new System.Drawing.Size(262, 43);
             this.TBStartAmountShare.TabIndex = 16;
             this.TBStartAmountShare.Text = "0";
-            this.TBStartAmountShare.TextChanged += new System.EventHandler(this.TBStartAmountShare_TextChanged);
             this.TBStartAmountShare.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TBStartAmountShare_KeyPress);
             // 
             // tabPage3
@@ -336,12 +335,12 @@ namespace example.Bank
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Red;
             this.label5.Location = new System.Drawing.Point(4, 3);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(359, 32);
+            this.label5.Size = new System.Drawing.Size(244, 36);
             this.label5.TabIndex = 18;
             this.label5.Text = "*เอกสารในการสมัครชิกสหกร์ครู";
             // 

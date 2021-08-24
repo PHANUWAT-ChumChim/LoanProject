@@ -389,6 +389,7 @@ namespace example.GOODS
             // 
             // TBStartAmountShare
             // 
+            this.TBStartAmountShare.Enabled = false;
             this.TBStartAmountShare.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TBStartAmountShare.Location = new System.Drawing.Point(334, 14);
             this.TBStartAmountShare.Name = "TBStartAmountShare";
@@ -579,6 +580,7 @@ namespace example.GOODS
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(1123, 256);
             this.dataGridView1.TabIndex = 99;
+            this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseClick);
             // 
             // Column1
             // 

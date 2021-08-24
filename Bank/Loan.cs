@@ -69,9 +69,9 @@ namespace example.Bank
                 IN.ShowDialog();
                 TBTeacherNo.Text = Bank.Search.Return[0];
                 TBTeacherName.Text = Bank.Search.Return[1];
-                TB_LoanStatus.Text = Bank.Search.Return[3];
-                TB_IdLoan.Text = Bank.Search.Return[4];
-                TB_Saving.Text = Bank.Search.Return[5];
+                TBLoanNo.Text = Bank.Search.Return[6];
+                TBLoanStatus.Text = Bank.Search.Return[7];
+                TBLoanAmount.Text = Bank.Search.Return[9];
             }
             catch (Exception x)
             {
@@ -84,13 +84,17 @@ namespace example.Bank
             //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
             if (TBTeacherNo.Text.Length == 6)
             {
-                Class.SQLMethod.ReSearchLoan(TBTeacherNo.Text, TBTeacherName, TB_IdLoan,TB_LoanStatus,TB_Saving);
+                Class.SQLMethod.ReSearchLoan(TBTeacherNo.Text, TBTeacherName, TBLoanNo, TBLoanStatus, TBSavingAmount);
             }
         }
         
         private void BSave_Click(object sender, EventArgs e)
         {
+            if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
+            {
+                printDocument1.Print();
 
+            }
         }
         private void TBGuarantorNo_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -307,9 +311,59 @@ namespace example.Bank
             e.Graphics.DrawString(Text,
                 fontText, brush, new PointF(StartLoc, LocY));
         }
-
         public int CurrentRows = 0;
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+     
+        public void Header(System.Drawing.Printing.PrintPageEventArgs e, Brush brush)
+        {
+            int Y = 50;
+            int SpacePerRow = 25;
+            //int CurrentRows = 0;
+            Font Header01 = new Font("TH Sarabun New", 20, FontStyle.Bold);
+            //Font Normal01 = new Font("TH Sarabun New", 18, FontStyle.Regular);
+            String[] Head = new String[] { "APPLICATION FOR EMPLOYMENT", "ใบสมัครงาน", "กรอกข้อมูลด้วยตัวท่านเอง", "(To be completed in own handwriting)" };
+
+            for (int Num = 0; Num < 4; Num++)
+            {
+                if (Num == 2)
+                    Header01 = new Font("TH Sarabun New", 18, FontStyle.Regular);
+                SizeF SizeString = e.Graphics.MeasureString(Head[Num], Header01);
+                float StartLoc = e.PageBounds.Width / 2 - SizeString.Width / 2;
+                e.Graphics.DrawString(Head[Num],
+                Header01, brush, new PointF(StartLoc, Y + (SpacePerRow * CurrentRows++)));
+            }
+        }
+        public void Rect(System.Drawing.Printing.PrintPageEventArgs e, Pen ColorRect, int WidthSize, int HeightSize, float LocY, float LocX)
+        {
+            //float x = e.PageBounds.Width - 50 - 125;
+            e.Graphics.DrawRectangle(ColorRect, LocX, LocY, WidthSize, HeightSize);
+        }
+        public void PrintBody(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font font, Brush brush)
+        {
+            float LocX = 96;
+            e.Graphics.DrawString(Text, font, brush, LocX, LocY);
+        }
+        public void PrintCheckBoxList(System.Drawing.Printing.PrintPageEventArgs e, float LocX, float LocY, Font font, Brush brush, List<String> AllCheckBox, float SpaceCheckList)
+        {
+            Pen ColorRect = new Pen(Color.Black);
+
+            //for (int Num = 0; Num < AllCheckBox.Count; Num++)
+            //{
+            //    SizeF SizeText = e.Graphics.MeasureString(AllCheckBox[Num], Normal01);
+            //    PrintCheckBoxList(e, SpaceX + (37 * (Num + 1)), Y + (SpacePerRow * CurrentRows), AllCheckBox[Num], Normal01, Normal);
+            //    SpaceX += SizeText.Width;
+            //}
+
+            for (int Num = 0; Num < AllCheckBox.Count; Num++)
+            {
+                SizeF SizeText = e.Graphics.MeasureString(AllCheckBox[Num], font);
+                e.Graphics.DrawString(AllCheckBox[Num], font, brush, LocX + (SpaceCheckList * (Num + 1)), LocY);
+                Rect(e, ColorRect, 15, 15, LocY + 20, LocX + (SpaceCheckList * (Num + 1)) - 17);
+                LocX += SizeText.Width;
+            }
+
+        }
+
+        private void printDocument1_PrintPage_1(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             int PageX = (e.PageBounds.Width);
             int PageY = (e.PageBounds.Height);
@@ -431,55 +485,6 @@ namespace example.Bank
 
             //e.Graphics.DrawString(DTPStartDate.Text, new Font("TH Sarabun New", 18, FontStyle.Regular), Brushes.Black, new PointF(0, 60));
 
-
-        }
-        public void Header(System.Drawing.Printing.PrintPageEventArgs e, Brush brush)
-        {
-            int Y = 50;
-            int SpacePerRow = 25;
-            //int CurrentRows = 0;
-            Font Header01 = new Font("TH Sarabun New", 20, FontStyle.Bold);
-            //Font Normal01 = new Font("TH Sarabun New", 18, FontStyle.Regular);
-            String[] Head = new String[] { "APPLICATION FOR EMPLOYMENT", "ใบสมัครงาน", "กรอกข้อมูลด้วยตัวท่านเอง", "(To be completed in own handwriting)" };
-
-            for (int Num = 0; Num < 4; Num++)
-            {
-                if (Num == 2)
-                    Header01 = new Font("TH Sarabun New", 18, FontStyle.Regular);
-                SizeF SizeString = e.Graphics.MeasureString(Head[Num], Header01);
-                float StartLoc = e.PageBounds.Width / 2 - SizeString.Width / 2;
-                e.Graphics.DrawString(Head[Num],
-                Header01, brush, new PointF(StartLoc, Y + (SpacePerRow * CurrentRows++)));
-            }
-        }
-        public void Rect(System.Drawing.Printing.PrintPageEventArgs e, Pen ColorRect, int WidthSize, int HeightSize, float LocY, float LocX)
-        {
-            //float x = e.PageBounds.Width - 50 - 125;
-            e.Graphics.DrawRectangle(ColorRect, LocX, LocY, WidthSize, HeightSize);
-        }
-        public void PrintBody(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font font, Brush brush)
-        {
-            float LocX = 96;
-            e.Graphics.DrawString(Text, font, brush, LocX, LocY);
-        }
-        public void PrintCheckBoxList(System.Drawing.Printing.PrintPageEventArgs e, float LocX, float LocY, Font font, Brush brush, List<String> AllCheckBox, float SpaceCheckList)
-        {
-            Pen ColorRect = new Pen(Color.Black);
-
-            //for (int Num = 0; Num < AllCheckBox.Count; Num++)
-            //{
-            //    SizeF SizeText = e.Graphics.MeasureString(AllCheckBox[Num], Normal01);
-            //    PrintCheckBoxList(e, SpaceX + (37 * (Num + 1)), Y + (SpacePerRow * CurrentRows), AllCheckBox[Num], Normal01, Normal);
-            //    SpaceX += SizeText.Width;
-            //}
-
-            for (int Num = 0; Num < AllCheckBox.Count; Num++)
-            {
-                SizeF SizeText = e.Graphics.MeasureString(AllCheckBox[Num], font);
-                e.Graphics.DrawString(AllCheckBox[Num], font, brush, LocX + (SpaceCheckList * (Num + 1)), LocY);
-                Rect(e, ColorRect, 15, 15, LocY + 20, LocX + (SpaceCheckList * (Num + 1)) - 17);
-                LocX += SizeText.Width;
-            }
 
         }
         //private void BPrintLoanDoc_Click(object sender, EventArgs e)

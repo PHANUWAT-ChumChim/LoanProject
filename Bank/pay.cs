@@ -13,10 +13,14 @@ namespace example.GOODS
     public partial class pay : Form
     {
        public static int x = 0;
+       public static int SelectIndexRowDelete = -1;
         public pay(int TabIndex)
         {
             InitializeComponent(); 
             tabControl1.SelectedIndex = TabIndex;
+            Font F = new Font("TH Sarabun New",16, FontStyle.Regular);
+            dataGridView1.Font = F;
+            dataGridView2.Font = F;
         }
         //private void pictureBox13_Click(object sender, EventArgs e)
         //{
@@ -44,8 +48,7 @@ namespace example.GOODS
             //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
             if (TBTeacherNo.Text.Length == 6)
             {
-                Class.SQLMethod.Research(TBTeacherNo.Text, TBTeacherName, TBTeacherBill);
-                Class.SQLMethod.paydataMember(TBTeacherNo.Text,TBRl, TBidno, TBTel, TBstatus, TBstra);
+                Class.SQLMethod.ResearhMerberANDinformation(TBTeacherNo.Text,TBTeacherName,TBTeacherBill,TBRl, TBidno, TBTel, TBstatus, TBstra);
             }
             else
             {
@@ -168,7 +171,7 @@ namespace example.GOODS
 
         private void BSearchTeacher_Click(object sender, EventArgs e)
         {
-           Bank.Search  IN = new Bank.Search(1);
+           Bank.Search  IN = new Bank.Search(2);
             IN.ShowDialog();
             TBTeacherNo.Text = Bank.Search.Return[0];
         }
@@ -212,6 +215,33 @@ namespace example.GOODS
             if (CBB4Oppay.SelectedIndex != -1)
             {
                 BTsave.Enabled = true;
+            }
+        }
+
+        private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                int currentMouseOverRow = dataGridView1.HitTest(e.X, e.Y).RowIndex;
+                if (currentMouseOverRow != -1)
+                {
+                    SelectIndexRowDelete = currentMouseOverRow;
+                    ContextMenu m = new ContextMenu();
+                    m.MenuItems.Add(new MenuItem("ลบออก"));
+                    m.Show(dataGridView1, new Point(e.X, e.Y));
+                    m.MenuItems[0].Click += new System.EventHandler(this.Delete_Click);
+                }
+            }
+        
+          
+        }
+        private void Delete_Click(object sender, EventArgs e)
+        {
+            if (SelectIndexRowDelete != -1)
+            {
+                dataGridView1.Rows.RemoveAt(SelectIndexRowDelete);
+                SelectIndexRowDelete = -1;
+
             }
         }
     }

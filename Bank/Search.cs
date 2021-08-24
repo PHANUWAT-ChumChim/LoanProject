@@ -26,7 +26,7 @@ namespace example.Bank
             Return = new String[]{""};
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            Class.SQLMethod.Search(dataGridView1, AllTeacher_or_Member);
+            Class.SQLMethod.SearchINNserDataGridView(dataGridView1, AllTeacher_or_Member);
             ChoiceSQL = AllTeacher_or_Member;
         }
 

@@ -29,7 +29,7 @@ namespace example.GOODS
             //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
             if (TBTeacherNo.Text.Length == 6)
             {
-                Class.SQLMethod.Research(TBTeacherNo.Text, TBTeacherName, TBTeacherBill);
+                Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBTeacherBill);
             }
             else
             {
@@ -42,7 +42,7 @@ namespace example.GOODS
         {
             try
             {
-                Bank.Search IN = new Bank.Search(1);
+                Bank.Search IN = new Bank.Search(2);
                 IN.ShowDialog();
                 TBTeacherNo.Text = Bank.Search.Return[0];
                 TBTeacherName.Text = Bank.Search.Return[1];
