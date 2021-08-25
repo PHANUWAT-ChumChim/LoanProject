@@ -21,7 +21,15 @@ namespace example.Bank
         {
             Class.FromSettingMedtod.ChangeSizePanal(this, panel1);
         }
-        private String[] SQLDefault = new String[]
+        DateTime DateTime;
+
+        /// <summary> 
+        /// SQLDafaultLoan 
+        /// <para>[0] SELECT TeacherName Data INPUT:{TeacherNo} </para> 
+        /// <para>[1] SELECT Guarantor Credit Limit INPUT:{GuarantorNo} </para>
+        /// <para>[2] SELECT Date Data </para>
+        /// </summary> 
+        private String[] SQLDefaultLoan = new String[]
         {
             //[0] SELECT TeacherName Data INPUT:{TeacherNo} 
             "select a.TeacherNo, CAST(ISNULL(c.PrefixNameFull,'') + b.Fname + ' ' + b.Lname as nvarchar) \r\n" +
@@ -31,17 +39,19 @@ namespace example.Bank
             "Where a.TeacherNo = '{TeacherNo}'; \r\n\r\n",
 
             //[1] SELECT CreditLimit Data INPUT:{GuarantorNo}
-            "select a.TeacherNo , SUM(a.SavingAmount) - SUM(c.Amount) \r\n" +
-            "from EmployeeBank.dbo.tblShare as a \r\n" +
-            "left join EmployeeBank.dbo.tblLoan as b on a.TeacherNo = b.TeacherNo \r\n" +
-            "left join EmployeeBank.dbo.tblGuarantor as c on b.LoanNo = c.LoanNo \r\n" +
-            "Where b.LoanStatusNo <= 2 AND a.TeacherNo = '{GuarantorNo}' \r\n" +
-            "Group by a.TeacherNo; \r\n\r\n",
+            "SELECT a.TeacherNo , d.SavingAmount - SUM(b.Amount)\r\n" +
+            "FROM EmployeeBank.dbo.tblMember as a\r\n" +
+            "LEFT JOIN EmployeeBank.dbo.tblGuarantor as b on a.TeacherNo = b.TeacherNo\r\n" +
+            "LEFT JOIN EmployeeBank.dbo.tblLoan as c on b.LoanNo = c.LoanNo\r\n" +
+            "LEFT JOIN EmployeeBank.dbo.tblShare as d on a.TeacherNo = d.TeacherNo\r\n" +
+            "WHERE a.TeacherNo = '{GuarantorNo}' AND c.LoanStatusNo <= 2\r\n" +
+            "GROUP BY a.TeacherNo , d.SavingAmount;\r\n"
+            ,
 
             //[2] SELECT Date Data
             "SELECT CAST(CURRENT_TIMESTAMP as DATE); \r\n\r\n",
         };
-
+        
         private void label4_Click(object sender, EventArgs e)
         {
 
@@ -58,10 +68,10 @@ namespace example.Bank
 
         private void Loan_Load(object sender, EventArgs e)
         {
-            DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(SQLDefault[2]);
+            DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[2]);
             DataTable dt = ds.Tables[0];
-            DateTime date = DateTime.Parse(dt.Rows[0][0].ToString());
-            int Year = int.Parse(date.ToString("yyyy"));
+            DateTime = DateTime.Parse(dt.Rows[0][0].ToString());
+            int Year = int.Parse(DateTime.ToString("yyyy"));
             for(int Num = 0;Num < 5; Num++)
             {
                 CBPayYear.Items.Add(Year);
@@ -90,9 +100,32 @@ namespace example.Bank
         private void TBTeacherNo_TextChanged(object sender, EventArgs e)
         {
             //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
+            int RowDGV = 0;
             if (TBTeacherNo.Text.Length == 6)
             {
                 Class.SQLMethod.ReSearchLoan(TBTeacherNo.Text, TBTeacherName, TBLoanNo, TBLoanStatus, TBSavingAmount);
+
+                DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
+                    SQLDefaultLoan[0].Replace("{TeacherNo}", TBTeacherNo.Text) +
+
+                    SQLDefaultLoan[1].Replace("{GuarantorNo}", TBTeacherNo.Text));
+
+                DataTable dtTeacherName = ds.Tables[0];
+                DataTable dtGuarantorCredit = ds.Tables[1];
+                DGVGuarantor.Rows.Add(dtGuarantorCredit.Rows[0][0], dtTeacherName.Rows[0][1], dtGuarantorCredit.Rows[0][1]);
+                RowDGV = DGVGuarantor.Rows.Count;
+            }
+            else
+            {
+                TBTeacherNo.Text = "";
+                TBTeacherName.Text = "";
+                TBLoanNo.Text = "";
+                TBLoanStatus.Text = "";
+                TBSavingAmount.Text = "";
+                if(DGVGuarantor.Rows.Count > 0)
+                {
+                    DGVGuarantor.Rows.RemoveAt(RowDGV - 1);
+                }
             }
         }
         
@@ -113,17 +146,27 @@ namespace example.Bank
                 if (DGVGuarantor.Rows.Count <= 4)
                 {
                     DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
-                        SQLDefault[0]
+                        SQLDefaultLoan[0]
                         .Replace("{TeacherNo}", TBGuarantorNo.Text) +
 
-                        SQLDefault[1]
+                        SQLDefaultLoan[1]
                         .Replace("{GuarantorNo}", TBGuarantorNo.Text));
                     DataTable dtGuarantorName = ds.Tables[0];
                     DataTable dtSavingAmount = ds.Tables[1];
-                    if (dtGuarantorName.Rows.Count != 0)
+                    if (dtGuarantorName.Rows.Count != 0 && dtSavingAmount.Rows.Count != 0)
                     {
+                        if (int.Parse(dtSavingAmount.Rows[0][1].ToString()) != 0)
+                        {
+                            DGVGuarantor.Rows.Add(dtSavingAmount.Rows[0][0].ToString(),
+                                dtGuarantorName.Rows[0][1].ToString(),
+                                dtSavingAmount.Rows[0][1].ToString());
+                        }
+                        else
+                        {
+                            MessageBox.Show("ไม่มียอดเงินที่ใช้ค้ำได้ โปรดเลือกบุคคลอื่น", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        
 
-                        DGVGuarantor.Rows.Add(dtGuarantorName.Rows[0][1], dtSavingAmount.Rows[0][1]);
 
                     }
                     else
@@ -168,22 +211,24 @@ namespace example.Bank
                 
                 for (int Num = 0; Num < int.Parse(TBPayNo.Text); Num++)
                 {
-                    Double Allpay = Pay + Interest;
+                    Double AllpayD = Pay + Interest;
+                    int AllPay = 0;
                     Month++;
                     if (Month > 12)
                     {
                         Month = 1;
                         Year++;
                     }
-                    if((!IsInt(Allpay)) && (Num == (int.Parse(TBPayNo.Text) - 1)))
+                    if((!IsInt(AllpayD)) && (Num == (int.Parse(TBPayNo.Text) - 1)))
                     {
-                        Allpay -= 1;
+                        AllpayD -= 1;
                     }
-                    else if (!IsInt(Allpay))
+                    else if (!IsInt(AllpayD))
                     {
-                        Allpay += 1;
+                        AllpayD += 1;
                     }
-                    DGVLoanDetail.Rows.Add($"{Month}/{Year}", Pay.ToString(), Interest.ToString(), (Allpay).ToString());
+                    AllPay = Convert.ToInt32(AllpayD);
+                    DGVLoanDetail.Rows.Add($"{Month}/{Year}", Pay.ToString(), Interest.ToString(), AllPay.ToString());
                 }
 
             }
@@ -259,6 +304,14 @@ namespace example.Bank
                     TBLoanAmount.Focus();
                 }
             }
+            if(int.Parse(CBPayMonth.Text) < int.Parse(DateTime.ToString("MM")) && int.Parse(CBPayYear.Text) < int.Parse(DateTime.ToString("yyyy")))
+            {
+                if(MessageBox.Show("คุณยืนยันที่จะใส่เป็นเดือนที่ผ่านมาหรือไม่", "แจ้งเตือน", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    CBPayMonth.Text = "";
+                    CBPayMonth.Focus();
+                }
+            }
         }
 
         private void CBPayYear_SelectedIndexChanged(object sender, EventArgs e)
@@ -277,6 +330,14 @@ namespace example.Bank
                 }
 
             }
+            if (int.Parse(CBPayMonth.Text) < int.Parse(DateTime.ToString("MM")) && int.Parse(CBPayYear.Text) < int.Parse(DateTime.ToString("yyyy")))
+            {
+                if (MessageBox.Show("คุณยืนยันที่จะใส่เป็นเดือนที่ผ่านมาแล้วหรือไม่", "แจ้งเตือน", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    CBPayMonth.Text = "";
+                    CBPayMonth.Focus();
+                }
+            }
         }
 
         private void TBTeacherNo_KeyDown(object sender, KeyEventArgs e)
@@ -286,7 +347,7 @@ namespace example.Bank
                 if (e.KeyCode == Keys.Enter)
                 {
                     DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
-                        SQLDefault[0]
+                        SQLDefaultLoan[0]
                         .Replace("{TeacherNo}", TBTeacherNo.Text));
                     DataTable dtTeacher = ds.Tables[0];
 
@@ -523,6 +584,22 @@ namespace example.Bank
         }
 
         private void TBLoanAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((!Char.IsNumber(e.KeyChar)) && (!Char.IsControl(e.KeyChar)))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TBPayNo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((!Char.IsNumber(e.KeyChar)) && (!Char.IsControl(e.KeyChar)))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TBInterestRate_KeyPress(object sender, KeyPressEventArgs e)
         {
             if ((!Char.IsNumber(e.KeyChar)) && (!Char.IsControl(e.KeyChar)))
             {

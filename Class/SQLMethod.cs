@@ -117,9 +117,9 @@ namespace example.Class
             if (dt.Rows.Count != 0)
             {
                 TBTeacherNane.Text = dt.Rows[0][1].ToString();
-                LoanStatusName.Text = dt.Rows[0][8].ToString();
-                LoanNo.Text = dt.Rows[0][4].ToString();
-                SavingAmount.Text = dt.Rows[0][10].ToString();
+                LoanStatusName.Text = dt.Rows[0][7].ToString();
+                LoanNo.Text = dt.Rows[0][6].ToString();
+                SavingAmount.Text = dt.Rows[0][9].ToString();
             }
         }
         ///<summary>
