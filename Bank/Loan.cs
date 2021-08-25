@@ -42,25 +42,11 @@ namespace example.Bank
             "SELECT CAST(CURRENT_TIMESTAMP as DATE); \r\n\r\n",
         };
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             MessageBox.Show("เดี๋ยวใส่ตอนรวมโปรแกรมครับ", "System", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading, true);
         }
-        private void CBB4Oppay_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Loan_Load(object sender, EventArgs e)
-        {
-
-        }
-
+      
         private void BSearchTeacher_Click(object sender, EventArgs e)
         {
             try
@@ -88,14 +74,6 @@ namespace example.Bank
             }
         }
         
-        private void BSave_Click(object sender, EventArgs e)
-        {
-            if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
-            {
-                printDocument1.Print();
-
-            }
-        }
         private void TBGuarantorNo_KeyPress(object sender, KeyPressEventArgs e)
         {
 
@@ -275,6 +253,7 @@ namespace example.Bank
             }
 
         }
+
         public void StartCenter(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
         {
             SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
@@ -486,6 +465,15 @@ namespace example.Bank
             //e.Graphics.DrawString(DTPStartDate.Text, new Font("TH Sarabun New", 18, FontStyle.Regular), Brushes.Black, new PointF(0, 60));
 
 
+        }
+
+        private void BPrintLoanDoc_Click(object sender, EventArgs e)
+        {
+            if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
+            {
+                printDocument1.Print();
+
+            }
         }
         //private void BPrintLoanDoc_Click(object sender, EventArgs e)
         //{

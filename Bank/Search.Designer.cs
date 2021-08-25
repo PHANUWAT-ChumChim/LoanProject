@@ -87,9 +87,6 @@ namespace example.Bank
             this.dataGridView1.Size = new System.Drawing.Size(799, 451);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
-            this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             // 
             // CLpassword
             // 
@@ -115,6 +112,7 @@ namespace example.Bank
             // 
             // CLdepartment
             // 
+            this.CLdepartment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CLdepartment.DefaultCellStyle = dataGridViewCellStyle4;
             this.CLdepartment.HeaderText = "เลขบัตรประชาชน";
@@ -122,7 +120,6 @@ namespace example.Bank
             this.CLdepartment.Name = "CLdepartment";
             this.CLdepartment.ReadOnly = true;
             this.CLdepartment.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.CLdepartment.Width = 179;
             // 
             // CBStatus
             // 
