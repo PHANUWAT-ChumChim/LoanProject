@@ -30,13 +30,11 @@ namespace example.GOODS
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(pay));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel7 = new System.Windows.Forms.Panel();
             this.BSearchTeacher = new System.Windows.Forms.Button();
             this.TBTeacherBill = new System.Windows.Forms.TextBox();
@@ -132,12 +130,12 @@ namespace example.GOODS
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel9 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.TBstra = new System.Windows.Forms.TextBox();
+            this.TBStartAmount2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.TBstatus = new System.Windows.Forms.TextBox();
             this.TBTel = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.TBRl = new System.Windows.Forms.TextBox();
+            this.TBTeacherIDNo = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.TBidno = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -288,7 +286,6 @@ namespace example.GOODS
             this.button4.TabIndex = 86;
             this.button4.Text = "อัตโนมัติ";
             this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // LB8pay
             // 
@@ -331,6 +328,7 @@ namespace example.GOODS
             this.BTsave.TabIndex = 94;
             this.BTsave.Text = "บันทึก";
             this.BTsave.UseVisualStyleBackColor = false;
+            this.BTsave.Click += new System.EventHandler(this.BTsave_Click);
             // 
             // CBStatus
             // 
@@ -395,8 +393,6 @@ namespace example.GOODS
             this.TBStartAmountShare.Name = "TBStartAmountShare";
             this.TBStartAmountShare.Size = new System.Drawing.Size(186, 43);
             this.TBStartAmountShare.TabIndex = 96;
-            this.TBStartAmountShare.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
-            this.TBStartAmountShare.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TBStartAmountShare_KeyPress);
             // 
             // LB7Qty
             // 
@@ -555,18 +551,9 @@ namespace example.GOODS
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -584,8 +571,8 @@ namespace example.GOODS
             // 
             // Column1
             // 
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle2;
             this.Column1.HeaderText = "ปี/เดือน";
             this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
@@ -594,8 +581,8 @@ namespace example.GOODS
             // 
             // Column2
             // 
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle3;
             this.Column2.HeaderText = "รายการ";
             this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";
@@ -604,13 +591,13 @@ namespace example.GOODS
             // 
             // Column3
             // 
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle12;
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle4;
             this.Column3.HeaderText = "ยอดเงิน";
             this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
-            this.Column3.Width = 280;
             // 
             // panel16
             // 
@@ -677,7 +664,6 @@ namespace example.GOODS
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "ข้อมูลหุ้นสะสม";
             this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // panel10
             // 
@@ -800,18 +786,10 @@ namespace example.GOODS
             // dataGridView2
             // 
             this.dataGridView2.AllowDrop = true;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column4,
@@ -841,91 +819,78 @@ namespace example.GOODS
             this.Column4.HeaderText = "รายการ";
             this.Column4.MinimumWidth = 6;
             this.Column4.Name = "Column4";
-            this.Column4.Width = 86;
             // 
             // Column5
             // 
             this.Column5.HeaderText = "ก.ค";
             this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
-            this.Column5.Width = 86;
             // 
             // Column6
             // 
             this.Column6.HeaderText = "ก.พ";
             this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
-            this.Column6.Width = 86;
             // 
             // Column7
             // 
             this.Column7.HeaderText = "มี.ค";
             this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
-            this.Column7.Width = 86;
             // 
             // Column8
             // 
             this.Column8.HeaderText = "เม.ย";
             this.Column8.MinimumWidth = 6;
             this.Column8.Name = "Column8";
-            this.Column8.Width = 86;
             // 
             // Column9
             // 
             this.Column9.HeaderText = "พ.ค";
             this.Column9.MinimumWidth = 6;
             this.Column9.Name = "Column9";
-            this.Column9.Width = 86;
             // 
             // Column10
             // 
             this.Column10.HeaderText = "มิ.ย";
             this.Column10.MinimumWidth = 6;
             this.Column10.Name = "Column10";
-            this.Column10.Width = 87;
             // 
             // Column11
             // 
             this.Column11.HeaderText = "ก.ค";
             this.Column11.MinimumWidth = 6;
             this.Column11.Name = "Column11";
-            this.Column11.Width = 86;
             // 
             // Column12
             // 
             this.Column12.HeaderText = "ส.ค";
             this.Column12.MinimumWidth = 6;
             this.Column12.Name = "Column12";
-            this.Column12.Width = 86;
             // 
             // Column13
             // 
             this.Column13.HeaderText = "ก.ย";
             this.Column13.MinimumWidth = 6;
             this.Column13.Name = "Column13";
-            this.Column13.Width = 86;
             // 
             // Column14
             // 
             this.Column14.HeaderText = "ต.ค";
             this.Column14.MinimumWidth = 6;
             this.Column14.Name = "Column14";
-            this.Column14.Width = 86;
             // 
             // Column15
             // 
             this.Column15.HeaderText = "พ.ย";
             this.Column15.MinimumWidth = 6;
             this.Column15.Name = "Column15";
-            this.Column15.Width = 86;
             // 
             // Column16
             // 
             this.Column16.HeaderText = "ธ.ค";
             this.Column16.MinimumWidth = 6;
             this.Column16.Name = "Column16";
-            this.Column16.Width = 86;
             // 
             // tabPage3
             // 
@@ -1243,12 +1208,12 @@ namespace example.GOODS
             // 
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.TBstra);
+            this.panel4.Controls.Add(this.TBStartAmount2);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.TBstatus);
             this.panel4.Controls.Add(this.TBTel);
             this.panel4.Controls.Add(this.label12);
-            this.panel4.Controls.Add(this.TBRl);
+            this.panel4.Controls.Add(this.TBTeacherIDNo);
             this.panel4.Controls.Add(this.label7);
             this.panel4.Controls.Add(this.TBidno);
             this.panel4.Controls.Add(this.label14);
@@ -1259,14 +1224,14 @@ namespace example.GOODS
             this.panel4.Size = new System.Drawing.Size(1095, 520);
             this.panel4.TabIndex = 122;
             // 
-            // TBstra
+            // TBStartAmount2
             // 
-            this.TBstra.Enabled = false;
-            this.TBstra.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBstra.Location = new System.Drawing.Point(835, 78);
-            this.TBstra.Name = "TBstra";
-            this.TBstra.Size = new System.Drawing.Size(207, 43);
-            this.TBstra.TabIndex = 128;
+            this.TBStartAmount2.Enabled = false;
+            this.TBStartAmount2.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBStartAmount2.Location = new System.Drawing.Point(835, 78);
+            this.TBStartAmount2.Name = "TBStartAmount2";
+            this.TBStartAmount2.Size = new System.Drawing.Size(207, 43);
+            this.TBStartAmount2.TabIndex = 128;
             // 
             // label2
             // 
@@ -1310,14 +1275,14 @@ namespace example.GOODS
             this.label12.TabIndex = 124;
             this.label12.Text = "ข้อมูลสมาชิกครู";
             // 
-            // TBRl
+            // TBTeacherIDNo
             // 
-            this.TBRl.Enabled = false;
-            this.TBRl.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBRl.Location = new System.Drawing.Point(256, 78);
-            this.TBRl.Name = "TBRl";
-            this.TBRl.Size = new System.Drawing.Size(207, 43);
-            this.TBRl.TabIndex = 121;
+            this.TBTeacherIDNo.Enabled = false;
+            this.TBTeacherIDNo.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBTeacherIDNo.Location = new System.Drawing.Point(256, 78);
+            this.TBTeacherIDNo.Name = "TBTeacherIDNo";
+            this.TBTeacherIDNo.Size = new System.Drawing.Size(207, 43);
+            this.TBTeacherIDNo.TabIndex = 121;
             // 
             // label7
             // 
@@ -1396,7 +1361,6 @@ namespace example.GOODS
             this.Name = "pay";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ทำเป็นFormจ่าย";
-            this.Load += new System.EventHandler(this.pay_Load);
             this.SizeChanged += new System.EventHandler(this.Menuf_SizeChanged);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
@@ -1490,20 +1454,6 @@ namespace example.GOODS
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.ComboBox CByeartap3;
         private System.Windows.Forms.Button BTResearchtap3;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
@@ -1518,7 +1468,7 @@ namespace example.GOODS
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-        private System.Windows.Forms.TextBox TBRl;
+        private System.Windows.Forms.TextBox TBTeacherIDNo;
         private System.Windows.Forms.TextBox TBidno;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -1527,7 +1477,7 @@ namespace example.GOODS
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox TBstatus;
         private System.Windows.Forms.TextBox TBTel;
-        private System.Windows.Forms.TextBox TBstra;
+        private System.Windows.Forms.TextBox TBStartAmount2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Panel panel12;
@@ -1542,10 +1492,24 @@ namespace example.GOODS
         private System.Windows.Forms.Panel panel14;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
     }
 }

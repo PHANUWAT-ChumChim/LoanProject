@@ -18,7 +18,8 @@ namespace example.Class
         /// <para>[0] Write to Search ID Teacher INPUT: {TeacherNo} </para> 
         /// <para>[1] INSERT Register Member INPUT:  {TeacherNo} {TeacherAddBy} {StartAmount} {DocPath} </para>
         /// <para>[2] Search LoanMember INPUT: {TeacherNo} </para>
-        /// <para>[3] Get DateTime From Server INPUT: {Empty} </para>
+        /// <para>[3]  AmountpayANDAmountLoanINMonth INPUT: {TeacherNo}  </para>
+        ///   <para>[4] CheckAmount INPUT: -  </para>
         /// </summary> 
         private static String[] SQLDefault = new String[]
          { 
@@ -49,44 +50,52 @@ namespace example.Class
           "WHERE Mb.TeacherNo LIKE 'T{TeacherNo}%' and Mb.MemberStatusNo = 1 \r\n " +
           "ORDER BY Mb.TeacherNo;"
           ,
-          //[3] Get DateTime from server INPUT: -
-          "SELECT CAST(CURRENT_TIMESTAMP as datetime){Empty}\r\n"
+          //[3] AmountpayANDAmountLoanINMonth INPUT: {TeacherNo}
+          "SELECT Mb.TeacherNo,Mb.StartAmount AS  Amountpay,Mb.DateAdd AS Datepay,Lp.Amount AS AmountLoan,Ln.DateAdd AS DateLoan \r\n"+
+          "FROM EmployeeBank.dbo.tblMember as Mb\r\n"+
+          "LEFT JOIN EmployeeBank.dbo.tblLoan as Ln on Mb.TeacherNo = Ln.TeacherNo\r\n"+
+          "LEFT JOIN EmployeeBank.dbo.tblLoanPay as Lp  on Ln.TeacherNo = Lp.TeacherNo\r\n" +
+          "WHERE Mb.TeacherNo = '{TeacherNo}';"
           ,
+          //[4] CheckAmount INPUT: -
+           "SELECT Bi.TeacherNo,Bi.BillNo,Bd.BillDetailNo,TeacherNoAddBy,TeacherNo,Cancel,Bd.Date,CAST(Bt.TypeName as nvarchar),Bd.Amount \r\n"+
+           "FROM EmployeeBank.dbo.tblBill AS Bi\r\n"+
+           "LEFT JOIN EmployeeBank.dbo.tblBillDetail As Bd on Bi.BillNo = Bd.BillNo\r\n"+
+           "LEFT JOIN EmployeeBank.dbo.tblBillDetailType As Bt on Bd.TypeNo = Bt.TypeNo\r\n"+
+           "WHERE   Bt.TypeName IS NULL AND Bd.Date IS NULL AND bd.Amount = 0;"
+           ,
+          //[5] INSERT Bill : {TeacherNo}
+            "INSERT INTO EmployeeBank.dbo.tblBill(TeacherNoAddBy,TeacherNo)\r\n"+
+            "VALUES('{}','{}')"
+           ,
+          //[5] INSERT BillDetail : {TeacherNo}
+            "INSERT INTO EmployeeBank.dbo.tblBillDetail(BillNo,Date,TypeNo,Amount) \r\n"+
+            "VALUES({},CURRENT_TIMESTAMP,{},{})"
 
-         };
 
-        public void CodeRecycleBin()
+
+    };
+
+        //เช็ค ยอดจ่ายของสมาชิกในเดือน อัตโนมัติ
+        public static void AmountpayANDAmountLoanINMonth(string TeacherNo,TextBox Amount,ComboBox SELECTINDAX)
         {
-            /// <para>[1] Check Register INPUT: {TeacherNo} </para>
-            //  //[1] Check Register INPUT: TeacherNo
-            //  "SELECT * \r\n " +
-            //  "FROM EmployeeBank.dbo.tblMember \r\n " +
-            //  "WHERE TeacherNo = '{TeacherNo}'; "
-            //,
-
-            /// <para>[3] Search Member INPUT: -</para>
-            //  //[3] Search Member INPUT: -
-            //  "SELECT a.TeacherNo,CAST(d.PrefixName+' '+Fname +' '+ Lname as NVARCHAR),IdNo \r\n " +
-            //  "FROM EmployeeBank.dbo.tblMember as a \r\n " +
-            //  "LEFT JOIN Personal.dbo.tblTeacherHis as b ON a.TeacherNo = b.TeacherNo \r\n " +
-            //  "LEFT JOIN Personal.dbo.tblGroupPosition as c ON b.GroupPositionNo = c.GroupPositionNo \r\n " +
-            //  "LEFT JOIN BaseData.dbo.tblPrefix as d ON d.PrefixNo = b.PrefixNo \r\n " +
-            //  "WHERE a.MemberStatusNo = 1 \r\n" +
-            //  "ORDER BY a.TeacherNo; "
-            //,
-
-            /// <para>[4] paydataMember INPUT:{TeacherNo} {TeacherLicenseNo} {TeacherIdNo} {TelMobile} {MemberStatusName} {StartAmount}  </para>
-            //  //[4]  paydataMember INPUT:{TeacherNo}
-            //  "SELECT Pn.TeacherLicenseNo,Pn.IdNo,Pn.TelMobile,CAST(Ms.MemberStatusName as nvarchar),Mb.StartAmount" +
-            //  "FROM[Personal].[dbo].[tblTeacherHis] as PnINNER " +
-            //  "JOIN EmployeeBank.dbo.tblMember as Mb on Pn.TeacherNo = Mb.TeacherNoINNER " +
-            //  "JOIN EmployeeBank.dbo.tblMemberStatus as Ms on Mb.MemberStatusNo = Ms.MemberStatusNoWHERE    " +
-            //  "Mb.TeacherNo LIKE '{TeacherNo}' " +
-            //  "ORDER BY Mb.TeacherNo;"
-            //,
-
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[3].Replace("{TeacherNo}",TeacherNo));
+            if(dt.Rows.Count != 0)
+            {
+                if(SELECTINDAX.SelectedItem.ToString() == "สะสม")
+                {
+                    Amount.Text = dt.Rows[0][1].ToString();
+                }
+                else
+                {
+                    Amount.Text = dt.Rows[0][3].ToString();
+                }
+               
+               
+            }
         }
 
+        // ค้นหารายชื่อผู้ลงทะเบียนในระบบครู ใส่หมายยเลข
         public static void ResearchUserAllTLC(string TBTeacherNo, TextBox TBTeacherName, TextBox TBTeacherIDNo)
         {
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("T{TeacherNo}", TBTeacherNo));
@@ -96,6 +105,7 @@ namespace example.Class
                 TBTeacherIDNo.Text = dt.Rows[0][2].ToString();
             }
         }
+        // ค้นหารายชื่อผู้สมัครยอดสะสมโดยการ ใส่หมายยเลข
         public static void ResearhMerberANDinformation(string TeacherNo, TextBox TBTeacherName, TextBox TBTeacherIDNo, TextBox TeacherLicenseNo, TextBox TeacherIdNo, TextBox TelMobile, TextBox MemberStatusName, TextBox StartAmount)
         {
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[2].Replace("T{TeacherNo}%",TeacherNo));
@@ -110,7 +120,7 @@ namespace example.Class
                 MemberStatusName.Text = dt.Rows[0][10].ToString();
             }
         }
-
+        // ค้นหารายชื่อผู้กู้โดยการ ใส่หมายยเลข
         public static void ReSearchLoan (string TBTeacherNo,TextBox TBTeacherNane,TextBox SavingAmount, TextBox LoanNo,TextBox LoanStatusName)
         {
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[2].Replace("T{TeacherNo}%", TBTeacherNo));
@@ -166,6 +176,7 @@ namespace example.Class
                 }
             }
         }
+        // สมัครสมาชิกสหกร์ครู
         public static void INERApplyTeacher(string TeacherNo,string TeacherAddBy, int StartAmount, string DocUploadPath)
         {
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[1].Replace("{TeacherNo}",TeacherNo));
@@ -188,6 +199,39 @@ namespace example.Class
             {
                 MessageBox.Show("โปรดเลือกสมาชิกในการสมัคร", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+        }
+       
+        // ถังขยะสำหรับโค้ดที่ไม่ได้ฝช้งานเเต่ต้องการเก็บไว้ศึกษา หรือ เก็บไว้
+        public void CodeRecycleBin()
+        {
+            /// <para>[1] Check Register INPUT: {TeacherNo} </para>
+            //  //[1] Check Register INPUT: TeacherNo
+            //  "SELECT * \r\n " +
+            //  "FROM EmployeeBank.dbo.tblMember \r\n " +
+            //  "WHERE TeacherNo = '{TeacherNo}'; "
+            //,
+
+            /// <para>[3] Search Member INPUT: -</para>
+            //  //[3] Search Member INPUT: -
+            //  "SELECT a.TeacherNo,CAST(d.PrefixName+' '+Fname +' '+ Lname as NVARCHAR),IdNo \r\n " +
+            //  "FROM EmployeeBank.dbo.tblMember as a \r\n " +
+            //  "LEFT JOIN Personal.dbo.tblTeacherHis as b ON a.TeacherNo = b.TeacherNo \r\n " +
+            //  "LEFT JOIN Personal.dbo.tblGroupPosition as c ON b.GroupPositionNo = c.GroupPositionNo \r\n " +
+            //  "LEFT JOIN BaseData.dbo.tblPrefix as d ON d.PrefixNo = b.PrefixNo \r\n " +
+            //  "WHERE a.MemberStatusNo = 1 \r\n" +
+            //  "ORDER BY a.TeacherNo; "
+            //,
+
+            /// <para>[4] paydataMember INPUT:{TeacherNo} {TeacherLicenseNo} {TeacherIdNo} {TelMobile} {MemberStatusName} {StartAmount}  </para>
+            //  //[4]  paydataMember INPUT:{TeacherNo}
+            //  "SELECT Pn.TeacherLicenseNo,Pn.IdNo,Pn.TelMobile,CAST(Ms.MemberStatusName as nvarchar),Mb.StartAmount" +
+            //  "FROM[Personal].[dbo].[tblTeacherHis] as PnINNER " +
+            //  "JOIN EmployeeBank.dbo.tblMember as Mb on Pn.TeacherNo = Mb.TeacherNoINNER " +
+            //  "JOIN EmployeeBank.dbo.tblMemberStatus as Ms on Mb.MemberStatusNo = Ms.MemberStatusNoWHERE    " +
+            //  "Mb.TeacherNo LIKE '{TeacherNo}' " +
+            //  "ORDER BY Mb.TeacherNo;"
+            //,
 
         }
     }

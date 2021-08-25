@@ -141,7 +141,6 @@ namespace example.Bank
             this.BSave.TabIndex = 99;
             this.BSave.Text = "บันทึก";
             this.BSave.UseVisualStyleBackColor = false;
-            this.BSave.Click += new System.EventHandler(this.BSave_Click);
             // 
             // tabControl1
             // 
@@ -637,6 +636,7 @@ namespace example.Bank
             this.BPrintLoanDoc.TabIndex = 3;
             this.BPrintLoanDoc.Text = "พิมพ์เอกสาร";
             this.BPrintLoanDoc.UseVisualStyleBackColor = true;
+            this.BPrintLoanDoc.Click += new System.EventHandler(this.BPrintLoanDoc_Click);
             // 
             // panel7
             // 

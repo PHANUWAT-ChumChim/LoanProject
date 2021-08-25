@@ -129,14 +129,6 @@ namespace example.Bank
             }
         }
         
-        private void BSave_Click(object sender, EventArgs e)
-        {
-            if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
-            {
-                printDocument1.Print();
-
-            }
-        }
         private void TBGuarantorNo_KeyPress(object sender, KeyPressEventArgs e)
         {
 
@@ -365,6 +357,7 @@ namespace example.Bank
             }
 
         }
+
         public void StartCenter(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
         {
             SizeF SizeString = e.Graphics.MeasureString(Text, fontText);

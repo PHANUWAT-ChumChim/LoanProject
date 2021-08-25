@@ -19,13 +19,31 @@ namespace example.GOODS
             InitializeComponent(); 
             tabControl1.SelectedIndex = TabIndex;
             Font F = new Font("TH Sarabun New",16, FontStyle.Regular);
-            dataGridView1.Font = F;
-            dataGridView2.Font = F;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = F;
+            dataGridView2.ColumnHeadersDefaultCellStyle.Font = F;
         }
-        //private void pictureBox13_Click(object sender, EventArgs e)
-        //{
-        //    Application.Exit();
-        //}
+        //------------------------- FormSize -----------------
+        // Comment!
+        private void Menuf_SizeChanged(object sender, EventArgs e)
+        {
+            int x = this.Width / 2 - panel1.Size.Width / 2;
+            int y = this.Height / 2 - panel1.Size.Height / 2;
+            panel1.Location = new Point(x, y);
+            //TB3.Location = new Point(TB+120, 15);
+            //panel7.Size = new Size(TB+500,72); 
+            //tabControl1.Location = new Point(x,y);
+
+            //panel1.MinimumSize = new Size(columnSize * 40, rowSize * 40);
+            //panel1.Height = rowSize * 40;
+            //panel1.Width = columnSize * 40;
+            //MessageBox.Show(this.Width + "" + this.Height);
+        }
+        //----------------------- End code -------------------- ////////
+
+
+        //-------------------------- if.Enbled Text ------------------------
+        // if message in textCByer nothing will not Open next
+        // ถ้า ไม่มีข้อความ ใน กล่องปี จะไม่เปิดใช่งานกล่อง ถัดไป
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CByeartap1.SelectedIndex != -1)
@@ -36,73 +54,10 @@ namespace example.GOODS
             {
                 CBMonth.Enabled = false;
             }
-        }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            //            SELECT TeacherNo, CAST(c.PrefixNameFull + Fname + ' ' + Lname as NVARCHAR),
-            //CASE WHEN IdNo = '' THEN 'null' ELSE IdNo END as id, b.GroupPositionName
-            //FROM Personal.dbo.tblTeacherHis as a
-            //LEFT JOIN Personal.dbo.tblGroupPosition as b ON a.GroupPositionNo = b.GroupPositionNo
-            //LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = a.PrefixNo
-            //WHERE TeacherNo = 'T54001'
-            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
-            if (TBTeacherNo.Text.Length == 6)
-            {
-                Class.SQLMethod.ResearhMerberANDinformation(TBTeacherNo.Text,TBTeacherName,TBTeacherBill,TBRl, TBidno, TBTel, TBstatus, TBstra);
-            }
-            else
-            {
-                TBTeacherBill.Text = "";
-                TBTeacherName.Text = "";
-            }
-        }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            
-            //Menu p = new Menu();
-            //CloseFrom(p);
-            //p.MdiParent = this;
-            //p.WindowState = FormWindowState.Maximized;
-            //p.Show();
-            //this.Hide();
         }
-        private void Menuf_SizeChanged(object sender, EventArgs e)
-        {
-            int x = this.Width / 2 - panel1.Size.Width / 2;
-            int y = this.Height / 2 - panel1.Size.Height / 2;
-            panel1.Location = new Point(x, y);
-
-           
-            //TB3.Location = new Point(TB+120, 15);
-            //panel7.Size = new Size(TB+500,72); 
-            //tabControl1.Location = new Point(x,y);
-
-            //panel1.MinimumSize = new Size(columnSize * 40, rowSize * 40);
-            //panel1.Height = rowSize * 40;
-            //panel1.Width = columnSize * 40;
-            //MessageBox.Show(this.Width + "" + this.Height);
-        }
-        private void pay_Load(object sender, EventArgs e)
-        {
-            //DataTable dt.Tables[0];
-            //int count = dt.Rows.Count;
-
-            //for (int x = 0; x < count; x++)
-            //{
-            //    if (TB1.Text == dt.Rows[x][0].ToString())
-            //    {
-            //        TB2.Text = dt.Rows[1][0].ToString();
-            //    }
-
-            //}
-        }
-        public void tabPage2_Click(object sender, EventArgs e)
-        {
-            //TabPage t = tabControl1.TabPages[1];
-            //tabControl1.SelectTab(t); 
-            ////go to tab
-        }
+        // if message in textMonth nothing will not Open next
+        // ถ้า ไม่มีข้อความ ใน กล่องเดือน จะไม่เปิดใช่งานกล่อง ถัดไป
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CBMonth.SelectedIndex != -1)
@@ -114,41 +69,17 @@ namespace example.GOODS
                 button4.Enabled = false;
             }
         }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-            //int x = Convert.ToInt32(this.TB4.Text);
-            //TB4.Text = x.ToString();
-            //if (x.GetType() != typeof(int))
-            //{
-            //    TB4.Text = string.Empty;
-            //    MessageBox.Show("EROR");
-            //}
-            if (CBStatus.SelectedIndex != -1 && TBStartAmountShare.Text != "")
-            {
-                BTAdd.Enabled = true;
-            }
-            else
-            {
-                BTAdd.Enabled = false;
-            }
-
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            CByeartap1.SelectedIndex = -1;
-            CBMonth.SelectedIndex = -1;
-            CBStatus.SelectedIndex = -1;
-            TBStartAmountShare.Text = string.Empty;
-        }
+        // if message in Text nothing will not Open next
+        // ถ้า ไม่มีข้อความ ใน กล่อง จะไม่เปิดใช่งานกล่อง ถัดไป
         private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CByeartap2.SelectedIndex != -1 )
+            if (CByeartap2.SelectedIndex != -1)
             {
                 BTResearchtap2.Enabled = true;
             }
         }
+        // if message in Text nothing will not Open next
+        // ถ้า ไม่มีข้อความ ใน กล่อง จะไม่เปิดใช่งานกล่อง ถัดไป
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CByeartap3.SelectedIndex != -1)
@@ -156,60 +87,25 @@ namespace example.GOODS
                 BTResearchtap3.Enabled = true;
             }
         }
-    
+        // if message in Text nothing will not Open next
+        // ถ้า ไม่มีข้อความ ใน กล่อง จะไม่เปิดใช่งานกล่อง ถัดไป
         private void CBB3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (TBStartAmountShare.Text != "" && CBStatus.SelectedIndex != -1)
+            if (CBStatus.SelectedIndex != -1 && TBTeacherNo.Text != "")
             {
+                Class.SQLMethod.AmountpayANDAmountLoanINMonth(TBTeacherNo.Text, TBStartAmountShare, CBStatus);
                 BTAdd.Enabled = true;
             }
             else
             {
+
+                TBStartAmountShare.Text = "";
+                CBStatus.Text = "";
                 BTAdd.Enabled = false;
             }
         }
-
-        private void BSearchTeacher_Click(object sender, EventArgs e)
-        {
-           Bank.Search  IN = new Bank.Search(2);
-            IN.ShowDialog();
-            TBTeacherNo.Text = Bank.Search.Return[0];
-        }
-
-        private void TBStartAmountShare_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((e.KeyChar < '0' || e.KeyChar > '9') && (e.KeyChar != '\b'))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CBB4Oppay_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void BTAdd_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.Rows.ToString() != "")
-            {
-                CBB4Oppay.Enabled = true;
-                x += int.Parse(TBStartAmountShare.Text);
-                label5.Text = x.ToString();
-            }
-            dataGridView1.Rows.Add(DateTime.Today.Date.ToString(),CBStatus.Text, TBStartAmountShare.Text);
-           
-            //DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[];
-            //row.Cells[1].Value = CBStatus.SelectedItem.ToString();
-            //row.Cells[2].Value = TBStartAmountShare.Text;
-            //dataGridView1.Rows.Add(row);
-        }
-
+        // if message in Text nothing will not Open next
+        // ถ้า ไม่มีข้อความ ใน กล่อง จะไม่เปิดใช่งานกล่อง ถัดไป
         private void CBB4Oppay_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (CBB4Oppay.SelectedIndex != -1)
@@ -217,7 +113,50 @@ namespace example.GOODS
                 BTsave.Enabled = true;
             }
         }
+        //----------------------- End code -------------------- ////////
 
+
+        //------------------------- Pull SQL Member & CheckTBTeacherNo ---------
+        // Comment!
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
+            if (TBTeacherNo.Text.Length == 6)
+            {
+                Class.SQLMethod.ResearhMerberANDinformation(TBTeacherNo.Text, TBTeacherName, TBTeacherBill, TBTeacherIDNo, TBidno, TBTel, TBstatus, TBStartAmount2);
+            }
+            else
+            {
+                dataGridView1.Rows.Clear();
+                TBStartAmountShare.Text = "";
+                CBStatus.SelectedIndex = -1;
+                TBTeacherBill.Text = "";
+                TBTeacherName.Text = "";
+            }
+        }
+        // Comment!
+        private void BSearchTeacher_Click(object sender, EventArgs e)
+        {
+            Bank.Search IN = new Bank.Search(2);
+            IN.ShowDialog();
+            TBTeacherNo.Text = Bank.Search.Return[0];
+
+            dataGridView1.Rows.Clear();
+            TBStartAmountShare.Clear();
+            CBStatus.SelectedIndex = -1;
+        }
+        //----------------------- End code -------------------- ////////
+
+        //------------------------- ClickDelete&Empty ---------
+        // Comment!
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            CByeartap1.SelectedIndex = -1;
+            CBMonth.SelectedIndex = -1;
+            CBStatus.SelectedIndex = -1;
+            TBStartAmountShare.Text = string.Empty;
+        }
+        // Comment!
         private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -232,9 +171,8 @@ namespace example.GOODS
                     m.MenuItems[0].Click += new System.EventHandler(this.Delete_Click);
                 }
             }
-        
-          
         }
+        // Comment!
         private void Delete_Click(object sender, EventArgs e)
         {
             if (SelectIndexRowDelete != -1)
@@ -244,5 +182,82 @@ namespace example.GOODS
 
             }
         }
+
+        //----------------------- End code -------------------- ////////
+
+        //------------------------- SUMAmountShare ---------
+        // Comment!
+        private void BTAdd_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.Rows.ToString() != "")
+            {
+                CBB4Oppay.Enabled = true;
+                if (TBStartAmountShare.Text != "")
+                {
+                    x += int.Parse(TBStartAmountShare.Text);
+                    label5.Text = x.ToString();
+                }
+                else { TBStartAmountShare.Text = "0"; }
+            }
+            dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);
+            
+
+            //DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[];
+            //row.Cells[1].Value = CBStatus.SelectedItem.ToString();
+            //row.Cells[2].Value = TBStartAmountShare.Text;
+            //dataGridView1.Rows.Add(row);
+        }
+        //----------------------- End code -------------------- ////////
+
+        
+
+
+
+
+
+
+
+
+        // ------------------------ not working --------------
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            //Menu p = new Menu();
+            //CloseFrom(p);
+            //p.MdiParent = this;
+            //p.WindowState = FormWindowState.Maximized;
+            //p.Show();
+            //this.Hide();
+        }
+        public void tabPage2_Click(object sender, EventArgs e)
+        {
+            //TabPage t = tabControl1.TabPages[1];
+            //tabControl1.SelectTab(t); 
+            ////go to tab
+        }
+        private void TBStartAmountShare_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar < '0' || e.KeyChar > '9') && (e.KeyChar != '\b'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void BTsave_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.Rows.Count != 0)
+            {
+                MessageBox.Show("ยืนยันการชำระ", "การเเจ้งเตือนการชำระ", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                MessageBox.Show("การชำระเสร็จสิ้น", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            }
+            else
+            {
+                MessageBox.Show("รายการชำระไม่ถูกต้อง", "การเเจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
+
+        //----------------------- End code -------------------
     }
 }

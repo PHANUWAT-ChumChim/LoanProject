@@ -29,17 +29,6 @@ namespace example.Bank
             Class.SQLMethod.SearchINNserDataGridView(dataGridView1, AllTeacher_or_Member);
             ChoiceSQL = AllTeacher_or_Member;
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void Search_Load(object sender, EventArgs e, int AllTeacher_or_Member)
-        {
-            
-        }
-
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
@@ -69,14 +58,6 @@ namespace example.Bank
                 this.Dispose();
 
             }
-        }
-
-        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-        }
-
-        private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
         }
     }
 }
