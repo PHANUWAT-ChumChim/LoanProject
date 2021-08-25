@@ -91,12 +91,16 @@ namespace example.GOODS
         // ถ้า ไม่มีข้อความ ใน กล่อง จะไม่เปิดใช่งานกล่อง ถัดไป
         private void CBB3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CBStatus.SelectedIndex != -1)
+            if (CBStatus.SelectedIndex != -1 && TBTeacherNo.Text != "")
             {
+                Class.SQLMethod.AmountpayANDAmountLoanINMonth(TBTeacherNo.Text, TBStartAmountShare, CBStatus);
                 BTAdd.Enabled = true;
             }
             else
             {
+
+                TBStartAmountShare.Text = "";
+                CBStatus.Text = "";
                 BTAdd.Enabled = false;
             }
         }
@@ -123,6 +127,9 @@ namespace example.GOODS
             }
             else
             {
+                dataGridView1.Rows.Clear();
+                TBStartAmountShare.Text = "";
+                CBStatus.SelectedIndex = -1;
                 TBTeacherBill.Text = "";
                 TBTeacherName.Text = "";
             }
@@ -133,6 +140,10 @@ namespace example.GOODS
             Bank.Search IN = new Bank.Search(2);
             IN.ShowDialog();
             TBTeacherNo.Text = Bank.Search.Return[0];
+
+            dataGridView1.Rows.Clear();
+            TBStartAmountShare.Clear();
+            CBStatus.SelectedIndex = -1;
         }
         //----------------------- End code -------------------- ////////
 
@@ -160,8 +171,6 @@ namespace example.GOODS
                     m.MenuItems[0].Click += new System.EventHandler(this.Delete_Click);
                 }
             }
-
-
         }
         // Comment!
         private void Delete_Click(object sender, EventArgs e)
@@ -189,10 +198,9 @@ namespace example.GOODS
                     label5.Text = x.ToString();
                 }
                 else { TBStartAmountShare.Text = "0"; }
-
-
             }
             dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);
+            
 
             //DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[];
             //row.Cells[1].Value = CBStatus.SelectedItem.ToString();
@@ -201,8 +209,7 @@ namespace example.GOODS
         }
         //----------------------- End code -------------------- ////////
 
-
-
+        
 
 
 
@@ -235,6 +242,21 @@ namespace example.GOODS
                 e.Handled = true;
             }
         }
+
+        private void BTsave_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.Rows.Count != 0)
+            {
+                MessageBox.Show("ยืนยันการชำระ", "การเเจ้งเตือนการชำระ", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                MessageBox.Show("การชำระเสร็จสิ้น", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            }
+            else
+            {
+                MessageBox.Show("รายการชำระไม่ถูกต้อง", "การเเจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
 
         //----------------------- End code -------------------
     }

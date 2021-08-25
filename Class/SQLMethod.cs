@@ -18,6 +18,8 @@ namespace example.Class
         /// <para>[0] Write to Search ID Teacher INPUT: {TeacherNo} </para> 
         /// <para>[1] INSERT Register Member INPUT:  {TeacherNo} {TeacherAddBy} {StartAmount} {DocPath} </para>
         /// <para>[2] Search LoanMember INPUT: {TeacherNo} </para>
+        /// <para>[3]  AmountpayANDAmountLoanINMonth INPUT: {TeacherNo}  </para>
+        ///   <para>[4] CheckAmount INPUT: -  </para>
         /// </summary> 
         private static String[] SQLDefault = new String[]
          { 
@@ -48,12 +50,49 @@ namespace example.Class
           "WHERE Mb.TeacherNo LIKE 'T{TeacherNo}%' and Mb.MemberStatusNo = 1 \r\n " +
           "ORDER BY Mb.TeacherNo;"
           ,
-         };
+          //[3] AmountpayANDAmountLoanINMonth INPUT: {TeacherNo}
+          "SELECT Mb.TeacherNo,Mb.StartAmount AS  Amountpay,Mb.DateAdd AS Datepay,Lp.Amount AS AmountLoan,Ln.DateAdd AS DateLoan \r\n"+
+          "FROM EmployeeBank.dbo.tblMember as Mb\r\n"+
+          "LEFT JOIN EmployeeBank.dbo.tblLoan as Ln on Mb.TeacherNo = Ln.TeacherNo\r\n"+
+          "LEFT JOIN EmployeeBank.dbo.tblLoanPay as Lp  on Ln.TeacherNo = Lp.TeacherNo\r\n" +
+          "WHERE Mb.TeacherNo = '{TeacherNo}';"
+          ,
+          //[4] CheckAmount INPUT: -
+           "SELECT Bi.TeacherNo,Bi.BillNo,Bd.BillDetailNo,TeacherNoAddBy,TeacherNo,Cancel,Bd.Date,CAST(Bt.TypeName as nvarchar),Bd.Amount \r\n"+
+           "FROM EmployeeBank.dbo.tblBill AS Bi\r\n"+
+           "LEFT JOIN EmployeeBank.dbo.tblBillDetail As Bd on Bi.BillNo = Bd.BillNo\r\n"+
+           "LEFT JOIN EmployeeBank.dbo.tblBillDetailType As Bt on Bd.TypeNo = Bt.TypeNo\r\n"+
+           "WHERE   Bt.TypeName IS NULL AND Bd.Date IS NULL AND bd.Amount = 0;"
+           ,
+          //[5] INSERT Bill : {TeacherNo}
+            "INSERT INTO EmployeeBank.dbo.tblBill(TeacherNoAddBy,TeacherNo)\r\n"+
+            "VALUES('{}','{}')"
+           ,
+          //[5] INSERT BillDetail : {TeacherNo}
+            "INSERT INTO EmployeeBank.dbo.tblBillDetail(BillNo,Date,TypeNo,Amount) \r\n"+
+            "VALUES({},CURRENT_TIMESTAMP,{},{})"
+
+
+
+    };
 
         //เช็ค ยอดจ่ายของสมาชิกในเดือน อัตโนมัติ
-        public static void AmountpayANDAmountLoanINMonth()
+        public static void AmountpayANDAmountLoanINMonth(string TeacherNo,TextBox Amount,ComboBox SELECTINDAX)
         {
-            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[2].Replace("{TeacherNo}",""));
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[3].Replace("{TeacherNo}",TeacherNo));
+            if(dt.Rows.Count != 0)
+            {
+                if(SELECTINDAX.SelectedItem.ToString() == "สะสม")
+                {
+                    Amount.Text = dt.Rows[0][1].ToString();
+                }
+                else
+                {
+                    Amount.Text = dt.Rows[0][3].ToString();
+                }
+               
+               
+            }
         }
 
         // ค้นหารายชื่อผู้ลงทะเบียนในระบบครู ใส่หมายยเลข
