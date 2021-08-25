@@ -18,6 +18,7 @@ namespace example.Class
         /// <para>[0] Write to Search ID Teacher INPUT: {TeacherNo} </para> 
         /// <para>[1] INSERT Register Member INPUT:  {TeacherNo} {TeacherAddBy} {StartAmount} {DocPath} </para>
         /// <para>[2] Search LoanMember INPUT: {TeacherNo} </para>
+        /// <para>[3] Get DateTime From Server INPUT: {Empty} </para>
         /// </summary> 
         private static String[] SQLDefault = new String[]
          { 
@@ -48,6 +49,10 @@ namespace example.Class
           "WHERE Mb.TeacherNo LIKE 'T{TeacherNo}%' and Mb.MemberStatusNo = 1 \r\n " +
           "ORDER BY Mb.TeacherNo;"
           ,
+          //[3] Get DateTime from server INPUT: -
+          "SELECT CAST(CURRENT_TIMESTAMP as datetime){Empty}\r\n"
+          ,
+
          };
 
         public void CodeRecycleBin()

@@ -58,7 +58,15 @@ namespace example.Bank
 
         private void Loan_Load(object sender, EventArgs e)
         {
-
+            DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(SQLDefault[2]);
+            DataTable dt = ds.Tables[0];
+            DateTime date = DateTime.Parse(dt.Rows[0][0].ToString());
+            int Year = int.Parse(date.ToString("yyyy"));
+            for(int Num = 0;Num < 5; Num++)
+            {
+                CBPayYear.Items.Add(Year);
+                Year++;
+            }
         }
 
         private void BSearchTeacher_Click(object sender, EventArgs e)
@@ -152,26 +160,47 @@ namespace example.Bank
                 LLoanAmount.Text = "( " + LoanAmount.ToString() + " )";
 
             }
-            if (tabControl1.SelectedIndex == 2 && (TBLoanAmount.Text != "" && CBPayMonth.Text != "" && CBPayYear.Text != "" && TBPayNo.Text != "" && TBInterestRate.Text != ""))
+            else if (tabControl1.SelectedIndex == 2 && (TBLoanAmount.Text != "" && CBPayMonth.Text != "" && CBPayYear.Text != "" && TBPayNo.Text != "" && TBInterestRate.Text != ""))
             {
                 int Month = int.Parse(CBPayMonth.Text), Year = int.Parse(CBPayYear.Text);
                 Double Pay = int.Parse(TBLoanAmount.Text) / int.Parse(TBPayNo.Text);
                 Double Interest = int.Parse(TBLoanAmount.Text) * (int.Parse(TBInterestRate.Text) / 100);
+                
                 for (int Num = 0; Num < int.Parse(TBPayNo.Text); Num++)
                 {
+                    Double Allpay = Pay + Interest;
                     Month++;
                     if (Month > 12)
                     {
                         Month = 1;
                         Year++;
                     }
-                    DGVLoanDetail.Rows.Add($"{Month}/{Year}", Pay.ToString(), Interest.ToString(), (Pay + Interest).ToString());
+                    if((!IsInt(Allpay)) && (Num == (int.Parse(TBPayNo.Text) - 1)))
+                    {
+                        Allpay -= 1;
+                    }
+                    else if (!IsInt(Allpay))
+                    {
+                        Allpay += 1;
+                    }
+                    DGVLoanDetail.Rows.Add($"{Month}/{Year}", Pay.ToString(), Interest.ToString(), (Allpay).ToString());
                 }
 
             }
 
         }
-
+        bool IsInt(double x)
+        {
+            try
+            {
+                int y = Int16.Parse(x.ToString());
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         //private void RBPresent_CheckedChanged(object sender, EventArgs e)
         //{
         //    CBPayMonth.Items.Clear();
@@ -221,7 +250,7 @@ namespace example.Bank
             bool checkNum, check;
             checkNum = int.TryParse(TBLoanAmount.Text, out LoanAmount);
             check = int.TryParse(LLoanAmount.Text, out LoanAmountLimit);
-            if ((check && checkNum) && (CBPayYear.Text != "" && int.Parse(TBLoanAmount.Text) > int.Parse(LLoanAmount.Text)))
+            if ((check && checkNum) && (CBPayYear.Text != "" && (int.Parse(TBLoanAmount.Text) > int.Parse(LLoanAmount.Text) || int.Parse(TBLoanAmount.Text) < 1)))
             {
                 DialogResult result = MessageBox.Show("วงเงินกู้เกินกำหนดการค้ำ ต้องการทำต่อหรือไม่", "แจ้งเตือน", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.No)
@@ -238,7 +267,7 @@ namespace example.Bank
             bool checkNum, check;
             checkNum = int.TryParse(TBLoanAmount.Text, out LoanAmount);
             check = int.TryParse(LLoanAmount.Text, out LoanAmountLimit);
-            if ((check && checkNum) && (CBPayMonth.Text != "" && int.Parse(TBLoanAmount.Text) >= int.Parse(LLoanAmount.Text)))
+            if ((check && checkNum) && (CBPayMonth.Text != "" && (int.Parse(TBLoanAmount.Text) > int.Parse(LLoanAmount.Text) || int.Parse(TBLoanAmount.Text) < 1)))
             {
                 DialogResult result = MessageBox.Show("วงเงินกู้เกินกำหนดการค้ำ ต้องการทำต่อหรือไม่", "แจ้งเตือน", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.No)
@@ -486,6 +515,19 @@ namespace example.Bank
             //e.Graphics.DrawString(DTPStartDate.Text, new Font("TH Sarabun New", 18, FontStyle.Regular), Brushes.Black, new PointF(0, 60));
 
 
+        }
+
+        private void DGVGuarantor_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            LGuarantorAmount.Text = DGVGuarantor.RowCount.ToString() + "/4";
+        }
+
+        private void TBLoanAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((!Char.IsNumber(e.KeyChar)) && (!Char.IsControl(e.KeyChar)))
+            {
+                e.Handled = true;
+            }
         }
         //private void BPrintLoanDoc_Click(object sender, EventArgs e)
         //{
