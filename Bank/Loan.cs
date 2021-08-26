@@ -12,17 +12,23 @@ namespace example.Bank
 {
     public partial class Loan : Form
     {
+        //------------------------- index -----------------
+        DateTime DateTime;
+        String TeacherNoUser;
+        //----------------------- index code -------------------- ////////
         public Loan()
         {
             InitializeComponent();
         }
 
+        //------------------------- FormSize -----------------
+        // Comment!
         private void Loan_SizeChanged(object sender, EventArgs e)
         {
             Class.FromSettingMedtod.ChangeSizePanal(this, panel1);
         }
-        DateTime DateTime;
-        String TeacherNoUser;
+
+        //----------------------- End code -------------------- ////////
         /// <summary> 
         /// SQLDafaultLoan 
         /// <para>[0] SELECT TeacherName Data INPUT:{TeacherNo} </para> 
@@ -69,56 +75,66 @@ namespace example.Bank
             "VALUES ('{LoanNo}','{TeacherNo}','{Amount}','{RemainsAmount}');\r\n"
             ,
         };
-        
-        private void label4_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("เดี๋ยวใส่ตอนรวมโปรแกรมครับ", "System", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading, true);
-        }
-        private void CBB4Oppay_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        //----------------------- PullSQLDate -------------------- ////////
+        // ดึงขอมูลวันที่จากฐานข้อมูล
         private void Loan_Load(object sender, EventArgs e)
         {
             DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[2]);
             DataTable dt = ds.Tables[0];
             DateTime = DateTime.Parse(dt.Rows[0][0].ToString());
             int Year = int.Parse(DateTime.ToString("yyyy"));
-            for(int Num = 0;Num < 5; Num++)
+            for (int Num = 0; Num < 5; Num++)
             {
                 CBPayYear.Items.Add(Year);
                 Year++;
             }
         }
+        //----------------------- End code -------------------- ////////
 
-        private void BSearchTeacher_Click(object sender, EventArgs e)
+        //----------------------- INSERTSQLLoan -------------------- ////////
+        // ส่งข้อมูลการกู้ขึ้นไปเก็บบนฐานข้อมูล
+        private void BSave_Click(object sender, EventArgs e)
         {
-            try
+            int LoanNo;
+            DataSet dsInsertLoan = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[3]
+                .Replace("{TeacherNoAdd}", TeacherNoUser)
+                .Replace("{TeacherNo}", TBTeacherNo.Text)
+                .Replace("{MonthPay}", CBPayMonth.Text)
+                .Replace("{YearPay}", CBPayYear.Text)
+                .Replace("{LoanAmount}", TBLoanAmount.Text)
+                .Replace("{PayNo}", TBPayNo.Text)
+                .Replace("{InterestRate}", TBInterestRate.Text)
+                );
+            DataTable dtGetLoanNo = dsInsertLoan.Tables[0];
+            LoanNo = int.Parse(dtGetLoanNo.Rows[0][0].ToString());
+
+            float credit = int.Parse(TBLoanAmount.Text) / 4;
+            bool CheckInt = IsInt(credit);
+            int GuarantorCredit = int.Parse(credit.ToString());
+            if (!CheckInt)
             {
-                Bank.Search IN = new Bank.Search(2);
-                IN.ShowDialog();
-                TBTeacherNo.Text = Bank.Search.Return[0];
-                TBTeacherName.Text = Bank.Search.Return[1];
-                TBLoanNo.Text = Bank.Search.Return[6];
-                TBLoanStatus.Text = Bank.Search.Return[7];
-                TBLoanAmount.Text = Bank.Search.Return[9];
+                GuarantorCredit += 1;
             }
-            catch (Exception x)
+            for (int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
             {
-                Console.WriteLine(x);
+                DataSet dsInsertGuarantor = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[4]
+                .Replace("{LoanNo", LoanNo.ToString())
+                .Replace("{TeacherNo", DGVGuarantor.Rows[Num].Cells[0].Value.ToString())
+                .Replace("{Amount}", GuarantorCredit.ToString())
+                .Replace("{RemainsAmount}", GuarantorCredit.ToString())
+                );
             }
+
         }
-        //int RowDGV;
+        //----------------------- End code -------------------- ////////
+
+        //------------------------- Pull SQL Member & CheckTBTeacherNo ---------
+        // ค้นหารายชชื่อผู้สมัครสมาชิกครูสหกร์จากฐานข้อมูล
         private void TBTeacherNo_TextChanged(object sender, EventArgs e)
         {
             //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
-            
+
             int credit;
             if (TBTeacherNo.Text.Length == 6)
             {
@@ -145,26 +161,41 @@ namespace example.Bank
             }
             else
             {
-                TBTeacherNo.Text = "";
                 TBTeacherName.Text = "";
                 TBLoanNo.Text = "";
                 TBLoanStatus.Text = "";
                 TBSavingAmount.Text = "";
-                if(DGVGuarantor.Rows.Count > 0)
+                if (DGVGuarantor.Rows.Count > 0)
                 {
                     //DGVGuarantor.Rows.Remove()\
                     DGVGuarantor.Rows.Clear();
                 }
             }
         }
-        
+        private void BSearchTeacher_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Bank.Search IN = new Bank.Search(2);
+                IN.ShowDialog();
+                TBTeacherNo.Text = Bank.Search.Return[0];
+                TBTeacherName.Text = Bank.Search.Return[1];
+                TBLoanNo.Text = Bank.Search.Return[6];
+                TBLoanStatus.Text = Bank.Search.Return[7];
+                TBLoanAmount.Text = Bank.Search.Return[9];
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x);
+            }
+        }
         private void TBGuarantorNo_KeyPress(object sender, KeyPressEventArgs e)
         {
 
             if (e.KeyChar == (char)Keys.Enter)
             {
                 bool CheckTeacherNo = false;
-                for(int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
+                for (int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
                 {
                     String aa = DGVGuarantor.Rows[Num].Cells[1].Value.ToString();
                     CheckTeacherNo = TBGuarantorNo.Text.Contains(DGVGuarantor.Rows[Num].Cells[0].Value.ToString());
@@ -213,7 +244,7 @@ namespace example.Bank
                 }
                 else if (CheckTeacherNo == true)
                     MessageBox.Show("รายชื่อซ้ำ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                else if(DGVGuarantor.Rows.Count >= 4)
+                else if (DGVGuarantor.Rows.Count >= 4)
                 {
                     MessageBox.Show("ผู้ค้ำเกินกหนด", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -221,13 +252,38 @@ namespace example.Bank
                 TBGuarantorNo.Text = "";
             }
         }
+        //int RowDGV;
+        //----------------------- End code -------------------- ////////
 
+        //----------------------- DatagridView -------------------- ////////
+        // Comment!
         private void DGVGuarantor_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
 
             LGuarantorAmount.Text = DGVGuarantor.RowCount.ToString() + "/4";
         }
+        //Comment!
+        private void DGVGuarantor_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            LGuarantorAmount.Text = DGVGuarantor.RowCount.ToString() + "/4";
+        }
+        //----------------------- End code -------------------- ////////
 
+        //----------------------- INNERTNumber in Labal -------------------- ////////
+        // Comment!
+        bool IsInt(float x)
+        {
+            try
+            {
+                int y = Int16.Parse(x.ToString());
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        // Comment!
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -272,61 +328,10 @@ namespace example.Bank
             }
 
         }
-        bool IsInt(float x)
-        {
-            try
-            {
-                int y = Int16.Parse(x.ToString());
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        //private void RBPresent_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    CBPayMonth.Items.Clear();
-        //    CBPayYear.Items.Clear();
-        //    DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
-        //        SQLDefault[2]);
-        //    DataTable dt = ds.Tables[0];
-        //    DateTime date = DateTime.Parse(dt.Rows[0][0].ToString());
-        //    int Month = int.Parse(date.ToString("MM"));
-        //    int Year = int.Parse(date.ToString("yyyy"));
-        //    if (RBPresent.Checked == true)
-        //    {
+        //----------------------- End code -------------------- ////////
 
-        //        if (Month == 12)
-        //            Month = 1;
-        //        for (; Month <= 12; Month++)
-        //        {
-        //            CBPayMonth.Items.Add(Month);
-        //        }
-        //        for (int count = 0; count < 10; count++)
-        //        {
-        //            CBPayYear.Items.Add(Year);
-        //            Year++;
-        //        }
-        //        //for(int count = 0;)
-        //        //CBPayMonth.Items.Add("asdasdasd");
-        //    }
-        //    else
-        //    {
-        //        for (int count = 1; count <= 12; count++)
-        //        {
-        //            CBPayMonth.Items.Add(count);
-        //        }
-        //        Year += 3;
-        //        for (int count = 0; count < 15; count++)
-        //        {
-        //            CBPayYear.Items.Add(Year);
-        //            Year--;
-        //            //
-        //        }
-        //    }
-        //}
-
+        //----------------------- select pay date -------------------- ////////
+        // เลือกเดือนจ่าย
         private void CBPayMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
             int LoanAmount, LoanAmountLimit;
@@ -351,7 +356,7 @@ namespace example.Bank
                 }
             }
         }
-
+        // เลือกปีจ่าย
         private void CBPayYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             int LoanAmount, LoanAmountLimit;
@@ -377,33 +382,39 @@ namespace example.Bank
                 }
             }
         }
+        //----------------------- End code -------------------- ////////
 
-        //private void TBTeacherNo_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (TBTeacherNo.Text.Length == 6)
-        //    {
-        //        if (e.KeyCode == Keys.Enter)
-        //        {
-        //            DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
-        //                SQLDefaultLoan[0]
-        //                .Replace("{TeacherNo}", TBTeacherNo.Text));
-        //            DataTable dtTeacher = ds.Tables[0];
+        //----------------------- select pay EventKey -------------------- ////////
+        // อีเว้นตัวเลข ในTB
+        private void TBLoanAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((!Char.IsNumber(e.KeyChar)) && (!Char.IsControl(e.KeyChar)))
+            {
+                e.Handled = true;
+            }
+        }
+        // อีเว้นตัวเลข ในTB
+        private void TBPayNo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((!Char.IsNumber(e.KeyChar)) && (!Char.IsControl(e.KeyChar)))
+            {
+                e.Handled = true;
+            }
+        }
+        // อีเว้นตัวเลข ในTB
+        private void TBInterestRate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((!Char.IsNumber(e.KeyChar)) && (!Char.IsControl(e.KeyChar)))
+            {
+                e.Handled = true;
+            }
+        }
 
-        //            DataTable dt = ds.Tables[1];
+        //----------------------- End code -------------------- ////////
 
-
-        //        }
-        //    }
-        //    else
-        //    {
-        //        TBTeacherName.Text = "";
-        //        TBLoanNo.Text = "";
-        //        TBLoanStatus.Text = "";
-        //        TBSavingAmount.Text = "";
-        //    }
-
-        //}
-
+        //----------------------- MedtodPrint -------------------- ////////
+        public int CurrentRows = 0;
+        // Comment!
         public void StartCenter(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
         {
             SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
@@ -411,6 +422,7 @@ namespace example.Bank
             e.Graphics.DrawString(Text,
                 fontText, brush, new PointF(StartLoc, LocY));
         }
+        // Comment!
         public void Center(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
         {
             SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
@@ -418,6 +430,7 @@ namespace example.Bank
             e.Graphics.DrawString(Text,
                 fontText, brush, new PointF(StartLoc, LocY));
         }
+        // Comment!
         public void KeepRight(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
         {
             SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
@@ -425,6 +438,7 @@ namespace example.Bank
             e.Graphics.DrawString(Text,
                 fontText, brush, new PointF(StartLoc, LocY));
         }
+        // Comment!
         public void KeepLeft(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
         {
             SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
@@ -432,7 +446,7 @@ namespace example.Bank
             e.Graphics.DrawString(Text,
                 fontText, brush, new PointF(StartLoc, LocY));
         }
-
+        // Comment!
         public void CenterKeepRight(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
         {
             SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
@@ -440,8 +454,7 @@ namespace example.Bank
             e.Graphics.DrawString(Text,
                 fontText, brush, new PointF(StartLoc, LocY));
         }
-        public int CurrentRows = 0;
-     
+        // Comment!
         public void Header(System.Drawing.Printing.PrintPageEventArgs e, Brush brush)
         {
             int Y = 50;
@@ -461,16 +474,19 @@ namespace example.Bank
                 Header01, brush, new PointF(StartLoc, Y + (SpacePerRow * CurrentRows++)));
             }
         }
+        // Comment!
         public void Rect(System.Drawing.Printing.PrintPageEventArgs e, Pen ColorRect, int WidthSize, int HeightSize, float LocY, float LocX)
         {
             //float x = e.PageBounds.Width - 50 - 125;
             e.Graphics.DrawRectangle(ColorRect, LocX, LocY, WidthSize, HeightSize);
         }
+        // Comment!
         public void PrintBody(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font font, Brush brush)
         {
             float LocX = 96;
             e.Graphics.DrawString(Text, font, brush, LocX, LocY);
         }
+        // Comment!
         public void PrintCheckBoxList(System.Drawing.Printing.PrintPageEventArgs e, float LocX, float LocY, Font font, Brush brush, List<String> AllCheckBox, float SpaceCheckList)
         {
             Pen ColorRect = new Pen(Color.Black);
@@ -491,7 +507,51 @@ namespace example.Bank
             }
 
         }
+        //----------------------- End Medtod -------------------- ////////
 
+        //----------------------- Printf -------------------- ////////
+        // พิมพ์เอกสารกู้
+        private void BPrintLoanDoc_Click_1(object sender, EventArgs e)
+        {
+            if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
+            {
+                printDocument1.Print();
+
+            }
+        }
+        // อัพเอกสารส่ง เซิร์ฟเวอร์
+        private void BLoanDocUpload_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("รอก่อนนะยังใช่งานไม่ได้งับ", "ตัวส่ง", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //private void button2_Click(object sender, EventArgs e)
+            //{
+            //    Image File;
+            //    //String imgeLocation = "";
+            //    try
+            //    {
+            //        OpenFileDialog dialog = new OpenFileDialog();
+            //        dialog.Filter = "pdf files(*.pdf)|*.pdf";
+            //        if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //        {
+            //            //imgeLocation = dialog.FileName;
+            //            File = Image.FromFile(dialog.FileName);
+            //            //pictureBox1.Image = File;
+
+            //            //        }
+            //            //    }
+            //            //    catch (Exception)
+            //            //    {
+            //            //        MessageBox.Show("An Error Occured","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            //            //    }
+            //        }
+            //    }
+            //    catch
+            //    {
+
+            //    }
+            //}
+        }
+        // กระดาษปริ้น
         private void printDocument1_PrintPage_1(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             int PageX = (e.PageBounds.Width);
@@ -613,77 +673,102 @@ namespace example.Bank
             //    Normal01, Normal, new PointF(X, Y + (SpacePerRow * CurrentRows++) - 50));
 
             //e.Graphics.DrawString(DTPStartDate.Text, new Font("TH Sarabun New", 18, FontStyle.Regular), Brushes.Black, new PointF(0, 60));
-
-
         }
+        //----------------------- End Printf -------------------- ////////
 
-        private void DGVGuarantor_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+
+
+
+
+        // ------------------------ not working --------------
+        // โค้ดที่ไม่ได้ใช้งานหรือเก็บไว้ศึกษาต่อ
+        private void button2_Click(object sender, EventArgs e)
         {
-            LGuarantorAmount.Text = DGVGuarantor.RowCount.ToString() + "/4";
+            MessageBox.Show("เดี๋ยวใส่ตอนรวมโปรแกรมครับ", "System", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading, true);
         }
-
-        private void TBLoanAmount_KeyPress(object sender, KeyPressEventArgs e)
+        private void Recycle()
         {
-            if ((!Char.IsNumber(e.KeyChar)) && (!Char.IsControl(e.KeyChar)))
-            {
-                e.Handled = true;
-            }
+            //private void BPrintLoanDoc_Click(object sender, EventArgs e)
+            //{
+            //    //Method.SQLMethod.TeacherMember(TBTeacherNo.Text,int.Parse(TBStartAmountShare.Text), button1.Text);
+            //    CurrentRows = 0;
+            //    DialogResult a = printPreviewDialog1.ShowDialog();
+            //}
+
+            //private void RBPresent_CheckedChanged(object sender, EventArgs e)
+            //{
+            //    CBPayMonth.Items.Clear();
+            //    CBPayYear.Items.Clear();
+            //    DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
+            //        SQLDefault[2]);
+            //    DataTable dt = ds.Tables[0];
+            //    DateTime date = DateTime.Parse(dt.Rows[0][0].ToString());
+            //    int Month = int.Parse(date.ToString("MM"));
+            //    int Year = int.Parse(date.ToString("yyyy"));
+            //    if (RBPresent.Checked == true)
+            //    {
+
+            //        if (Month == 12)
+            //            Month = 1;
+            //        for (; Month <= 12; Month++)
+            //        {
+            //            CBPayMonth.Items.Add(Month);
+            //        }
+            //        for (int count = 0; count < 10; count++)
+            //        {
+            //            CBPayYear.Items.Add(Year);
+            //            Year++;
+            //        }
+            //        //for(int count = 0;)
+            //        //CBPayMonth.Items.Add("asdasdasd");
+            //    }
+            //    else
+            //    {
+            //        for (int count = 1; count <= 12; count++)
+            //        {
+            //            CBPayMonth.Items.Add(count);
+            //        }
+            //        Year += 3;
+            //        for (int count = 0; count < 15; count++)
+            //        {
+            //            CBPayYear.Items.Add(Year);
+            //            Year--;
+            //            //
+            //        }
+            //    }
+            //}
+            //private void TBTeacherNo_KeyDown(object sender, KeyEventArgs e)
+            //{
+            //    if (TBTeacherNo.Text.Length == 6)
+            //    {
+            //        if (e.KeyCode == Keys.Enter)
+            //        {
+            //            DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
+            //                SQLDefaultLoan[0]
+            //                .Replace("{TeacherNo}", TBTeacherNo.Text));
+            //            DataTable dtTeacher = ds.Tables[0];
+
+            //            DataTable dt = ds.Tables[1];
+
+
+            //        }
+            //    }
+            //    else
+            //    {
+            //        TBTeacherName.Text = "";
+            //        TBLoanNo.Text = "";
+            //        TBLoanStatus.Text = "";
+            //        TBSavingAmount.Text = "";
+            //    }
+
+            //}
         }
+        //----------------------- End code -------------------
 
-        private void TBPayNo_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((!Char.IsNumber(e.KeyChar)) && (!Char.IsControl(e.KeyChar)))
-            {
-                e.Handled = true;
-            }
-        }
 
-        private void TBInterestRate_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((!Char.IsNumber(e.KeyChar)) && (!Char.IsControl(e.KeyChar)))
-            {
-                e.Handled = true;
-            }
-        }
 
-        private void BSave_Click(object sender, EventArgs e)
-        {
-            int LoanNo;
-            DataSet dsInsertLoan = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[3]
-                .Replace("{TeacherNoAdd}", TeacherNoUser)
-                .Replace("{TeacherNo}",TBTeacherNo.Text)
-                .Replace("{MonthPay}",CBPayMonth.Text)
-                .Replace("{YearPay}",CBPayYear.Text)
-                .Replace("{LoanAmount}",TBLoanAmount.Text)
-                .Replace("{PayNo}",TBPayNo.Text)
-                .Replace("{InterestRate}",TBInterestRate.Text) 
-                );
-            DataTable dtGetLoanNo = dsInsertLoan.Tables[0];
-            LoanNo = int.Parse(dtGetLoanNo.Rows[0][0].ToString());
 
-            float credit = int.Parse(TBLoanAmount.Text) / 4;
-            bool CheckInt = IsInt(credit);
-            int GuarantorCredit = int.Parse(credit.ToString());
-            if (!CheckInt)
-            {
-                GuarantorCredit += 1;
-            }
-            for(int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
-            {
-                DataSet dsInsertGuarantor = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[4]
-                .Replace("{LoanNo", LoanNo.ToString())
-                .Replace("{TeacherNo", DGVGuarantor.Rows[Num].Cells[0].Value.ToString())
-                .Replace("{Amount}", GuarantorCredit.ToString())
-                .Replace("{RemainsAmount}", GuarantorCredit.ToString())
-                );
-            }
 
-        }
-        //private void BPrintLoanDoc_Click(object sender, EventArgs e)
-        //{
-        //    //Method.SQLMethod.TeacherMember(TBTeacherNo.Text,int.Parse(TBStartAmountShare.Text), button1.Text);
-        //    CurrentRows = 0;
-        //    DialogResult a = printPreviewDialog1.ShowDialog();
-        //}
+
     }
 }

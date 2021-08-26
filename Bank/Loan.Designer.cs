@@ -629,6 +629,7 @@ namespace example.Bank
             this.BLoanDocUpload.TabIndex = 2;
             this.BLoanDocUpload.Text = "อัพโหลดเอกสาร";
             this.BLoanDocUpload.UseVisualStyleBackColor = true;
+            this.BLoanDocUpload.Click += new System.EventHandler(this.BLoanDocUpload_Click);
             // 
             // BPrintLoanDoc
             // 
@@ -638,7 +639,7 @@ namespace example.Bank
             this.BPrintLoanDoc.TabIndex = 3;
             this.BPrintLoanDoc.Text = "พิมพ์เอกสาร";
             this.BPrintLoanDoc.UseVisualStyleBackColor = true;
-            this.BPrintLoanDoc.Click += new System.EventHandler(this.BPrintLoanDoc_Click);
+            this.BPrintLoanDoc.Click += new System.EventHandler(this.BPrintLoanDoc_Click_1);
             // 
             // panel7
             // 
