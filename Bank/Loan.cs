@@ -661,16 +661,22 @@ namespace example.Bank
             DataTable dtGetLoanNo = dsInsertLoan.Tables[0];
             LoanNo = int.Parse(dtGetLoanNo.Rows[0][0].ToString());
 
+            float credit = int.Parse(TBLoanAmount.Text) / 4;
+            bool CheckInt = IsInt(credit);
+            int GuarantorCredit = int.Parse(credit.ToString());
+            if (!CheckInt)
+            {
+                GuarantorCredit += 1;
+            }
             for(int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
             {
                 DataSet dsInsertGuarantor = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[4]
                 .Replace("{LoanNo", LoanNo.ToString())
                 .Replace("{TeacherNo", DGVGuarantor.Rows[Num].Cells[0].Value.ToString())
-                .Replace("{Amount}", DGVGuarantor.Rows[Num].Cells[2].Value.ToString())
-                .Replace("{RemainsAmount}", DGVGuarantor.Rows[Num].Cells[2].Value.ToString())
+                .Replace("{Amount}", GuarantorCredit.ToString())
+                .Replace("{RemainsAmount}", GuarantorCredit.ToString())
                 );
             }
-            
 
         }
         //private void BPrintLoanDoc_Click(object sender, EventArgs e)
