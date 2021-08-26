@@ -14,8 +14,12 @@ namespace example.Bank
     {
         //------------------------- index -----------------
         DateTime DateTime;
+
         String TeacherNoUser;
         public static int SelectIndexRowDelete;
+
+        string TeacherNoUser;
+
         //----------------------- index code -------------------- ////////
         public Loan()
         {
