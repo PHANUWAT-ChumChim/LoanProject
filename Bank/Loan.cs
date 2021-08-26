@@ -14,7 +14,7 @@ namespace example.Bank
     {
         //------------------------- index -----------------
         DateTime DateTime;
-        String TeacherNoUser;
+        string TeacherNoUser;
         //----------------------- index code -------------------- ////////
         public Loan()
         {

@@ -14,13 +14,14 @@ namespace example.GOODS
     {
         //------------------------- index -----------------
         public static int x = 0;
+        public static int sum = 0;
         public static int SelectIndexRowDelete = -1;
         //----------------------- index code -------------------- ////////
         public pay(int TabIndex)
         {
             InitializeComponent(); 
             tabControl1.SelectedIndex = TabIndex;
-            Font F = new Font("TH Sarabun New",16, FontStyle.Regular);
+            Font F = new Font("TH Sarabun New",16, FontStyle.Regular,GraphicsUnit.Point);
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = F;
             dataGridView2.ColumnHeadersDefaultCellStyle.Font = F;
         }
@@ -109,10 +110,15 @@ namespace example.GOODS
         // ถ้า ไม่มีข้อความ ใน กล่อง จะไม่เปิดใช่งานกล่อง ถัดไป
         private void CBB4Oppay_SelectedIndexChanged_1(object sender, EventArgs e)
         {
+            if (dataGridView1.RowCount != 0)
+            {
+                CBB4Oppay.Enabled = true;
+            }
             if (CBB4Oppay.SelectedIndex != -1)
             {
                 BTsave.Enabled = true;
             }
+            else { BTsave.Enabled = false; }
         }
         //----------------------- End code -------------------- ////////
 
@@ -175,14 +181,23 @@ namespace example.GOODS
         // Comment!
         private void Delete_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.Rows.Count != 0)
+            {
+                sum -= int.Parse(dataGridView1.Rows[SelectIndexRowDelete].Cells[2].Value.ToString());
+                x = sum;
+                label5.Text = sum.ToString();
+            }
             if (SelectIndexRowDelete != -1)
             {
                 dataGridView1.Rows.RemoveAt(SelectIndexRowDelete);
                 SelectIndexRowDelete = -1;
-
+                if (dataGridView1.Rows.Count == 0)
+                {
+                    CBB4Oppay.Enabled = false;
+                    CBB4Oppay.SelectedIndex = -1;
+                }
             }
         }
-
         //----------------------- End code -------------------- ////////
 
         //------------------------- SUMAmountShare ---------
@@ -195,12 +210,13 @@ namespace example.GOODS
                 if (TBStartAmountShare.Text != "")
                 {
                     x += int.Parse(TBStartAmountShare.Text);
+                    sum = x;
                     label5.Text = x.ToString();
                 }
                 else { TBStartAmountShare.Text = "0"; }
             }
             dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);
-            
+           
 
             //DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[];
             //row.Cells[1].Value = CBStatus.SelectedItem.ToString();
