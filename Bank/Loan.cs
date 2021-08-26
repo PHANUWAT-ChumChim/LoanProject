@@ -22,12 +22,14 @@ namespace example.Bank
             Class.FromSettingMedtod.ChangeSizePanal(this, panel1);
         }
         DateTime DateTime;
-
+        String TeacherNoUser;
         /// <summary> 
         /// SQLDafaultLoan 
         /// <para>[0] SELECT TeacherName Data INPUT:{TeacherNo} </para> 
         /// <para>[1] SELECT Guarantor Credit Limit INPUT:{GuarantorNo} </para>
         /// <para>[2] SELECT Date Data </para>
+        /// <para>[3] INSERT Loan and Get LoanNo INPUT: {TeacherNoAdd}, {TeacherNo}, {MonthPay}, {YearPay}, {LoanAmount}, {PayNo}, {InterestRate}</para>
+        /// <para>[4] INSERT Guarantor INPUT: {LoanNo},{TeacherNo},{Amount},{RemainsAmount}</para>
         /// </summary> 
         private String[] SQLDefaultLoan = new String[]
         {
@@ -39,17 +41,33 @@ namespace example.Bank
             "Where a.TeacherNo = '{TeacherNo}'; \r\n\r\n",
 
             //[1] SELECT CreditLimit Data INPUT:{GuarantorNo}
-            "SELECT a.TeacherNo , d.SavingAmount - SUM(b.Amount)\r\n" +
-            "FROM EmployeeBank.dbo.tblMember as a\r\n" +
-            "LEFT JOIN EmployeeBank.dbo.tblGuarantor as b on a.TeacherNo = b.TeacherNo\r\n" +
-            "LEFT JOIN EmployeeBank.dbo.tblLoan as c on b.LoanNo = c.LoanNo\r\n" +
+            "SELECT a.TeacherNo , d.SavingAmount ,d.SavingAmount - SUM(b.RemainsAmount)\r\n" + 
+            "FROM EmployeeBank.dbo.tblMember as a\r\n" + 
+            "LEFT JOIN EmployeeBank.dbo.tblGuarantor as b on a.TeacherNo = b.TeacherNo\r\n" + 
+            "LEFT JOIN EmployeeBank.dbo.tblLoan as c on b.LoanNo = c.LoanNo\r\n" + 
             "LEFT JOIN EmployeeBank.dbo.tblShare as d on a.TeacherNo = d.TeacherNo\r\n" +
-            "WHERE a.TeacherNo = '{GuarantorNo}' AND c.LoanStatusNo <= 2\r\n" +
+            "WHERE a.TeacherNo = '{GuarantorNo}'\r\n" +
             "GROUP BY a.TeacherNo , d.SavingAmount;\r\n"
             ,
 
             //[2] SELECT Date Data
             "SELECT CAST(CURRENT_TIMESTAMP as DATE); \r\n\r\n",
+
+            //[3] INSERT Loan and Get LoanNo INPUT: {TeacherNoAdd}, {TeacherNo}, {MonthPay}, {YearPay}, {LoanAmount}, {PayNo}, {InterestRate}
+            "DECLARE @LoanNo INT;\r\n" +
+            "INSERT INTO EmployeeBank.dbo.tblLoan\r\n" +
+            "(TeacherNoAddBy, TeacherNo, MonthPay, YearPay, LoanAmount, PayNo, InterestRate, DateAdd)\r\n" +
+            "VALUES ('{TeacherNoAdd}', '{TeacherNo}', '{MonthPay}', '{YearPay}', '{LoanAmount}', '{PayNo}', '{InterestRate}', CAST(CURRENT_TIMESTAMP as DATE));\r\n" +
+            "SELECT @LoanNo = SCOPE_IDENTITY();\r\n" +
+            "SELECT LoanNo\r\n" +
+            "FROM EmployeeBank.dbo.tblLoan\r\n" +
+            "WHERE LoanNo = @LoanNo;\r\n"
+            ,
+
+            //INSERT Guarantor INPUT: {LoanNo},{TeacherNo},{Amount},{RemainsAmount}
+            "INSERT INTO EmployeeBank.dbo.tblGuarantor (LoanNo,TeacherNo,Amount,RemainsAmount)\r\n" +
+            "VALUES ('{LoanNo}','{TeacherNo}','{Amount}','{RemainsAmount}');\r\n"
+            ,
         };
         
         private void label4_Click(object sender, EventArgs e)
@@ -96,11 +114,12 @@ namespace example.Bank
                 Console.WriteLine(x);
             }
         }
-
+        //int RowDGV;
         private void TBTeacherNo_TextChanged(object sender, EventArgs e)
         {
             //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
-            int RowDGV = 0;
+            
+            int credit;
             if (TBTeacherNo.Text.Length == 6)
             {
                 Class.SQLMethod.ReSearchLoan(TBTeacherNo.Text, TBTeacherName, TBLoanNo, TBLoanStatus, TBSavingAmount);
@@ -112,8 +131,17 @@ namespace example.Bank
 
                 DataTable dtTeacherName = ds.Tables[0];
                 DataTable dtGuarantorCredit = ds.Tables[1];
-                DGVGuarantor.Rows.Add(dtGuarantorCredit.Rows[0][0], dtTeacherName.Rows[0][1], dtGuarantorCredit.Rows[0][1]);
-                RowDGV = DGVGuarantor.Rows.Count;
+                //String aa = dtGuarantorCredit.Rows[0][2].ToString();
+                if (dtGuarantorCredit.Rows[0][2].ToString().Contains(""))
+                {
+                    credit = int.Parse(dtGuarantorCredit.Rows[0][1].ToString());
+                }
+                else
+                {
+                    credit = int.Parse(dtGuarantorCredit.Rows[0][2].ToString());
+                }
+                DGVGuarantor.Rows.Add(dtGuarantorCredit.Rows[0][0], dtTeacherName.Rows[0][1], credit);
+                //RowDGV = DGVGuarantor.Rows.Count;
             }
             else
             {
@@ -124,7 +152,8 @@ namespace example.Bank
                 TBSavingAmount.Text = "";
                 if(DGVGuarantor.Rows.Count > 0)
                 {
-                    DGVGuarantor.Rows.RemoveAt(RowDGV - 1);
+                    //DGVGuarantor.Rows.Remove()\
+                    DGVGuarantor.Rows.Clear();
                 }
             }
         }
@@ -134,8 +163,15 @@ namespace example.Bank
 
             if (e.KeyChar == (char)Keys.Enter)
             {
-
-                if (DGVGuarantor.Rows.Count <= 4)
+                bool CheckTeacherNo = false;
+                for(int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
+                {
+                    String aa = DGVGuarantor.Rows[Num].Cells[1].Value.ToString();
+                    CheckTeacherNo = TBGuarantorNo.Text.Contains(DGVGuarantor.Rows[Num].Cells[0].Value.ToString());
+                    if (CheckTeacherNo)
+                        break;
+                }
+                if ((DGVGuarantor.Rows.Count < 4) && (CheckTeacherNo == false))
                 {
                     DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
                         SQLDefaultLoan[0]
@@ -147,18 +183,26 @@ namespace example.Bank
                     DataTable dtSavingAmount = ds.Tables[1];
                     if (dtGuarantorName.Rows.Count != 0 && dtSavingAmount.Rows.Count != 0)
                     {
-                        if (int.Parse(dtSavingAmount.Rows[0][1].ToString()) != 0)
+                        int credit;
+                        if (dtSavingAmount.Rows[0][2].ToString().Contains(""))
+                        {
+                            credit = int.Parse(dtSavingAmount.Rows[0][1].ToString());
+                        }
+                        else
+                        {
+                            credit = int.Parse(dtSavingAmount.Rows[0][2].ToString());
+                        }
+
+                        if (credit != 0)
                         {
                             DGVGuarantor.Rows.Add(dtSavingAmount.Rows[0][0].ToString(),
                                 dtGuarantorName.Rows[0][1].ToString(),
-                                dtSavingAmount.Rows[0][1].ToString());
+                                credit);
                         }
                         else
                         {
                             MessageBox.Show("ไม่มียอดเงินที่ใช้ค้ำได้ โปรดเลือกบุคคลอื่น", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
-                        
-
 
                     }
                     else
@@ -167,7 +211,9 @@ namespace example.Bank
 
                     }
                 }
-                else
+                else if (CheckTeacherNo == true)
+                    MessageBox.Show("รายชื่อซ้ำ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else if(DGVGuarantor.Rows.Count >= 4)
                 {
                     MessageBox.Show("ผู้ค้ำเกินกหนด", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -185,12 +231,12 @@ namespace example.Bank
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (tabControl1.SelectedIndex == 1 && DGVGuarantor.RowCount == 4)
+            if (tabControl1.SelectedIndex == 1 && DGVGuarantor.Rows.Count == 4)
             {
                 int LoanAmount = 0;
                 for (int Count = 0; Count < DGVGuarantor.Rows.Count; Count++)
                 {
-                    LoanAmount += int.Parse(DGVGuarantor.Rows[Count].Cells[1].ToString());
+                    LoanAmount += int.Parse(DGVGuarantor.Rows[Count].Cells[2].Value.ToString());
                 }
                 LLoanAmount.Text = "( " + LoanAmount.ToString() + " )";
 
@@ -198,12 +244,12 @@ namespace example.Bank
             else if (tabControl1.SelectedIndex == 2 && (TBLoanAmount.Text != "" && CBPayMonth.Text != "" && CBPayYear.Text != "" && TBPayNo.Text != "" && TBInterestRate.Text != ""))
             {
                 int Month = int.Parse(CBPayMonth.Text), Year = int.Parse(CBPayYear.Text);
-                Double Pay = int.Parse(TBLoanAmount.Text) / int.Parse(TBPayNo.Text);
-                Double Interest = int.Parse(TBLoanAmount.Text) * (int.Parse(TBInterestRate.Text) / 100);
+                float Pay = float.Parse(TBLoanAmount.Text) / float.Parse(TBPayNo.Text);
+                float Interest = float.Parse(TBLoanAmount.Text) * float.Parse(TBInterestRate.Text) / 100;
                 
                 for (int Num = 0; Num < int.Parse(TBPayNo.Text); Num++)
                 {
-                    Double AllpayD = Pay + Interest;
+                    float AllpayD = Pay + Interest;
                     int AllPay = 0;
                     Month++;
                     if (Month > 12)
@@ -226,7 +272,7 @@ namespace example.Bank
             }
 
         }
-        bool IsInt(double x)
+        bool IsInt(float x)
         {
             try
             {
@@ -332,31 +378,31 @@ namespace example.Bank
             }
         }
 
-        private void TBTeacherNo_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (TBTeacherNo.Text.Length == 6)
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
-                        SQLDefaultLoan[0]
-                        .Replace("{TeacherNo}", TBTeacherNo.Text));
-                    DataTable dtTeacher = ds.Tables[0];
+        //private void TBTeacherNo_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (TBTeacherNo.Text.Length == 6)
+        //    {
+        //        if (e.KeyCode == Keys.Enter)
+        //        {
+        //            DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
+        //                SQLDefaultLoan[0]
+        //                .Replace("{TeacherNo}", TBTeacherNo.Text));
+        //            DataTable dtTeacher = ds.Tables[0];
 
-                    DataTable dt = ds.Tables[1];
+        //            DataTable dt = ds.Tables[1];
 
 
-                }
-            }
-            else
-            {
-                TBTeacherName.Text = "";
-                TBLoanNo.Text = "";
-                TBLoanStatus.Text = "";
-                TBSavingAmount.Text = "";
-            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        TBTeacherName.Text = "";
+        //        TBLoanNo.Text = "";
+        //        TBLoanStatus.Text = "";
+        //        TBSavingAmount.Text = "";
+        //    }
 
-        }
+        //}
 
         public void StartCenter(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
         {
@@ -598,6 +644,34 @@ namespace example.Bank
             {
                 e.Handled = true;
             }
+        }
+
+        private void BSave_Click(object sender, EventArgs e)
+        {
+            int LoanNo;
+            DataSet dsInsertLoan = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[3]
+                .Replace("{TeacherNoAdd}", TeacherNoUser)
+                .Replace("{TeacherNo}",TBTeacherNo.Text)
+                .Replace("{MonthPay}",CBPayMonth.Text)
+                .Replace("{YearPay}",CBPayYear.Text)
+                .Replace("{LoanAmount}",TBLoanAmount.Text)
+                .Replace("{PayNo}",TBPayNo.Text)
+                .Replace("{InterestRate}",TBInterestRate.Text) 
+                );
+            DataTable dtGetLoanNo = dsInsertLoan.Tables[0];
+            LoanNo = int.Parse(dtGetLoanNo.Rows[0][0].ToString());
+
+            for(int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
+            {
+                DataSet dsInsertGuarantor = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[4]
+                .Replace("{LoanNo", LoanNo.ToString())
+                .Replace("{TeacherNo", DGVGuarantor.Rows[Num].Cells[0].Value.ToString())
+                .Replace("{Amount}", DGVGuarantor.Rows[Num].Cells[2].Value.ToString())
+                .Replace("{RemainsAmount}", DGVGuarantor.Rows[Num].Cells[2].Value.ToString())
+                );
+            }
+            
+
         }
         //private void BPrintLoanDoc_Click(object sender, EventArgs e)
         //{
