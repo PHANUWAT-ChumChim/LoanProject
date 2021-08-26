@@ -12,8 +12,10 @@ namespace example.GOODS
 {
     public partial class pay : Form
     {
-       public static int x = 0;
-       public static int SelectIndexRowDelete = -1;
+        //------------------------- index -----------------
+        public static int x = 0;
+        public static int SelectIndexRowDelete = -1;
+        //----------------------- index code -------------------- ////////
         public pay(int TabIndex)
         {
             InitializeComponent(); 
@@ -39,7 +41,6 @@ namespace example.GOODS
             //MessageBox.Show(this.Width + "" + this.Height);
         }
         //----------------------- End code -------------------- ////////
-
 
         //-------------------------- if.Enbled Text ------------------------
         // if message in textCByer nothing will not Open next
@@ -114,7 +115,6 @@ namespace example.GOODS
             }
         }
         //----------------------- End code -------------------- ////////
-
 
         //------------------------- Pull SQL Member & CheckTBTeacherNo ---------
         // Comment!
@@ -209,11 +209,6 @@ namespace example.GOODS
         }
         //----------------------- End code -------------------- ////////
 
-        
-
-
-
-
 
 
 
@@ -242,7 +237,6 @@ namespace example.GOODS
                 e.Handled = true;
             }
         }
-
         private void BTsave_Click(object sender, EventArgs e)
         {
             if (dataGridView1.Rows.Count != 0)
@@ -255,9 +249,6 @@ namespace example.GOODS
                 MessageBox.Show("รายการชำระไม่ถูกต้อง", "การเเจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-
-
         //----------------------- End code -------------------
     }
 }

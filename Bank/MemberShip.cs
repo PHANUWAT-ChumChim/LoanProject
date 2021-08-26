@@ -122,41 +122,41 @@ namespace example.Bank
 
             }
         }
-      
 
 
 
-            //private void button2_Click(object sender, EventArgs e)
-            //{
-            //    Image File;
-            //    //String imgeLocation = "";
-            //    try
-            //    {
-            //        OpenFileDialog dialog = new OpenFileDialog();
-            //        dialog.Filter = "pdf files(*.pdf)|*.pdf";
-            //        if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //        {
-            //            //imgeLocation = dialog.FileName;
-            //            File = Image.FromFile(dialog.FileName);
-            //            //pictureBox1.Image = File;
 
-            //            //        }
-            //            //    }
-            //            //    catch (Exception)
-            //            //    {
-            //            //        MessageBox.Show("An Error Occured","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            //            //    }
-            //        }
-            //    }
-            //    catch
-            //    {
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //    Image File;
+        //    //String imgeLocation = "";
+        //    try
+        //    {
+        //        OpenFileDialog dialog = new OpenFileDialog();
+        //        dialog.Filter = "pdf files(*.pdf)|*.pdf";
+        //        if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //        {
+        //            //imgeLocation = dialog.FileName;
+        //            File = Image.FromFile(dialog.FileName);
+        //            //pictureBox1.Image = File;
 
-            //    }
-            //}
+        //            //        }
+        //            //    }
+        //            //    catch (Exception)
+        //            //    {
+        //            //        MessageBox.Show("An Error Occured","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+        //            //    }
+        //        }
+        //    }
+        //    catch
+        //    {
+
+        //    }
+        //}
 
 
 
-                    public void Center(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
+        public void Center(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
                     {
                         SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
                         float StartLoc = e.PageBounds.Width / 2 - SizeString.Width / 2; e.Graphics.DrawString(Text, fontText, brush, new PointF(StartLoc, LocY));

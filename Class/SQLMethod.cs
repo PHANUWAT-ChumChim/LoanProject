@@ -121,12 +121,12 @@ namespace example.Class
             }
         }
         // ค้นหารายชื่อผู้กู้โดยการ ใส่หมายยเลข
-        public static void ReSearchLoan (string TBTeacherNo,TextBox TBTeacherNane,TextBox SavingAmount, TextBox LoanNo,TextBox LoanStatusName)
+        public static void ReSearchLoan (string TBTeacherNo,TextBox TBTeacherNane,TextBox LoanNo, TextBox LoanStatusName, TextBox SavingAmount)
         {
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[2].Replace("T{TeacherNo}%", TBTeacherNo));
             if (dt.Rows.Count != 0)
             {
-                TBTeacherNane.Text = dt.Rows[0][1].ToString();
+                TBTeacherNane.Text = dt.Rows[0][1].ToString(); 
                 LoanStatusName.Text = dt.Rows[0][7].ToString();
                 LoanNo.Text = dt.Rows[0][6].ToString();
                 SavingAmount.Text = dt.Rows[0][9].ToString();
