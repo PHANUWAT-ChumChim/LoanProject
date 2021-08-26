@@ -145,7 +145,7 @@ namespace example.Bank
             }
             else
             {
-                TBTeacherNo.Text = "";
+                //TBTeacherNo.Text = "";
                 TBTeacherName.Text = "";
                 TBLoanNo.Text = "";
                 TBLoanStatus.Text = "";

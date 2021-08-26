@@ -754,6 +754,7 @@ namespace example.Bank
             // 
             this.TBTeacherNo.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TBTeacherNo.Location = new System.Drawing.Point(70, 14);
+            this.TBTeacherNo.MaxLength = 6;
             this.TBTeacherNo.Name = "TBTeacherNo";
             this.TBTeacherNo.Size = new System.Drawing.Size(230, 43);
             this.TBTeacherNo.TabIndex = 82;
