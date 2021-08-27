@@ -43,6 +43,13 @@ namespace example.GOODS
         }
         //----------------------- End code -------------------- ////////
 
+
+
+        //----------------------- PullSQL -------------------- ////////
+
+        //----------------------- End code -------------------- ////////
+
+
         //-------------------------- if.Enbled Text ------------------------
         // if message in textCByer nothing will not Open next
         // ถ้า ไม่มีข้อความ ใน กล่องปี จะไม่เปิดใช่งานกล่อง ถัดไป
@@ -93,7 +100,7 @@ namespace example.GOODS
         // ถ้า ไม่มีข้อความ ใน กล่อง จะไม่เปิดใช่งานกล่อง ถัดไป
         private void CBB3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CBStatus.SelectedIndex != -1 && TBTeacherNo.Text != "")
+            if (CBStatus.SelectedIndex != -1 && TBTeacherNo.Text.Length  == 6)
             {
                 Class.SQLMethod.AmountpayANDAmountLoanINMonth(TBTeacherNo.Text, TBStartAmountShare, CBStatus);
                 BTAdd.Enabled = true;
@@ -130,23 +137,36 @@ namespace example.GOODS
             if (TBTeacherNo.Text.Length == 6)
             {
                 Class.SQLMethod.ResearhMerberANDinformation(TBTeacherNo.Text, TBTeacherName, TBTeacherBill, TBTeacherIDNo, TBidno, TBTel, TBstatus, TBStartAmount2);
+                CBStatus.Enabled = true;
             }
             else
             {
+                sum = 0; x = 0;
+                label5.Text = sum.ToString();
                 dataGridView1.Rows.Clear();
                 TBStartAmountShare.Text = "";
                 CBStatus.SelectedIndex = -1;
                 TBTeacherBill.Text = "";
                 TBTeacherName.Text = "";
+                CBStatus.Enabled = false;
             }
         }
         // Comment!
         private void BSearchTeacher_Click(object sender, EventArgs e)
         {
-            Bank.Search IN = new Bank.Search(2);
-            IN.ShowDialog();
-            TBTeacherNo.Text = Bank.Search.Return[0];
+            try
+            {
+                Bank.Search IN = new Bank.Search(2);
+                IN.ShowDialog();
+                TBTeacherNo.Text = Bank.Search.Return[0];
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x);
+            }
 
+            sum = 0; x = 0;
+            label5.Text = sum.ToString();
             dataGridView1.Rows.Clear();
             TBStartAmountShare.Clear();
             CBStatus.SelectedIndex = -1;
@@ -211,7 +231,7 @@ namespace example.GOODS
                 {
                     x += int.Parse(TBStartAmountShare.Text);
                     sum = x;
-                    label5.Text = x.ToString();
+                    label5.Text = sum.ToString();
                 }
                 else { TBStartAmountShare.Text = "0"; }
             }

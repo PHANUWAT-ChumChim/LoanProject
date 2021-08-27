@@ -17,9 +17,6 @@ namespace example.Bank
 
         String TeacherNoUser;
         public static int SelectIndexRowDelete;
-
-        string TeacherNoUser;
-
         //----------------------- index code -------------------- ////////
         public Loan()
         {
@@ -82,8 +79,9 @@ namespace example.Bank
             ,
         };
 
-        //----------------------- PullSQLDate -------------------- ////////
+        //----------------------- PullSQL -------------------- ////////
         // ดึงขอมูลวันที่จากฐานข้อมูล
+        // Available values| SQLDefaultLoan[2] / CB /
         private void Loan_Load(object sender, EventArgs e)
         {
 
@@ -102,56 +100,8 @@ namespace example.Bank
                 CBPayMonth.Items.Add(a);
             }
         }
-        //----------------------- End code -------------------- ////////
-
-        //----------------------- INSERTSQLLoan -------------------- ////////
-        // ส่งข้อมูลการกู้ขึ้นไปเก็บบนฐานข้อมูล
-        private void BSave_Click(object sender, EventArgs e)
-        {
-            if (TBTeacherNo.Text != "" && CBPayMonth.Text != "" && CBPayYear.Text != "" &&
-                TBLoanAmount.Text != "" && TBPayNo.Text != "" && TBInterestRate.Text != "")
-            {
-                int LoanNo;
-                DataSet dsInsertLoan = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[3]
-                    .Replace("{TeacherNoAdd}", TeacherNoUser)
-                    .Replace("{TeacherNo}", TBTeacherNo.Text)
-                    .Replace("{MonthPay}", CBPayMonth.Text)
-                    .Replace("{YearPay}", CBPayYear.Text)
-                    .Replace("{LoanAmount}", TBLoanAmount.Text)
-                    .Replace("{PayNo}", TBPayNo.Text)
-                    .Replace("{InterestRate}", TBInterestRate.Text)
-                    );
-                DataTable dtGetLoanNo = dsInsertLoan.Tables[0];
-                LoanNo = int.Parse(dtGetLoanNo.Rows[0][0].ToString());
-
-                float credit = int.Parse(TBLoanAmount.Text) / 4;
-                bool CheckInt = IsInt(credit);
-                int GuarantorCredit = int.Parse(credit.ToString());
-                if (!CheckInt)
-                {
-                    GuarantorCredit += 1;
-                }
-                for (int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
-                {
-                    DataSet dsInsertGuarantor = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[4]
-                    .Replace("{LoanNo", LoanNo.ToString())
-                    .Replace("{TeacherNo", DGVGuarantor.Rows[Num].Cells[0].Value.ToString())
-                    .Replace("{Amount}", GuarantorCredit.ToString())
-                    .Replace("{RemainsAmount}", GuarantorCredit.ToString())
-                    );
-                }
-            }
-            else
-            {
-                MessageBox.Show("โปรดใสข้อมุลให้ครบก่อนบันทึก", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-
-        }
-        //----------------------- End code -------------------- ////////
-
-        //------------------------- Pull SQL Member & CheckTBTeacherNo ---------
-        // ค้นหารายชชื่อผู้สมัครสมาชิกครูสหกร์จากฐานข้อมูล
+        //  ค้นหารายชชื่อผู้สมัครสมาชิกครูสหกร์จากฐานข้อมูล Pull SQL Member & CheckTBTeacherNo
+        // Available values| ReSearchLoan / TB /
         private void TBTeacherNo_TextChanged(object sender, EventArgs e)
         {
             //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
@@ -194,6 +144,8 @@ namespace example.Bank
                 }
             }
         }
+        //  ค้นหารายชชื่อผู้สมัครสมาชิกครูสหกร์จากฐานข้อมูล Pull SQL Member & CheckTBTeacherNo
+        // Available values| Search / TB /
         private void BSearchTeacher_Click(object sender, EventArgs e)
         {
             try
@@ -213,6 +165,8 @@ namespace example.Bank
                 Console.WriteLine(x);
             }
         }
+        // Comment!
+        // Available values| SQLDefaultLoan[0] / DGVGuarantor /
         private void TBGuarantorNo_KeyPress(object sender, KeyPressEventArgs e)
         {
 
@@ -276,25 +230,55 @@ namespace example.Bank
                 TBGuarantorNo.Text = "";
             }
         }
-        //int RowDGV;
         //----------------------- End code -------------------- ////////
 
-        //----------------------- DatagridView -------------------- ////////
-        // Comment!
-        private void DGVGuarantor_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
 
-            LGuarantorAmount.Text = DGVGuarantor.RowCount.ToString() + "/4";
-        }
-        //Comment!
-        private void DGVGuarantor_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
-            LGuarantorAmount.Text = DGVGuarantor.RowCount.ToString() + "/4";
-        }
-        //----------------------- End code -------------------- ////////
 
-        //----------------------- INNERTNumber in Labal -------------------- ////////
-        // Comment!
+        //----------------------- INSERTSQLLoan -------------------- ////////
+        // ส่งข้อมูลการกู้ขึ้นไปเก็บบนฐานข้อมูล
+        private void BSave_Click(object sender, EventArgs e)
+        {
+            if (TBTeacherNo.Text != "" && CBPayMonth.Text != "" && CBPayYear.Text != "" &&
+                TBLoanAmount.Text != "" && TBPayNo.Text != "" && TBInterestRate.Text != "")
+            {
+                int LoanNo;
+                DataSet dsInsertLoan = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[3]
+                    .Replace("{TeacherNoAdd}", TeacherNoUser)
+                    .Replace("{TeacherNo}", TBTeacherNo.Text)
+                    .Replace("{MonthPay}", CBPayMonth.Text)
+                    .Replace("{YearPay}", CBPayYear.Text)
+                    .Replace("{LoanAmount}", TBLoanAmount.Text)
+                    .Replace("{PayNo}", TBPayNo.Text)
+                    .Replace("{InterestRate}", TBInterestRate.Text)
+                    );
+                DataTable dtGetLoanNo = dsInsertLoan.Tables[0];
+                LoanNo = int.Parse(dtGetLoanNo.Rows[0][0].ToString());
+
+                float credit = int.Parse(TBLoanAmount.Text) / 4;
+                bool CheckInt = IsInt(credit);
+                int GuarantorCredit = int.Parse(credit.ToString());
+                if (!CheckInt)
+                {
+                    GuarantorCredit += 1;
+                }
+                for (int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
+                {
+                    DataSet dsInsertGuarantor = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[4]
+                    .Replace("{LoanNo", LoanNo.ToString())
+                    .Replace("{TeacherNo", DGVGuarantor.Rows[Num].Cells[0].Value.ToString())
+                    .Replace("{Amount}", GuarantorCredit.ToString())
+                    .Replace("{RemainsAmount}", GuarantorCredit.ToString())
+                    );
+                }
+            }
+            else
+            {
+                MessageBox.Show("โปรดใสข้อมุลให้ครบก่อนบันทึก", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+
+        }
+        // Comment! INNERTNumber in Labal
         bool IsInt(float x)
         {
             try
@@ -307,7 +291,7 @@ namespace example.Bank
                 return false;
             }
         }
-        // Comment!
+        // Comment! INNERTNumber in Labal
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -354,6 +338,50 @@ namespace example.Bank
 
         }
         //----------------------- End code -------------------- ////////
+
+
+
+        //----------------------- DatagridView -------------------- ////////
+        // Comment!
+        private void DGVGuarantor_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+
+            LGuarantorAmount.Text = DGVGuarantor.RowCount.ToString() + "/4";
+        }
+        //Comment!
+        private void DGVGuarantor_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            LGuarantorAmount.Text = DGVGuarantor.RowCount.ToString() + "/4";
+        }
+        //Comment!
+        private void Delete_Click(object sender, EventArgs e)
+        {
+            if (SelectIndexRowDelete > 0)
+            {
+                DGVGuarantor.Rows.RemoveAt(SelectIndexRowDelete);
+                SelectIndexRowDelete = -1;
+
+            }
+        }
+        //Comment!
+        private void DGVGuarantor_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                int currentMouseOverRow = DGVGuarantor.HitTest(e.X, e.Y).RowIndex;
+                if (currentMouseOverRow > 0)
+                {
+                    SelectIndexRowDelete = currentMouseOverRow;
+                    ContextMenu m = new ContextMenu();
+                    m.MenuItems.Add(new MenuItem("ลบออก"));
+                    m.Show(DGVGuarantor, new Point(e.X, e.Y));
+                    m.MenuItems[0].Click += new System.EventHandler(this.Delete_Click);
+                }
+            }
+        }
+        //----------------------- End code -------------------- ////////
+
+
 
         //----------------------- select pay date -------------------- ////////
         // เลือกเดือนจ่าย
@@ -425,6 +453,7 @@ namespace example.Bank
         }
         //----------------------- End code -------------------- ////////
 
+
         //----------------------- select pay EventKey -------------------- ////////
         // อีเว้นตัวเลข ในTB
         private void TBLoanAmount_KeyPress(object sender, KeyPressEventArgs e)
@@ -452,6 +481,7 @@ namespace example.Bank
         }
 
         //----------------------- End code -------------------- ////////
+
 
         //----------------------- MedtodPrint -------------------- ////////
         public int CurrentRows = 0;
@@ -549,6 +579,7 @@ namespace example.Bank
 
         }
         //----------------------- End Medtod -------------------- ////////
+
 
         //----------------------- Printf -------------------- ////////
         // พิมพ์เอกสารกู้
@@ -804,31 +835,9 @@ namespace example.Bank
 
             //}
         }
+        //----------------------- End code -------------------- ////////
 
-        private void DGVGuarantor_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                int currentMouseOverRow = DGVGuarantor.HitTest(e.X, e.Y).RowIndex;
-                if (currentMouseOverRow > 0)
-                {
-                    SelectIndexRowDelete = currentMouseOverRow;
-                    ContextMenu m = new ContextMenu();
-                    m.MenuItems.Add(new MenuItem("ลบออก"));
-                    m.Show(DGVGuarantor, new Point(e.X, e.Y));
-                    m.MenuItems[0].Click += new System.EventHandler(this.Delete_Click);
-                }
-            }
-        }
-        private void Delete_Click(object sender, EventArgs e)
-        {
-            if (SelectIndexRowDelete > 0)
-            {
-                DGVGuarantor.Rows.RemoveAt(SelectIndexRowDelete);
-                SelectIndexRowDelete = -1;
 
-            }
-        }
     }
 }
 
