@@ -109,6 +109,17 @@ namespace example.Bank
             if (TBTeacherNo.Text != "" && CBPayMonth.Text != "" && CBPayYear.Text != "" &&
                 TBLoanAmount.Text != "" && TBPayNo.Text != "" && TBInterestRate.Text != "")
             {
+
+                Bank.Search IN = new Bank.Search(2);
+                IN.ShowDialog();
+                DGVGuarantor.Rows.Clear();
+                TBTeacherNo.Text = Bank.Search.Return[0];
+                TBTeacherName.Text = Bank.Search.Return[1];
+                TBLoanNo.Text = Bank.Search.Return[6];
+                TBLoanStatus.Text = Bank.Search.Return[7];
+                TBLoanAmount.Text = Bank.Search.Return[9];
+
+
                 int LoanNo;
                 DataSet dsInsertLoan = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[3]
                     .Replace("{TeacherNoAdd}", TeacherNoUser)
@@ -138,6 +149,7 @@ namespace example.Bank
                     .Replace("{RemainsAmount}", GuarantorCredit.ToString())
                     );
                 }
+
             }
             else
             {
@@ -157,6 +169,7 @@ namespace example.Bank
             int credit;
             if (TBTeacherNo.Text.Length == 6)
             {
+                DGVGuarantor.Rows.Clear();
                 Class.SQLMethod.ReSearchLoan(TBTeacherNo.Text, TBTeacherName, TBLoanNo, TBLoanStatus, TBSavingAmount);
 
                 DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
@@ -256,6 +269,9 @@ namespace example.Bank
                         {
                             MessageBox.Show("ไม่มียอดเงินที่ใช้ค้ำได้ โปรดเลือกบุคคลอื่น", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+
+
+
 
                     }
                     else
@@ -827,6 +843,93 @@ namespace example.Bank
 
             }
         }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int check = 0;
+            Bank.Search IN = new Bank.Search(3);
+            IN.ShowDialog();
+            if (DGVGuarantor.Rows.Count < 4)
+            {
+                for (int x = 0; x < DGVGuarantor.Rows.Count; x++)
+                {
+                    if (Bank.Search.Return[0] == DGVGuarantor.Rows[x].Cells[0].Value.ToString())
+                    {
+                        MessageBox.Show("มีรายชื่อนีร้อยู่ในตารางแล้วครับ", "System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        check = 1;
+                        break;
+
+                    }
+                }
+
+                if (check != 1)
+                {
+                    try
+                    {
+                        DGVGuarantor.Rows.Add(Bank.Search.Return[0], Bank.Search.Return[1], Bank.Search.Return[3]);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("จำนวนผู้คำเกินกำหนดไม่สามารถเพิ่มได้กรุณาลบผู้ค้ำเก่าออกก่อน", "System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        private void TBGuarantorNo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                addDGVGuarantor();
+            }
+        }
+        private void addDGVGuarantor()
+        {
+            int check = 0;
+            if (TBGuarantorNo.Text.Length == 6)
+            {
+                if (DGVGuarantor.Rows.Count < 4)
+                {
+                    for (int x = 0; x < DGVGuarantor.Rows.Count; x++)
+                    {
+                        if (TBGuarantorNo.Text == DGVGuarantor.Rows[x].Cells[0].Value.ToString())
+                        {
+                            MessageBox.Show("มีรายชื่อนีร้อยู่ในตารางแล้วครับ", "System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            check = 1;
+                            TBGuarantorNo.Text = "";
+                            break;
+                        }
+                    }
+
+                    if (check != 1)
+                    {
+                        example.Class.SQLMethod.ReSearchGuarantor(TBGuarantorNo.Text, DGVGuarantor);
+                        TBGuarantorNo.Text = "";
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("จำนวนผู้คำเกินกำหนดไม่สามารถเพิ่มได้กรุณาลบผู้ค้ำเก่าออกก่อน", "System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("รหัสอาจารย์ไม่ถูกต้อง", "System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+        }
+        //private void BPrintLoanDoc_Click(object sender, EventArgs e)
+        //{
+        //    //Method.SQLMethod.TeacherMember(TBTeacherNo.Text,int.Parse(TBStartAmountShare.Text), button1.Text);
+        //    CurrentRows = 0;
+        //    DialogResult a = printPreviewDialog1.ShowDialog();
+        //}
+
+
     }
 }
 
