@@ -12,6 +12,7 @@ namespace example.GOODS
 {
     public partial class pay : Form
     {
+
         //------------------------- index -----------------
         public static int x = 0;
         public static int sum = 0;
@@ -25,7 +26,7 @@ namespace example.GOODS
 
             Font F = new Font("TH Sarabun New", 16, FontStyle.Regular);
 
-           
+
 
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = F;
             dataGridView2.ColumnHeadersDefaultCellStyle.Font = F;
@@ -265,7 +266,7 @@ namespace example.GOODS
                 else { TBStartAmountShare.Text = "0"; }
             }
 
-            dataGridView1.Rows.Add(CByeartap1.SelectedItem.ToString() +" / "+ CBMonth.SelectedItem.ToString(), CBStatus.Text, TBStartAmountShare.Text);
+            dataGridView1.Rows.Add(Class.SQLMethod.CheckTimeServer(), CBStatus.Text, TBStartAmountShare.Text);
 
 
             //dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);
@@ -315,7 +316,15 @@ namespace example.GOODS
                 e.Handled = true;
             }
         }
-        //----------------------- End code -------------------
+
+
+
+
+
+            //----------------------- End code -------------------//
+        
+     
+
 
     }
 }

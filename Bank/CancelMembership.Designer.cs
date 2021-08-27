@@ -31,12 +31,7 @@ namespace example.Bank
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CancelMembership));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.BExit = new System.Windows.Forms.Button();
-            this.CBStatus = new System.Windows.Forms.ComboBox();
-            this.DTPStartDate = new System.Windows.Forms.DateTimePicker();
-            this.label7 = new System.Windows.Forms.Label();
-            this.BSave = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.TBIDNo = new System.Windows.Forms.TextBox();
@@ -47,11 +42,16 @@ namespace example.Bank
             this.TBTeacherName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.BExit = new System.Windows.Forms.Button();
+            this.CBStatus = new System.Windows.Forms.ComboBox();
+            this.DTPStartDate = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
+            this.BSave = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -77,70 +77,18 @@ namespace example.Bank
             this.panel1.Size = new System.Drawing.Size(900, 541);
             this.panel1.TabIndex = 19;
             // 
-            // BExit
+            // button1
             // 
-            this.BExit.BackColor = System.Drawing.Color.White;
-            this.BExit.Font = new System.Drawing.Font("TH Sarabun New", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BExit.Location = new System.Drawing.Point(991, 1060);
-            this.BExit.Margin = new System.Windows.Forms.Padding(6, 16, 6, 16);
-            this.BExit.Name = "BExit";
-            this.BExit.Size = new System.Drawing.Size(172, 137);
-            this.BExit.TabIndex = 53;
-            this.BExit.Text = "ออก";
-            this.BExit.UseVisualStyleBackColor = false;
-            // 
-            // CBStatus
-            // 
-            this.CBStatus.FormattingEnabled = true;
-            this.CBStatus.Location = new System.Drawing.Point(934, 227);
-            this.CBStatus.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
-            this.CBStatus.Name = "CBStatus";
-            this.CBStatus.Size = new System.Drawing.Size(264, 44);
-            this.CBStatus.TabIndex = 51;
-            // 
-            // DTPStartDate
-            // 
-            this.DTPStartDate.Enabled = false;
-            this.DTPStartDate.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DTPStartDate.Location = new System.Drawing.Point(161, 73);
-            this.DTPStartDate.Margin = new System.Windows.Forms.Padding(6, 16, 6, 16);
-            this.DTPStartDate.Name = "DTPStartDate";
-            this.DTPStartDate.Size = new System.Drawing.Size(272, 43);
-            this.DTPStartDate.TabIndex = 48;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("TH Sarabun New", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(40, 75);
-            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(99, 40);
-            this.label7.TabIndex = 39;
-            this.label7.Text = "วันที่สมัคร";
-            // 
-            // BSave
-            // 
-            this.BSave.BackColor = System.Drawing.Color.White;
-            this.BSave.Font = new System.Drawing.Font("TH Sarabun New", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BSave.Location = new System.Drawing.Point(356, 1060);
-            this.BSave.Margin = new System.Windows.Forms.Padding(6, 16, 6, 16);
-            this.BSave.Name = "BSave";
-            this.BSave.Size = new System.Drawing.Size(547, 137);
-            this.BSave.TabIndex = 28;
-            this.BSave.Text = "บันทึก";
-            this.BSave.UseVisualStyleBackColor = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("TH Sarabun New", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(306, 11);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(286, 53);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "ยกเลิกสมาชิกสหกรณ์ครู";
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.Font = new System.Drawing.Font("TH Sarabun New", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(250, 457);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(398, 61);
+            this.button1.TabIndex = 55;
+            this.button1.Text = "บันทึก";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // tabControl1
             // 
@@ -207,6 +155,7 @@ namespace example.Bank
             this.TBTeacherNo.Name = "TBTeacherNo";
             this.TBTeacherNo.Size = new System.Drawing.Size(310, 43);
             this.TBTeacherNo.TabIndex = 18;
+            this.TBTeacherNo.TextChanged += new System.EventHandler(this.TBTeacherNo_TextChanged);
             // 
             // BSearchTeacher
             // 
@@ -221,6 +170,7 @@ namespace example.Bank
             this.BSearchTeacher.Size = new System.Drawing.Size(43, 43);
             this.BSearchTeacher.TabIndex = 47;
             this.BSearchTeacher.UseVisualStyleBackColor = false;
+            this.BSearchTeacher.Click += new System.EventHandler(this.BSearchTeacher_Click);
             // 
             // TBTeacherName
             // 
@@ -256,37 +206,18 @@ namespace example.Bank
             this.tabPage2.Text = "เอกสาร";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // button3
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(24, 13);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(116, 37);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "*ระบบสาเหตุ";
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.Font = new System.Drawing.Font("TH Sarabun New", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(250, 457);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(398, 61);
-            this.button1.TabIndex = 55;
-            this.button1.Text = "บันทึก";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(196, 23);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(547, 163);
-            this.textBox1.TabIndex = 18;
+            this.button3.BackColor = System.Drawing.Color.White;
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button3.Location = new System.Drawing.Point(23, 106);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(167, 47);
+            this.button3.TabIndex = 22;
+            this.button3.Text = "ส่งเอกสาร";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -300,17 +231,90 @@ namespace example.Bank
             this.button2.Text = "ปริ้นเอกสารยกเลิกสมาชิก";
             this.button2.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // textBox1
             // 
-            this.button3.BackColor = System.Drawing.Color.White;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button3.Location = new System.Drawing.Point(23, 106);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(167, 47);
-            this.button3.TabIndex = 22;
-            this.button3.Text = "ส่งเอกสาร";
-            this.button3.UseVisualStyleBackColor = false;
+            this.textBox1.Location = new System.Drawing.Point(196, 23);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(547, 163);
+            this.textBox1.TabIndex = 18;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(24, 13);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(116, 37);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "*ระบบสาเหตุ";
+            // 
+            // BExit
+            // 
+            this.BExit.BackColor = System.Drawing.Color.White;
+            this.BExit.Font = new System.Drawing.Font("TH Sarabun New", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BExit.Location = new System.Drawing.Point(991, 1060);
+            this.BExit.Margin = new System.Windows.Forms.Padding(6, 16, 6, 16);
+            this.BExit.Name = "BExit";
+            this.BExit.Size = new System.Drawing.Size(172, 137);
+            this.BExit.TabIndex = 53;
+            this.BExit.Text = "ออก";
+            this.BExit.UseVisualStyleBackColor = false;
+            // 
+            // CBStatus
+            // 
+            this.CBStatus.FormattingEnabled = true;
+            this.CBStatus.Location = new System.Drawing.Point(934, 227);
+            this.CBStatus.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
+            this.CBStatus.Name = "CBStatus";
+            this.CBStatus.Size = new System.Drawing.Size(264, 44);
+            this.CBStatus.TabIndex = 51;
+            // 
+            // DTPStartDate
+            // 
+            this.DTPStartDate.Enabled = false;
+            this.DTPStartDate.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DTPStartDate.Location = new System.Drawing.Point(161, 73);
+            this.DTPStartDate.Margin = new System.Windows.Forms.Padding(6, 16, 6, 16);
+            this.DTPStartDate.Name = "DTPStartDate";
+            this.DTPStartDate.Size = new System.Drawing.Size(272, 43);
+            this.DTPStartDate.TabIndex = 48;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("TH Sarabun New", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(40, 75);
+            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(99, 40);
+            this.label7.TabIndex = 39;
+            this.label7.Text = "วันที่สมัคร";
+            // 
+            // BSave
+            // 
+            this.BSave.BackColor = System.Drawing.Color.White;
+            this.BSave.Font = new System.Drawing.Font("TH Sarabun New", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BSave.Location = new System.Drawing.Point(356, 1060);
+            this.BSave.Margin = new System.Windows.Forms.Padding(6, 16, 6, 16);
+            this.BSave.Name = "BSave";
+            this.BSave.Size = new System.Drawing.Size(547, 137);
+            this.BSave.TabIndex = 28;
+            this.BSave.Text = "บันทึก";
+            this.BSave.UseVisualStyleBackColor = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("TH Sarabun New", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(306, 11);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(286, 53);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "ยกเลิกสมาชิกสหกรณ์ครู";
             // 
             // CancelMembership
             // 

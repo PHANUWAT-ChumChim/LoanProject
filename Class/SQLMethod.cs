@@ -15,32 +15,40 @@ namespace example.Class
 
         /// <summary>
         /// SQLDafault 
-        /// <para> [0] Write to Search ID Teacher INPUT: {TeacherNo} </para> 
+        /// <para> [0] Write to Search ID Teacher INPUT: {TeacherNo} MemberStatus </para> 
         /// <para> [1] INSERT Register Member INPUT:  {TeacherNo} {TeacherAddBy} {StartAmount} {DocPath} </para>
-        /// <para> [2] Search LoanMember INPUT: {TeacherNo} </para>
+        /// <para> [2] Search LoanMember INPUT: {TeacherNo} แก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วย </para>
         /// <para> [3]  AmountpayANDAmountLoanINMonth INPUT: {TeacherNo}  </para>
         /// <para> [4] CheckAmount INPUT: -  </para>
         /// <para> [5] INSERT Bill and BillDetail INPUT: {TeacherAddBy} {TeacherNo} {TypeNo} {LoanNo} {Amount} {Mount} {Year}</para>
         /// <para> [6] SELECT Loan INPUT : {TeacherNo} </para>
         /// <para> [7] UPDATE SavingAmount INPUT: {TeacherNo} {Amount} </para>
-        /// </para>[9] CheckAmountpayINPUT: {TeacherNo}  </para>
+
+        /// <para> [8] UPDATE REMAIN INPUT: {TeacherNo} {Amount} </para>
+        /// <para> [9] Check Time Server INPUT: - </para>
+        /// <para> [10] Change Status Member INPUT: {TeacherNoAddBy} {TeacherNo} {Note} {DocStatusNo} {DocUploadPath} {Status} {TeacherNo}</para>
+
+        /// </para>[11] CheckAmountpayINPUT: {TeacherNo}  </para>
+        /// </para> [12] INSERT Member To Member  Bill BillDetail  INPUT: {TeacherNo} </para> 
         /// </summary>
         private static String[] SQLDefault = new String[]
          { 
 
-          //[0] Write to Search & Search All ID Teacher INPUT: {TeacherNo}
-          "SELECT [TeacherNo],CAST(c.PrefixName+' '+[Fname] +' '+ [Lname] as NVARCHAR),[IdNo]  \r\n " +
+          //[0] Write to Search & Search All ID Teacher INPUT: {TeacherNo} {MemberStatus}
+          "SELECT a.TeacherNo,CAST(c.PrefixName+' '+[Fname] +' '+ [Lname] as NVARCHAR),[IdNo]  \r\n " +
           "FROM[Personal].[dbo].[tblTeacherHis] as a  \r\n " +
-          "LEFT JOIN Personal.dbo.tblGroupPosition as b ON a.GroupPositionNo = b.GroupPositionNo  \r\n " +
+          "LEFT JOIN Personal.dbo.tblGroupPosition as b ON a.GroupPositionNo = b.GroupPositionNo \r\n " +
           "LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = a.PrefixNo \r\n " +
-          "WHERE TeacherNo LIKE 'T{TeacherNo}%' \r\n " +
-          "ORDER BY TeacherNo; "
+          "LEFT JOIN EmployeeBank.dbo.tblMember as d ON a.TeacherNo = d.TeacherNo \r\n " +
+          "WHERE a.TeacherNo LIKE 'T{TeacherNo}%' and {d.MemberStatusNo = '{MemberStatus}}' \r\n " +
+          "ORDER BY a.TeacherNo;  "
+
           ,
          //[1] INSERT Register Member INPUT:  {TeacherNo} {TeacherAddBy} {StartAmount} {DocPath}
           "INSERT INTO EmployeeBank.dbo.tblMember(TeacherNo,TeacherAddBy,StartAmount,DocUploadPath,DateAdd) \r\n " +
           "VALUES('{TeacherNo}','{TeacherAddBy}',{StartAmount},'{DocPath}',CURRENT_TIMESTAMP); "
           ,     
-          //[2] Search LoanMember INPUT: {TeacherNo}
+          //[2] Search LoanMember INPUT: {TeacherNo} แก้ด้วย
           "SELECT Mb.TeacherNo , CAST(p.PrefixName+' '+[Fname] +' '+ [Lname] as NVARCHAR)AS Name, Th.IdNo AS TeacherID,  \r\n " +
           " Th.TeacherLicenseNo,Th.IdNo AS IDNo,Th.TelMobile,d.LoanNo, \r\n " +
           " Ls.LoanStatusName,Mb.StartAmount,f.SavingAmount,CAST(Ms.MemberStatusName as nvarchar) AS UserStatususing  \r\n " +
@@ -117,7 +125,19 @@ namespace example.Class
           " \r\n " +
           " "
           ,
-          //[9] CheckAmountpay INPUT: {TeacherNo} 
+
+          //[9] Check Time Server INPUT: - 
+          "SELECT CONVERT (DATE , CURRENT_TIMESTAMP); "
+          ,
+          //[10] Change Status Member INPUT: {TeacherNoAddBy} {TeacherNo} {Note} {DocStatusNo} {DocUploadPath} {Status} {TeacherNo}
+          "INSERT INTO EmployeeBank.dbo.tblMemberResignation (TeacherNoAddBy,TeacherNo,Date,Note,DocStatusNo,DocUploadPath) \r\n " +
+          "VALUES ('{TeacherNoAddBy}','{TeacherNo}',CURRENT_TIMESTAMP,'{Note}','{DocStatusNo}','{DocUploadPath}'); \r\n " +
+          " \r\n " +
+          "UPDATE EmployeeBank.dbo.tblMember \r\n " +
+          "SET MemberStatusNo = '{Status}' \r\n " +
+          "WHERE TeacherNo = '{TeacherNo}' "
+          ,
+          //[11] CheckAmountpay INPUT: {TeacherNo} 
           "SELECT  Bi.BillNo,Bd.BillDetailNo,TeacherNoAddBy,Bi.TeacherNo,Cancel,Bi.DateAdd,Bd.TypeNo,Bt.TypeName,Bd.Amount,Mount,Bd.Year \r\n" +
           "FROM EmployeeBank.dbo.tblBill AS Bi \r\n" +
           "LEFT JOIN EmployeeBank.dbo.tblBillDetail AS Bd ON Bi.BillNo =  Bd.BillNo \r\n" +
@@ -125,7 +145,7 @@ namespace example.Class
           "LEFT JOIN EmployeeBank.dbo.tblMember AS Mb ON Bi.TeacherNo = Mb.TeacherNo \r\n" +
           "WHERE Bi.TeacherNo LIKE '{TeacherNo}' AND Bd.Mount IS NULL AND Bd.Year IS  NULL AND Bd.Amount = Mb.StartAmount ;"
           ,
-           //[10] INSERT Member To Member  Bill BillDetail  INPUT: {TeacherNo} 
+           //[12] INSERT Member To Member  Bill BillDetail  INPUT: {TeacherNo} 
           "DECLARE @BillNo INT; \r\n"+
           "SELECT @BillNo = SCOPE_IDENTITY(); \r\n"+
           "INSERT INTO EmployeeBank.dbo.tblMember(TeacherNo, TeacherAddBy, StartAmount, DateAdd) \r\n"+
@@ -137,10 +157,27 @@ namespace example.Class
 
 
         };
+        
+        public static void ChangeStatusMember(String TeacherNoAddBy , String TeacherNo , String Note , int DocStatusNo, String DocUpLoadPath , int Status )
+        {
+            if(DocUpLoadPath == "") { DocUpLoadPath = "Null"; }
+            Class.SQLConnection.InputSQLMSSQL(SQLDefault[10].Replace("{TeacherNoAddBy}", TeacherNoAddBy)
+                .Replace("{TeacherNo}", TeacherNo)
+                .Replace("{Note}", Note)
+                .Replace("{DocStatusNo}", DocStatusNo.ToString())
+                .Replace("{DocUploadPath}", DocUpLoadPath)
+                .Replace("{Status}", Status.ToString()));
+        }
+      
+        public static String CheckTimeServer()
+        {
+            String Time = Convert.ToDateTime(Class.SQLConnection.InputSQLMSSQL(SQLDefault[9]).Rows[0][0]).ToString("yyyy/MM");
+            return Time;
+        }
         // ของ POON  สำหรับตรวจสอบการชำระในเเต่ละปี
         public static void CheckAmountpay(string TeacherNo,string Mount,string Year)
         {
-            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[9].Replace("{TeacherNo}", TeacherNo));
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[11].Replace("{TeacherNo}", TeacherNo));
             if(dt.Rows.Count != 0)
             {
                 Mount = dt.Rows[0][9].ToString();
@@ -182,8 +219,8 @@ namespace example.Class
                             .Replace("{TypeNo}",TypeNo.ToString())
                             .Replace("{LoanNo}",LoanNo)
                             .Replace("{Amount}",DGV.Rows[x].Cells[2].Value.ToString())
-                            .Replace("{Mount}",MountandYear[0])
-                            .Replace("{Year}",MountandYear[1]));
+                            .Replace("{Mount}",MountandYear[1])
+                            .Replace("{Year}",MountandYear[0]));
                     if (TypeNo == 1)
                     {
                         Class.SQLConnection.InputSQLMSSQL(SQLDefault[7].Replace("{TeacherNo}",TeacherNo)
@@ -239,14 +276,40 @@ namespace example.Class
         }
 
         // ค้นหารายชื่อผู้ลงทะเบียนในระบบครู ใส่หมายยเลข
-        public static void ResearchUserAllTLC(string TBTeacherNo, TextBox TBTeacherName, TextBox TBTeacherIDNo)
+        /// <summary>
+        /// <para>ค่าที่ต้องการในช่องสเรตตัส</para>
+        /// <para>ใส่่ 0 เป็นการหา Member ที่ยังไม่ได้สมัครสมาชิก</para>
+        /// <para> ใส่ 1 เป็นการหา Member ที่ยังใช้งานอยู่</para>
+        /// <para> ใส่ 2 เป็นการหา Member ที่ยกเลิกไปแล้ว</para>
+        /// </summary>
+        public static void ResearchUserAllTLC(string TBTeacherNo, TextBox TBTeacherName, TextBox TBTeacherIDNo , int StatusMemeber)
         {
-            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("T{TeacherNo}", TBTeacherNo));
-            if (dt.Rows.Count != 0)
+            if(StatusMemeber != 0)
             {
+             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("T{TeacherNo}", TBTeacherNo)
+                .Replace("{MemberStatus}", StatusMemeber.ToString())
+                .Replace("{","")
+                .Replace("}","")) ;
+                if (dt.Rows.Count != 0)
+                {
                 TBTeacherName.Text = dt.Rows[0][1].ToString();
                 TBTeacherIDNo.Text = dt.Rows[0][2].ToString();
+                }
             }
+            else
+            {
+                DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("T{TeacherNo}", TBTeacherNo)
+                .Replace("{Status}", StatusMemeber.ToString())
+                .Replace(" and {d.MemberStatusNo = '{MemberStatus}}' ", ""));
+                if (dt.Rows.Count != 0)
+                {
+                    TBTeacherName.Text = dt.Rows[0][1].ToString();
+                    TBTeacherIDNo.Text = dt.Rows[0][2].ToString();
+                }
+               
+            }
+
+
         }
         // ค้นหารายชื่อผู้สมัครยอดสะสมโดยการ ใส่หมายยเลข
         public static void ResearhMerberANDinformation(string TeacherNo, TextBox TBTeacherName, TextBox TBTeacherIDNo, TextBox TeacherLicenseNo, TextBox TeacherIdNo, TextBox TelMobile, TextBox MemberStatusName, TextBox StartAmount)
@@ -280,6 +343,7 @@ namespace example.Class
         /// <para>ถ้าใส่ 0 จะหาอาจารย์ทั้งหมด</para>
         /// <para>ใส่ 1 จะหาแค่อาจารยฺ์ที่สมัครสมาชิกแล้ว ( สถาณะ ใช้งานเท่านั้น ) Return : รหัสอาจารย์ ชื่อ เลขบัตรปชช.</para>
         /// <para>ใส่ 2 จะหาอาจารย์ที่สมัครสมาชิกแล้ว แต่มีข้อมูลสำหรับการกู้เพิ่มเข้ามา (สถาณะใช้งานเท่านั้น) Return : รหัสอาจารย์ ชื่อ เลขบัตรปชช. สถาณะ เลขที่สัญญากู้ หุ้นสะสม</para>
+        /// <para>ใส่ 3 จะหาแค่อาจารยฺ์ที่สมัครสมาชิกแล้ว ( สถาณะ ไม่ใช้งาน ) Return : รหัสอาจารย์ ชื่อ เลขบัตรปชช.</para>
         ///</summary>
         public static void SearchINNserDataGridView(DataGridView G , int AllTeacher_or_Member)
         {
@@ -292,6 +356,10 @@ namespace example.Class
             else if(AllTeacher_or_Member == 2)
             {
                 y = 2;
+            }
+            else if (AllTeacher_or_Member == 3)
+            {
+                y = 0;
             }
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[y].Replace("{TeacherNo}",""));
             if (y == 0)

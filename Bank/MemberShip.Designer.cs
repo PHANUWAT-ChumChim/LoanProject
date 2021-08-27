@@ -332,6 +332,7 @@ namespace example.Bank
             this.BTOpenfile.TabIndex = 20;
             this.BTOpenfile.Text = "เปิดไฟล์";
             this.BTOpenfile.UseVisualStyleBackColor = false;
+            this.BTOpenfile.Click += new System.EventHandler(this.BTOpenfile_Click);
             // 
             // label5
             // 
