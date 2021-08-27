@@ -13,9 +13,6 @@ namespace example.GOODS
     public partial class pay : Form
     {
 
-        public static int x = 0;
-        public static int SelectIndexRowDelete = -1;
-
         //------------------------- index -----------------
         public static int x = 0;
         public static int sum = 0;
@@ -29,7 +26,7 @@ namespace example.GOODS
 
             Font F = new Font("TH Sarabun New", 16, FontStyle.Regular);
 
-            Font F = new Font("TH Sarabun New",16, FontStyle.Regular,GraphicsUnit.Point);
+         
 
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = F;
             dataGridView2.ColumnHeadersDefaultCellStyle.Font = F;
@@ -247,10 +244,10 @@ namespace example.GOODS
                 else { TBStartAmountShare.Text = "0"; }
             }
 
-            dataGridView1.Rows.Add(CByeartap1.SelectedItem.ToString() +" / "+ CBMonth.SelectedItem.ToString(), CBStatus.Text, TBStartAmountShare.Text);
+            dataGridView1.Rows.Add(Class.SQLMethod.CheckTimeServer(), CBStatus.Text, TBStartAmountShare.Text);
 
 
-            dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);
+            //dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);
            
 
 
@@ -306,7 +303,7 @@ namespace example.GOODS
                     if (dialogResult == DialogResult.Yes)
                     {
                         //do something 
-                        Class.SQLMethod.InsertBillandUpdateValue(TBTeacherNo.Text,Class.UserInfo.TeacherNo,dataGridView1);
+                        Class.SQLMethod.InsertBillandUpdateValue(TBTeacherNo.Text, Class.UserInfo.TeacherNo, dataGridView1);
                     }
                     else
                     {
@@ -326,9 +323,7 @@ namespace example.GOODS
 
             //----------------------- End code -------------------//
         }
-
-        }
-        //----------------------- End code -------------------
+     
 
     }
 }

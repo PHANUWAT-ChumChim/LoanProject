@@ -5,9 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using static ShareFileSMB.SBM;
+using static example.Class.ProtocolSharing.SBM;
 
-namespace ShareFileSMB
+namespace example.Class.ProtocolSharing
 {
     class ConnectSMB
     {
@@ -16,10 +16,11 @@ namespace ShareFileSMB
             private readonly NetworkCredential networkCredential;
             // Path to shared folder:
             public readonly string networkPath;
+            public static String PathFile;
 
             public SmbFileContainer()
             {
-                this.networkPath = @"\\166.166.4.189\Newfolder";
+                PathFile = this.networkPath = @"\\166.166.4.189\Newfolder";
                 var userName = "tang1811";
                 var password = "123456789";
                 var domain = "";

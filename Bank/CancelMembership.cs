@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static example.Class.ProtocolSharing.SBM;
 
 namespace example.Bank
 {
     public partial class CancelMembership : Form
     {
+        static String PathFile = "";
         public CancelMembership()
         {
             InitializeComponent();
@@ -25,6 +27,88 @@ namespace example.Bank
         private void CancelMembership_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void BSearchTeacher_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Bank.Search IN = new Bank.Search(2);
+                IN.ShowDialog();
+                TBTeacherNo.Text = Bank.Search.Return[0];
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x);
+            }
+        }
+
+        private void TBTeacherNo_TextChanged(object sender, EventArgs e)
+        {
+            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
+            if (TBTeacherNo.Text.Length == 6)
+            {
+                Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBIDNo,1);
+            }
+            else
+            {
+                TBIDNo.Text = "";
+                TBTeacherName.Text = "";
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if(TBTeacherName.Text != "")
+            {
+                int DocStaTus = 2;
+                if (PathFile != "")
+                { 
+                    DocStaTus = 1;
+                    
+                    var smb = new example.Class.ProtocolSharing.ConnectSMB.SmbFileContainer();
+                    if (smb.IsValidConnection())
+                    {
+                        smb.SendFile(PathFile, TBTeacherName.Text + " Cancel.pdf");
+                    }
+                    else
+                    {
+                        MessageBox.Show("ไม่สามารถสร้างไฟล์ในที่นั้นได้", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+
+
+                Class.SQLMethod.ChangeStatusMember(Class.UserInfo.TeacherNo,TBTeacherNo.Text,textBox1.Text, DocStaTus , example.Class.ProtocolSharing.ConnectSMB.SmbFileContainer.PathFile + @"\"+ TBTeacherName.Text + " Cancel.pdf", 2);
+                MessageBox.Show("ยกเลิกผู้ใช้เรียบร้อย","System",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                TBIDNo.Text = "";
+                TBTeacherName.Text = "";
+                TBTeacherNo.Text = "";
+                textBox1.Text = "";
+                PathFile = "";
+            }
+            else
+            {
+                MessageBox.Show("กรุณาใส่รหัสอาจารย์ให้ถูกต้อง","เตือน",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "pdf files(*.pdf)|*.pdf";
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    PathFile = dialog.FileName;
+                }
+                    
+            }
+            catch
+            {
+                MessageBox.Show("Error","Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
         }
     }
 }

@@ -29,7 +29,7 @@ namespace example.GOODS
             //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
             if (TBTeacherNo.Text.Length == 6)
             {
-                Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBTeacherBill);
+                Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBTeacherBill,1);
             }
             else
             {

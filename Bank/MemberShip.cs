@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static ShareFileSMB.ConnectSMB;
+using static example.Class.ProtocolSharing.ConnectSMB;
 
 namespace example.Bank
 {
@@ -63,7 +63,7 @@ namespace example.Bank
             //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
             if (TBTeacherNo.Text.Length == 6)
             {
-                Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBIDNo);
+                Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBIDNo , 0);
             }
             else
             {
@@ -352,6 +352,11 @@ namespace example.Bank
                         //CenterRight(e, "ผู้สมัคร", Normal01, Normal, X + 550, Y + (SpacePerRow * CurrentRows++) + 50, XP, XD);
 
                     }
+
+        private void BTOpenfile_Click(object sender, EventArgs e)
+        {
+
+        }
         //----------------------- End code -------------------- ////////
 
 
