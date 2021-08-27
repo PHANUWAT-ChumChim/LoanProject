@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace example.Bank
 {
     partial class Loan
@@ -141,6 +143,7 @@ namespace example.Bank
             this.BSave.TabIndex = 99;
             this.BSave.Text = "บันทึก";
             this.BSave.UseVisualStyleBackColor = false;
+            this.BSave.Click += new System.EventHandler(this.BSave_Click);
             // 
             // tabControl1
             // 
@@ -232,7 +235,6 @@ namespace example.Bank
             // DGVGuarantor
             // 
             this.DGVGuarantor.AllowUserToAddRows = false;
-            this.DGVGuarantor.AllowUserToDeleteRows = false;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DGVGuarantor.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.DGVGuarantor.BackgroundColor = System.Drawing.Color.White;
@@ -251,6 +253,7 @@ namespace example.Bank
             this.DGVGuarantor.TabIndex = 93;
             this.DGVGuarantor.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DGVGuarantor_RowsAdded);
             this.DGVGuarantor.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DGVGuarantor_RowsRemoved);
+            this.DGVGuarantor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DGVGuarantor_MouseClick);
             // 
             // Column1
             // 
@@ -376,6 +379,7 @@ namespace example.Bank
             // 
             this.TBLoanAmount.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TBLoanAmount.Location = new System.Drawing.Point(371, 91);
+            this.TBLoanAmount.MaxLength = 10;
             this.TBLoanAmount.Name = "TBLoanAmount";
             this.TBLoanAmount.Size = new System.Drawing.Size(254, 43);
             this.TBLoanAmount.TabIndex = 14;
@@ -628,13 +632,22 @@ namespace example.Bank
             this.BLoanDocUpload.TabIndex = 2;
             this.BLoanDocUpload.Text = "อัพโหลดเอกสาร";
             this.BLoanDocUpload.UseVisualStyleBackColor = true;
+            this.BLoanDocUpload.Click += new System.EventHandler(this.BLoanDocUpload_Click);
             // 
             // BPrintLoanDoc
             // 
             this.BPrintLoanDoc.Location = new System.Drawing.Point(0, 0);
             this.BPrintLoanDoc.Name = "BPrintLoanDoc";
+
             this.BPrintLoanDoc.Size = new System.Drawing.Size(75, 23);
             this.BPrintLoanDoc.TabIndex = 6;
+
+            this.BPrintLoanDoc.Size = new System.Drawing.Size(224, 66);
+            this.BPrintLoanDoc.TabIndex = 3;
+            this.BPrintLoanDoc.Text = "พิมพ์เอกสาร";
+            this.BPrintLoanDoc.UseVisualStyleBackColor = true;
+            this.BPrintLoanDoc.Click += new System.EventHandler(this.BPrintLoanDoc_Click_1);
+
             // 
             // panel7
             // 
@@ -750,6 +763,7 @@ namespace example.Bank
             // 
             this.TBTeacherNo.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TBTeacherNo.Location = new System.Drawing.Point(70, 14);
+            this.TBTeacherNo.MaxLength = 6;
             this.TBTeacherNo.Name = "TBTeacherNo";
             this.TBTeacherNo.Size = new System.Drawing.Size(230, 43);
             this.TBTeacherNo.TabIndex = 82;
@@ -838,6 +852,11 @@ namespace example.Bank
             this.panel7.PerformLayout();
             this.ResumeLayout(false);
 
+        }
+
+        private void BPrintLoanDoc_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

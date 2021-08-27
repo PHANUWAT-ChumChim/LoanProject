@@ -333,6 +333,7 @@ namespace example.GOODS
             // CBStatus
             // 
             this.CBStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBStatus.Enabled = false;
             this.CBStatus.Font = new System.Drawing.Font("TH Sarabun New", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBStatus.FormattingEnabled = true;
             this.CBStatus.Items.AddRange(new object[] {

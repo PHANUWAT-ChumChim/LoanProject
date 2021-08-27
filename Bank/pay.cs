@@ -12,13 +12,25 @@ namespace example.GOODS
 {
     public partial class pay : Form
     {
+
         public static int x = 0;
         public static int SelectIndexRowDelete = -1;
+
+        //------------------------- index -----------------
+        public static int x = 0;
+        public static int sum = 0;
+        public static int SelectIndexRowDelete = -1;
+        //----------------------- index code -------------------- ////////
+
         public pay(int TabIndex)
         {
             InitializeComponent();
             tabControl1.SelectedIndex = TabIndex;
+
             Font F = new Font("TH Sarabun New", 16, FontStyle.Regular);
+
+            Font F = new Font("TH Sarabun New",16, FontStyle.Regular,GraphicsUnit.Point);
+
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = F;
             dataGridView2.ColumnHeadersDefaultCellStyle.Font = F;
         }
@@ -38,6 +50,12 @@ namespace example.GOODS
             //panel1.Width = columnSize * 40;
             //MessageBox.Show(this.Width + "" + this.Height);
         }
+        //----------------------- End code -------------------- ////////
+
+
+
+        //----------------------- PullSQL -------------------- ////////
+
         //----------------------- End code -------------------- ////////
 
 
@@ -91,7 +109,7 @@ namespace example.GOODS
         // ถ้า ไม่มีข้อความ ใน กล่อง จะไม่เปิดใช่งานกล่อง ถัดไป
         private void CBB3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CBStatus.SelectedIndex != -1 && TBTeacherNo.Text != "")
+            if (CBStatus.SelectedIndex != -1 && TBTeacherNo.Text.Length  == 6)
             {
                 Class.SQLMethod.AmountpayANDAmountLoanINMonth(TBTeacherNo.Text, TBStartAmountShare, CBStatus);
                 BTAdd.Enabled = true;
@@ -109,14 +127,18 @@ namespace example.GOODS
         // ถ้า ไม่มีข้อความ ใน กล่อง จะไม่เปิดใช่งานกล่อง ถัดไป
         private void CBB4Oppay_SelectedIndexChanged_1(object sender, EventArgs e)
         {
+            if (dataGridView1.RowCount != 0)
+            {
+                CBB4Oppay.Enabled = true;
+            }
             if (CBB4Oppay.SelectedIndex != -1)
             {
                 BTsave.Enabled = true;
                 
             }
+            else { BTsave.Enabled = false; }
         }
         //----------------------- End code -------------------- ////////
-
 
         //------------------------- Pull SQL Member & CheckTBTeacherNo ---------
         // Comment!
@@ -126,23 +148,36 @@ namespace example.GOODS
             if (TBTeacherNo.Text.Length == 6)
             {
                 Class.SQLMethod.ResearhMerberANDinformation(TBTeacherNo.Text, TBTeacherName, TBTeacherBill, TBTeacherIDNo, TBidno, TBTel, TBstatus, TBStartAmount2);
+                CBStatus.Enabled = true;
             }
             else
             {
+                sum = 0; x = 0;
+                label5.Text = sum.ToString();
                 dataGridView1.Rows.Clear();
                 TBStartAmountShare.Text = "";
                 CBStatus.SelectedIndex = -1;
                 TBTeacherBill.Text = "";
                 TBTeacherName.Text = "";
+                CBStatus.Enabled = false;
             }
         }
         // Comment!
         private void BSearchTeacher_Click(object sender, EventArgs e)
         {
-            Bank.Search IN = new Bank.Search(2);
-            IN.ShowDialog();
-            TBTeacherNo.Text = Bank.Search.Return[0];
+            try
+            {
+                Bank.Search IN = new Bank.Search(2);
+                IN.ShowDialog();
+                TBTeacherNo.Text = Bank.Search.Return[0];
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x);
+            }
 
+            sum = 0; x = 0;
+            label5.Text = sum.ToString();
             dataGridView1.Rows.Clear();
             TBStartAmountShare.Clear();
             CBStatus.SelectedIndex = -1;
@@ -177,14 +212,23 @@ namespace example.GOODS
         // Comment!
         private void Delete_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.Rows.Count != 0)
+            {
+                sum -= int.Parse(dataGridView1.Rows[SelectIndexRowDelete].Cells[2].Value.ToString());
+                x = sum;
+                label5.Text = sum.ToString();
+            }
             if (SelectIndexRowDelete != -1)
             {
                 dataGridView1.Rows.RemoveAt(SelectIndexRowDelete);
                 SelectIndexRowDelete = -1;
-
+                if (dataGridView1.Rows.Count == 0)
+                {
+                    CBB4Oppay.Enabled = false;
+                    CBB4Oppay.SelectedIndex = -1;
+                }
             }
         }
-
         //----------------------- End code -------------------- ////////
 
         //------------------------- SUMAmountShare --------- //
@@ -197,11 +241,17 @@ namespace example.GOODS
                 if (TBStartAmountShare.Text != "")
                 {
                     x += int.Parse(TBStartAmountShare.Text);
-                    label5.Text = x.ToString();
+                    sum = x;
+                    label5.Text = sum.ToString();
                 }
                 else { TBStartAmountShare.Text = "0"; }
             }
+
             dataGridView1.Rows.Add(CByeartap1.SelectedItem.ToString() +" / "+ CBMonth.SelectedItem.ToString(), CBStatus.Text, TBStartAmountShare.Text);
+
+
+            dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);
+           
 
 
             //DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[];
@@ -210,6 +260,9 @@ namespace example.GOODS
             //dataGridView1.Rows.Add(row);
         }
         //----------------------- End code -------------------- ////////
+
+
+
 
 
 
@@ -244,7 +297,6 @@ namespace example.GOODS
                 e.Handled = true;
             }
         }
-
         private void BTsave_Click(object sender, EventArgs e)
         {
             {
@@ -271,7 +323,12 @@ namespace example.GOODS
 
 
 
+
             //----------------------- End code -------------------//
         }
+
+        }
+        //----------------------- End code -------------------
+
     }
 }

@@ -16,6 +16,25 @@ namespace example.Bank
 {
     public partial class MemberShip : Form
     {
+        //------------------------- index -----------------
+
+
+        //----------------------- index code -------------------- ////////
+
+        public MemberShip()
+        {
+            InitializeComponent();
+            TBStartAmountShare.Text = example.GOODS.Menu.startAmountMin.ToString();
+        }
+
+        //------------------------- FormSize -----------------
+        // Comment!
+        private void membership_SizeChanged(object sender, EventArgs e)
+        {
+            Class.FromSettingMedtod.ChangeSizePanal(this, panel1);
+        }
+        //----------------------- End code -------------------- ////////
+
         // <summary>
         // SQLDafault
         // <para>[0] Insert Teacher Data INPUT:{TeacherNo},{TeacherAddBy}, {StartAmount} </para>
@@ -34,29 +53,11 @@ namespace example.Bank
           "ORDER BY TeacherNo; "
           ,
 
-    };
+        };
 
-    //List<String> PrintData;
-
-
-    public MemberShip()
-        {
-            InitializeComponent();
-            TBStartAmountShare.Text = example.GOODS.Menu.startAmountMin.ToString();
-            //Class.UserInfo.GetTeacherNo();
-        }
-
-        private void membership_Load(object sender, EventArgs e)
-        {
-            //Method.SQLMethod.ExecuteMSSQL(SQLDefault[0]
-            //    .Replace("{TeacherNo}", "T00000")
-            //    .Replace("{StartAmount}", "500"));
-        }
-
-        private void membership_SizeChanged(object sender, EventArgs e)
-        {
-            Class.FromSettingMedtod.ChangeSizePanal(this, panel1);
-        }
+        //----------------------- PullSQL -------------------- ////////
+        // Comment!
+        // Available values| ResearchUserAllTLC / TB /
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
@@ -69,24 +70,25 @@ namespace example.Bank
                 TBIDNo.Text = "";
                 TBTeacherName.Text = "";
             }
-            
+
         }
-        private void TBStartAmountShare_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-
-
-            if ((e.KeyChar < '0' || e.KeyChar > '9') && (e.KeyChar != '\b'))
-            {
-                e.Handled = true;
-            }
-        }
+        // Comment!
+        // Available values|  BSearchTeacher / TB /
         private void BSearchTeacher_Click(object sender, EventArgs e)
         {
-            Search IN = new Search(0);
-            IN.ShowDialog();
-            TBTeacherNo.Text = Search.Return[0];
+            try
+            {
+                Search IN = new Search(0);
+                IN.ShowDialog();
+                TBTeacherNo.Text = Search.Return[0];
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x);
+            }
         }
+        // Comment!
+        // Available values|  SQLDefault[1] / TB /
         private void BSave_Click_1(object sender, EventArgs e)
         {
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[1].Replace("{TeacherNo}", TBTeacherNo.Text));
@@ -116,16 +118,56 @@ namespace example.Bank
             {
                 MessageBox.Show("โปรดเลือกสมาชิกในการสมัคร", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        //----------------------- End code -------------------- ////////
+
+        
+        
+        
+        
+        //----------------------- EventKey -------------------- ////////
+        // Available values| TB /
+        private void TBStartAmountShare_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar < '0' || e.KeyChar > '9') && (e.KeyChar != '\b'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        //----------------------- End code -------------------- ////////
+
+
+        //----------------------- Outgoing -------------------- ////////
+        private void BExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        //----------------------- End code -------------------- ////////
+
+
+        //----------------------- OpenPrintf -------------------- ////////
+        private void BTPrintfShare_Click(object sender, EventArgs e)
+        {
             if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
             {
                 printDocument1.Print();
 
             }
         }
-      
+        //----------------------- End code -------------------- ////////
+        
+        private void membership_Load(object sender, EventArgs e)
+        {
+            //Method.SQLMethod.ExecuteMSSQL(SQLDefault[0]
+            //    .Replace("{TeacherNo}", "T00000")
+            //    .Replace("{StartAmount}", "500"));
+        }
 
 
-
+        // ใช้งานเเน่นอนไม่ต้องลบนะครับ
+        private void T()
+        {
             //private void button2_Click(object sender, EventArgs e)
             //{
             //    Image File;
@@ -153,47 +195,52 @@ namespace example.Bank
 
             //    }
             //}
+        }
 
 
-
-                    public void Center(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
-                    {
-                        SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
-                        float StartLoc = e.PageBounds.Width / 2 - SizeString.Width / 2; e.Graphics.DrawString(Text, fontText, brush, new PointF(StartLoc, LocY));
-                    }
-                    public void CenterRight(System.Drawing.Printing.PrintPageEventArgs e, string Text, Font fontText, Brush brush, float X, float Y, float Pointplus, float Pointdelete)
-                    {
-                        SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
-                        X = X - SizeString.Width; e.Graphics.DrawString(Text, fontText, brush, new PointF(Pointplus + X - Pointdelete, Y));
-                    }
-                    public void CenterLeft(System.Drawing.Printing.PrintPageEventArgs e, string Text, Font fontText, Brush brush, float X, float Y, float Pointplus, float Pointdelete)
-                    {
-                        e.Graphics.DrawString(Text, fontText, brush, new PointF(Pointplus + X - Pointdelete, Y));
-                    }
-                    public int Centerset(System.Drawing.Printing.PrintPageEventArgs e, string Text, Font fontText, Brush brush, float X, float Y, float Rfwidth, float height, Boolean Debug = false)
-                    {
-                        SizeF SizeString = e.Graphics.MeasureString(Text, fontText, (int)Rfwidth);
-                        float startingpoint = X + 750 - Rfwidth;
-                        if (Debug)
-                        {
-                            e.Graphics.DrawRectangle(Pens.Black, startingpoint, Y, Rfwidth, height);
-                        }
-                        float upheight = 40; int ExtraRow;
-                        if (SizeString.Height < height)
-                        {
-                            ExtraRow = (Convert.ToInt32(SizeString.Height) / Convert.ToInt32(upheight) + 1);
-                        }
-                        else
-                        {
-                            SizeString.Height = height;
-                            ExtraRow = (Convert.ToInt32(SizeString.Height) / Convert.ToInt32(upheight) + 1);
-                        }
-                        e.Graphics.DrawString(Text, fontText, brush, new RectangleF(startingpoint, Y, Rfwidth, height));
-                        return ExtraRow;
-                    }
-
-                    public void ExpPrint()
-                    {
+        //----------------------- MetodPrintf -------------------- ////////
+        // Comment!
+        public void Center(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
+        {
+            SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
+            float StartLoc = e.PageBounds.Width / 2 - SizeString.Width / 2; e.Graphics.DrawString(Text, fontText, brush, new PointF(StartLoc, LocY));
+        }
+        // Comment!
+        public void CenterRight(System.Drawing.Printing.PrintPageEventArgs e, string Text, Font fontText, Brush brush, float X, float Y, float Pointplus, float Pointdelete)
+        {
+            SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
+            X = X - SizeString.Width; e.Graphics.DrawString(Text, fontText, brush, new PointF(Pointplus + X - Pointdelete, Y));
+        }
+        // Comment!
+        public void CenterLeft(System.Drawing.Printing.PrintPageEventArgs e, string Text, Font fontText, Brush brush, float X, float Y, float Pointplus, float Pointdelete)
+        {
+            e.Graphics.DrawString(Text, fontText, brush, new PointF(Pointplus + X - Pointdelete, Y));
+        }
+        // Comment!
+        public int Centerset(System.Drawing.Printing.PrintPageEventArgs e, string Text, Font fontText, Brush brush, float X, float Y, float Rfwidth, float height, Boolean Debug = false)
+        {
+            SizeF SizeString = e.Graphics.MeasureString(Text, fontText, (int)Rfwidth);
+            float startingpoint = X + 750 - Rfwidth;
+            if (Debug)
+            {
+                e.Graphics.DrawRectangle(Pens.Black, startingpoint, Y, Rfwidth, height);
+            }
+                float upheight = 40; int ExtraRow;
+            if (SizeString.Height < height)
+            {
+                ExtraRow = (Convert.ToInt32(SizeString.Height) / Convert.ToInt32(upheight) + 1);
+            }
+            else
+            {
+                SizeString.Height = height;
+                ExtraRow = (Convert.ToInt32(SizeString.Height) / Convert.ToInt32(upheight) + 1);
+            }
+            e.Graphics.DrawString(Text, fontText, brush, new RectangleF(startingpoint, Y, Rfwidth, height));
+            return ExtraRow;
+        }
+        //----------------------- End code -------------------- ////////
+        public void ExpPrint()
+        {
                         //int ExtraRow = (Convert.ToInt32(SizeString.Height) / Convert.ToInt32(Rfwidth) + 1);
                         // loop text //
                         //for (int x = 0; x < 20; x++)
@@ -214,9 +261,10 @@ namespace example.Bank
                         //float StartLoc = PageX / 2 - SizeString.Width / 2;
                         //e.Graphics.DrawString(Text,
                         //    Header01, Normal, new PointF(StartLoc, Y + (SpacePerRow * CurrentRows++)-10));
-                    }
+        }
 
-                    private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        //----------------------- Printf -------------------- ////////
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
                     {
                         // X 850 = 22 cm เเนะนำ 800 //
                         // A4 = 21 cm  {Width = 356.70163 Height = 136.230438} {Width = 356.70163 Height = 102.954086} // 
@@ -304,13 +352,15 @@ namespace example.Bank
                         //CenterRight(e, "ผู้สมัคร", Normal01, Normal, X + 550, Y + (SpacePerRow * CurrentRows++) + 50, XP, XD);
 
                     }
-                    private void BExit_Click(object sender, EventArgs e)
-                    {
-                        Application.Exit();
-                    }
-                  
+        //----------------------- End code -------------------- ////////
 
-      
+
+
+
+        // ------------------------ not working --------------
+        //----------------------- End code -------------------- ////////
+
+
     }
 }
             
