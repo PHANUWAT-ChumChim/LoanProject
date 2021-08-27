@@ -12,10 +12,6 @@ namespace example.GOODS
 {
     public partial class pay : Form
     {
-
-        public static int x = 0;
-        public static int SelectIndexRowDelete = -1;
-
         //------------------------- index -----------------
         public static int x = 0;
         public static int sum = 0;
@@ -29,7 +25,7 @@ namespace example.GOODS
 
             Font F = new Font("TH Sarabun New", 16, FontStyle.Regular);
 
-            Font F = new Font("TH Sarabun New",16, FontStyle.Regular,GraphicsUnit.Point);
+           
 
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = F;
             dataGridView2.ColumnHeadersDefaultCellStyle.Font = F;
@@ -321,37 +317,15 @@ namespace example.GOODS
 
       
 
-        private void BTsave_Click(object sender, EventArgs e)
-        {
-            {
-                if (dataGridView1.Rows.Count != 0)
-                {
-                    DialogResult dialogResult = MessageBox.Show("ยืนยันการชำระ", "การเเจ้งเตือนการชำระ", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        //do something 
-                        Class.SQLMethod.InsertBillandUpdateValue(TBTeacherNo.Text,Class.UserInfo.TeacherNo,dataGridView1);
-                    }
-                    else
-                    {
-                        //do something else/
-                        MessageBox.Show("การชำระล้มเหลว", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                    }
-
-                }
-                else
-                {
-                    MessageBox.Show("รายการชำระไม่ถูกต้อง", "การเเจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+     
 
 
 
 
-            //----------------------- End code -------------------//
-        }
+            
+        
 
-        }
+        
 
         //----------------------- End code -------------------
 
