@@ -23,9 +23,13 @@ namespace example.Class
         /// <para> [5] INSERT Bill and BillDetail INPUT: {TeacherAddBy} {TeacherNo} {TypeNo} {LoanNo} {Amount} {Mount} {Year}</para>
         /// <para> [6] SELECT Loan INPUT : {TeacherNo} </para>
         /// <para> [7] UPDATE SavingAmount INPUT: {TeacherNo} {Amount} </para>
+
         /// <para> [8] UPDATE REMAIN INPUT: {TeacherNo} {Amount} </para>
         /// <para> [9] Check Time Server INPUT: - </para>
         /// <para> [10] Change Status Member INPUT: {TeacherNoAddBy} {TeacherNo} {Note} {DocStatusNo} {DocUploadPath} {Status} {TeacherNo}</para>
+
+        /// </para>[11] CheckAmountpayINPUT: {TeacherNo}  </para>
+        /// </para> [12] INSERT Member To Member  Bill BillDetail  INPUT: {TeacherNo} </para> 
         /// </summary>
         private static String[] SQLDefault = new String[]
          { 
@@ -121,6 +125,7 @@ namespace example.Class
           " \r\n " +
           " "
           ,
+
           //[9] Check Time Server INPUT: - 
           "SELECT CONVERT (DATE , CURRENT_TIMESTAMP); "
           ,
@@ -132,8 +137,27 @@ namespace example.Class
           "SET MemberStatusNo = '{Status}' \r\n " +
           "WHERE TeacherNo = '{TeacherNo}' "
           ,
+          //[11] CheckAmountpay INPUT: {TeacherNo} 
+          "SELECT  Bi.BillNo,Bd.BillDetailNo,TeacherNoAddBy,Bi.TeacherNo,Cancel,Bi.DateAdd,Bd.TypeNo,Bt.TypeName,Bd.Amount,Mount,Bd.Year \r\n" +
+          "FROM EmployeeBank.dbo.tblBill AS Bi \r\n" +
+          "LEFT JOIN EmployeeBank.dbo.tblBillDetail AS Bd ON Bi.BillNo =  Bd.BillNo \r\n" +
+          "LEFT JOIN EmployeeBank.dbo.tblBillDetailType AS Bt ON Bd.TypeNo = Bt.TypeNo \r\n" +
+          "LEFT JOIN EmployeeBank.dbo.tblMember AS Mb ON Bi.TeacherNo = Mb.TeacherNo \r\n" +
+          "WHERE Bi.TeacherNo LIKE '{TeacherNo}' AND Bd.Mount IS NULL AND Bd.Year IS  NULL AND Bd.Amount = Mb.StartAmount ;"
+          ,
+           //[12] INSERT Member To Member  Bill BillDetail  INPUT: {TeacherNo} 
+          "DECLARE @BillNo INT; \r\n"+
+          "SELECT @BillNo = SCOPE_IDENTITY(); \r\n"+
+          "INSERT INTO EmployeeBank.dbo.tblMember(TeacherNo, TeacherAddBy, StartAmount, DateAdd) \r\n"+
+          "VALUES({TeacherNo}, {TeacherNoAddBy},{StartAmount},{DateAdd} \r\n"+
+          "INSERT INTO EmployeeBank.dbo.tblBill(TeacherNo, TeacherNoAddBy, DateAdd) \r\n"+
+          "VALUES({TeacherNo},{TeacherNoAddBy},{DateAdd}) \r\n"+
+          "INSERT INTO EmployeeBank.dbo.tblBillDetail(BillNo, TypeNo, Amount, Mount, Year) \r\n"+
+          "VALUES(@BillNo,{TypeNo},{Amount},{Mount},{Year}) "
 
-    };
+
+        };
+        
         public static void ChangeStatusMember(String TeacherNoAddBy , String TeacherNo , String Note , int DocStatusNo, String DocUpLoadPath , int Status )
         {
             if(DocUpLoadPath == "") { DocUpLoadPath = "Null"; }
@@ -144,11 +168,25 @@ namespace example.Class
                 .Replace("{DocUploadPath}", DocUpLoadPath)
                 .Replace("{Status}", Status.ToString()));
         }
+      
         public static String CheckTimeServer()
         {
             String Time = Convert.ToDateTime(Class.SQLConnection.InputSQLMSSQL(SQLDefault[9]).Rows[0][0]).ToString("yyyy/MM");
             return Time;
         }
+        // ของ POON  สำหรับตรวจสอบการชำระในเเต่ละปี
+        public static void CheckAmountpay(string TeacherNo,string Mount,string Year)
+        {
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[11].Replace("{TeacherNo}", TeacherNo));
+            if(dt.Rows.Count != 0)
+            {
+                Mount = dt.Rows[0][9].ToString();
+                Year = dt.Rows[0][9].ToString();
+                MessageBox.Show("สมาขิกได้จ่ายยอดไปเเล้ว \r\n" +
+                                $"ในเดือน{Mount}ปี{Year}", "เเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         public static void InsertBillandUpdateValue(String TeacherNo ,String Teacheraddby , DataGridView DGV)
         {
             String LoanNo = "";
