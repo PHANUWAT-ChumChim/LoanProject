@@ -109,6 +109,17 @@ namespace example.Bank
             if (TBTeacherNo.Text != "" && CBPayMonth.Text != "" && CBPayYear.Text != "" &&
                 TBLoanAmount.Text != "" && TBPayNo.Text != "" && TBInterestRate.Text != "" && DGVGuarantor.Rows.Count == 4)
             {
+
+                Bank.Search IN = new Bank.Search(2);
+                IN.ShowDialog();
+                DGVGuarantor.Rows.Clear();
+                TBTeacherNo.Text = Bank.Search.Return[0];
+                TBTeacherName.Text = Bank.Search.Return[1];
+                TBLoanNo.Text = Bank.Search.Return[6];
+                TBLoanStatus.Text = Bank.Search.Return[7];
+                TBLoanAmount.Text = Bank.Search.Return[9];
+
+
                 int LoanNo;
                 DataSet dsInsertLoan = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[3]
                     .Replace("{TeacherNoAdd}", TeacherNoUser)
@@ -138,7 +149,9 @@ namespace example.Bank
                     .Replace("{RemainsAmount}", GuarantorCredit.ToString())
                     );
                 }
+
                 MessageBox.Show("บันทึกข้อมูลเสร็จเรียบร้อยแล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
             }
             else
             {
@@ -158,6 +171,7 @@ namespace example.Bank
             int credit;
             if (TBTeacherNo.Text.Length == 6)
             {
+                DGVGuarantor.Rows.Clear();
                 Class.SQLMethod.ReSearchLoan(TBTeacherNo.Text, TBTeacherName, TBLoanNo, TBLoanStatus, TBSavingAmount);
 
                 DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
@@ -274,6 +288,9 @@ namespace example.Bank
                         {
                             MessageBox.Show("ไม่มียอดเงินที่ใช้ค้ำได้ โปรดเลือกบุคคลอื่น", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+
+
+
 
                     }
                     else
@@ -873,6 +890,7 @@ namespace example.Bank
             }
         }
 
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (TBTeacherName.Text == "")
@@ -940,6 +958,7 @@ namespace example.Bank
                 
             }
         }
+
     }
 }
 

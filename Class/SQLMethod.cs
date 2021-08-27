@@ -13,14 +13,18 @@ namespace example.Class
     class SQLMethod
     {
 
-        /// <summary> 
+        /// <summary>
         /// SQLDafault 
-        /// <para>[0] Write to Search ID Teacher INPUT: {TeacherNo} </para> 
-        /// <para>[1] INSERT Register Member INPUT:  {TeacherNo} {TeacherAddBy} {StartAmount} {DocPath} </para>
-        /// <para>[2] Search LoanMember INPUT: {TeacherNo} </para>
-        /// <para>[3]  AmountpayANDAmountLoanINMonth INPUT: {TeacherNo}  </para>
-        ///   <para>[4] CheckAmount INPUT: -  </para>
-        /// </summary> 
+        /// <para> [0] Write to Search ID Teacher INPUT: {TeacherNo} </para> 
+        /// <para> [1] INSERT Register Member INPUT:  {TeacherNo} {TeacherAddBy} {StartAmount} {DocPath} </para>
+        /// <para> [2] Search LoanMember INPUT: {TeacherNo} </para>
+        /// <para> [3]  AmountpayANDAmountLoanINMonth INPUT: {TeacherNo}  </para>
+        /// <para> [4] CheckAmount INPUT: -  </para>
+        /// <para> [5] INSERT Bill and BillDetail INPUT: {TeacherAddBy} {TeacherNo} {TypeNo} {LoanNo} {Amount} {Mount} {Year}</para>
+        /// <para> [6] SELECT Loan INPUT : {TeacherNo} </para>
+        /// <para> [7] UPDATE SavingAmount INPUT: {TeacherNo} {Amount} </para>
+        /// </para>[9] CheckAmountpayINPUT: {TeacherNo}  </para>
+        /// </summary>
         private static String[] SQLDefault = new String[]
          { 
 
@@ -37,18 +41,19 @@ namespace example.Class
           "VALUES('{TeacherNo}','{TeacherAddBy}',{StartAmount},'{DocPath}',CURRENT_TIMESTAMP); "
           ,     
           //[2] Search LoanMember INPUT: {TeacherNo}
-          "SELECT Mb.TeacherNo , CAST(c.PrefixName+' '+[Fname] +' '+ [Lname] as NVARCHAR)AS Name, b.IdNo AS TeacherID, \r\n " +
-          "b.TeacherLicenseNo,b.IdNo AS IDNo,b.TelMobile,d.LoanNo,\r\n " +
-          "e.LoanStatusName,Mb.StartAmount,f.SavingAmount,CAST(Ms.MemberStatusName as nvarchar) AS UserStatususing \r\n " +
-          "FROM EmployeeBank.dbo.tblMember as Mb \r\n " +
-          "LEFT JOIN Personal.dbo.tblTeacherHis as b ON Mb.TeacherNo = b.TeacherNo \r\n " +
-          "LEFT JOIN BaseData.dbo.tblPrefix as c ON b.PrefixNo = c.PrefixNo \r\n " +
-          "LEFT JOIN EmployeeBank.dbo.tblLoan as d ON Mb.TeacherNo = d.TeacherNo \r\n " +
-          "LEFT JOIN EmployeeBank.dbo.tblLoanStatus as e ON d.LoanStatusNo = e.LoanStatusNo \r\n " +
-          "LEFT JOIN EmployeeBank.dbo.tblShare as f ON Mb.TeacherNo = f.TeacherNo \r\n " +
-          "INNER JOIN EmployeeBank.dbo.tblMemberStatus as Ms on Mb.MemberStatusNo = Ms.MemberStatusNo \r\n " +
-          "WHERE Mb.TeacherNo LIKE 'T{TeacherNo}%' and Mb.MemberStatusNo = 1 \r\n " +
-          "ORDER BY Mb.TeacherNo;"
+          "SELECT Mb.TeacherNo , CAST(p.PrefixName+' '+[Fname] +' '+ [Lname] as NVARCHAR)AS Name, Th.IdNo AS TeacherID,  \r\n " +
+          " Th.TeacherLicenseNo,Th.IdNo AS IDNo,Th.TelMobile,d.LoanNo, \r\n " +
+          " Ls.LoanStatusName,Mb.StartAmount,f.SavingAmount,CAST(Ms.MemberStatusName as nvarchar) AS UserStatususing  \r\n " +
+          " FROM EmployeeBank.dbo.tblMember as Mb  \r\n " +
+          " LEFT JOIN Personal.dbo.tblTeacherHis as Th ON Mb.TeacherNo = Th.TeacherNo  \r\n " +
+          " LEFT JOIN BaseData.dbo.tblPrefix as p ON Th.PrefixNo = p.PrefixNo  \r\n " +
+          " LEFT JOIN EmployeeBank.dbo.tblLoan as d ON Mb.TeacherNo = d.TeacherNo  \r\n " +
+          " LEFT JOIN EmployeeBank.dbo.tblLoanStatus as Ls ON d.LoanStatusNo = Ls.LoanStatusNo  \r\n " +
+          " LEFT JOIN EmployeeBank.dbo.tblShare as f ON Mb.TeacherNo = f.TeacherNo  \r\n " +
+          " INNER JOIN EmployeeBank.dbo.tblMemberStatus as Ms on Mb.MemberStatusNo = Ms.MemberStatusNo  \r\n " +
+          " WHERE Mb.TeacherNo LIKE 'T{TeacherNo}%' and Mb.MemberStatusNo = 1  \r\n " +
+          " ORDER BY Mb.TeacherNo; "
+
           ,
           //[3] AmountpayANDAmountLoanINMonth INPUT: {TeacherNo}
           "SELECT Mb.TeacherNo,Mb.StartAmount AS  Amountpay,Mb.DateAdd AS Datepay,Lp.Amount AS AmountLoan,Ln.DateAdd AS DateLoan \r\n"+
@@ -64,25 +69,163 @@ namespace example.Class
            "LEFT JOIN EmployeeBank.dbo.tblBillDetailType As Bt on Bd.TypeNo = Bt.TypeNo\r\n"+
            "WHERE   Bt.TypeName IS NULL AND Bd.Date IS NULL AND bd.Amount = 0;"
            ,
-          //[5] INSERT Bill : {TeacherNo}
-            "INSERT INTO EmployeeBank.dbo.tblBill(TeacherNoAddBy,TeacherNo)\r\n"+
-            "VALUES('{}','{}')"
-           ,
-          //[5] INSERT BillDetail : {TeacherNo}
-            "INSERT INTO EmployeeBank.dbo.tblBillDetail(BillNo,Date,TypeNo,Amount) \r\n"+
-            "VALUES({},CURRENT_TIMESTAMP,{},{})"
+          //[5] INSERT Bill and BillDetail INPUT: {TeacherAddBy} {TeacherNo} {TypeNo} {LoanNo} {Amount} {Mount} {Year}
+          "DECLARE @BillNo INT; \r\n " +
+          "DECLARE @TeacherNo VARCHAR(20); \r\n " +
+          "DECLARE @TeacherNoAddBy VARCHAR (20); \r\n " +
+          " \r\n " +
+          "SET @TeacherNoAddBy = '{TeacherAddBy}'; \r\n " +
+          "SET @TeacherNo = '{TeacherNo}'; \r\n " +
+          " \r\n " +
+          "INSERT INTO EmployeeBank.dbo.tblBill (TeacherNo, TeacherNoAddBy , DateAdd) \r\n " +
+          "VALUES (@TeacherNo, @TeacherNoAddBy , CURRENT_TIMESTAMP); \r\n " +
+          " \r\n " +
+          "SELECT @BillNo = SCOPE_IDENTITY(); \r\n " +
+          " \r\n " +
+          "INSERT INTO EmployeeBank.dbo.tblBillDetail (BillNo,TypeNo,LoanNo,Amount,Mount,Year) \r\n " +
+          "VALUES (@BillNo,'{TypeNo}','{LoanNo}','{Amount}','{Mount}','{Year}'); "
+          ,
+          //[6] SELECT Loan INPUT : {TeacherNo}
+          "SELECT LoanNo  \r\n " +
+          "FROM EmployeeBank.dbo.tblLoan \r\n " +
+          "WHERE TeacherNo = '{TeacherNo}' \r\n " +
+          " "
+          ,
+         //[7] UPDATE SavingAmount INPUT: {TeacherNo} {Amount}
+          "DECLARE @Saving INT; \r\n " +
+          " \r\n " +
+          "SET @Saving = (SELECT SavingAmount \r\n " +
+          "FROM EmployeeBank.dbo.tblShare \r\n " +
+          "WHERE TeacherNo = '{TeacherNo}'); \r\n " +
+          " \r\n " +
+          "UPDATE EmployeeBank.dbo.tblShare \r\n " +
+          "SET SavingAmount = @Saving + '{Amount}' \r\n " +
+          "WHERE TeacherNo = '{TeacherNo}' \r\n " +
+          " \r\n " +
+          " "
+          ,
+          //[8] UPDATE REMAIN INPUT: {TeacherNo} {Amount}
+          "DECLARE @Remain INT; \r\n " +
+          " \r\n " +
+          "SET @Remain = (SELECT Remain \r\n " +
+          "FROM EmployeeBank.dbo.tblLoanPay \r\n " +
+          "WHERE TeacherNo = '{TeacherNo}'); \r\n " +
+          " \r\n " +
+          "UPDATE EmployeeBank.dbo.tblLoanPay \r\n " +
+          "SET Remain = @Remain - '{Amount}' \r\n " +
+          "WHERE TeacherNo = '{TeacherNo}' \r\n " +
+          " \r\n " +
+          " "
+          ,
+          //[9] CheckAmountpay INPUT: {TeacherNo} 
+          "SELECT  Bi.BillNo,Bd.BillDetailNo,TeacherNoAddBy,Bi.TeacherNo,Cancel,Bi.DateAdd,Bd.TypeNo,Bt.TypeName,Bd.Amount,Mount,Bd.Year \r\n" +
+          "FROM EmployeeBank.dbo.tblBill AS Bi \r\n" +
+          "LEFT JOIN EmployeeBank.dbo.tblBillDetail AS Bd ON Bi.BillNo =  Bd.BillNo \r\n" +
+          "LEFT JOIN EmployeeBank.dbo.tblBillDetailType AS Bt ON Bd.TypeNo = Bt.TypeNo \r\n" +
+          "LEFT JOIN EmployeeBank.dbo.tblMember AS Mb ON Bi.TeacherNo = Mb.TeacherNo \r\n" +
+          "WHERE Bi.TeacherNo LIKE '{TeacherNo}' AND Bd.Mount IS NULL AND Bd.Year IS  NULL AND Bd.Amount = Mb.StartAmount ;"
+          ,
+           //[10] INSERT Member To Member  Bill BillDetail  INPUT: {TeacherNo} 
+          "DECLARE @BillNo INT; \r\n"+
+          "SELECT @BillNo = SCOPE_IDENTITY(); \r\n"+
+          "INSERT INTO EmployeeBank.dbo.tblMember(TeacherNo, TeacherAddBy, StartAmount, DateAdd) \r\n"+
+          "VALUES({TeacherNo}, {TeacherNoAddBy},{StartAmount},{DateAdd} \r\n"+
+          "INSERT INTO EmployeeBank.dbo.tblBill(TeacherNo, TeacherNoAddBy, DateAdd) \r\n"+
+          "VALUES({TeacherNo},{TeacherNoAddBy},{DateAdd}) \r\n"+
+          "INSERT INTO EmployeeBank.dbo.tblBillDetail(BillNo, TypeNo, Amount, Mount, Year) \r\n"+
+          "VALUES(@BillNo,{TypeNo},{Amount},{Mount},{Year}) "
 
 
+        };
+        // ของ POON  สำหรับตรวจสอบการชำระในเเต่ละปี
+        public static void CheckAmountpay(string TeacherNo,string Mount,string Year)
+        {
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[9].Replace("{TeacherNo}", TeacherNo));
+            if(dt.Rows.Count != 0)
+            {
+                Mount = dt.Rows[0][9].ToString();
+                Year = dt.Rows[0][9].ToString();
+                MessageBox.Show("สมาขิกได้จ่ายยอดไปเเล้ว \r\n" +
+                                $"ในเดือน{Mount}ปี{Year}", "เเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
 
-    };
+        public static void InsertBillandUpdateValue(String TeacherNo ,String Teacheraddby , DataGridView DGV)
+        {
+            String LoanNo = "";
+            int TypeNo = 0;
+
+            for (int x = 0; x < DGV.Rows.Count; x++)
+            {
+                string[] MountandYear = DGV.Rows[x].Cells[0].Value.ToString().Replace(" ","").Split('/');
+                if (DGV.Rows[x].Cells[1].Value.ToString() == "สะสม")
+                {
+                    DataTable LoanID = Class.SQLConnection.InputSQLMSSQL(SQLDefault[6].Replace("{TeacherNo}", TeacherNo));
+                    if (LoanID.Rows.Count == 1)
+                    {
+                        LoanNo = LoanID.Rows[0][0].ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ไม่พบรายการกู้", "การแจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    TypeNo = 1;
+                }
+                else if (DGV.Rows[x].Cells[1].Value.ToString() == "กู้")
+                {
+                    TypeNo = 2;
+                }
+                    try
+                    {
+                        Class.SQLConnection.InputSQLMSSQL(SQLDefault[5].Replace("{TeacherNo}", TeacherNo)
+                            .Replace("{TeacherAddBy}",Teacheraddby)
+                            .Replace("{TypeNo}",TypeNo.ToString())
+                            .Replace("{LoanNo}",LoanNo)
+                            .Replace("{Amount}",DGV.Rows[x].Cells[2].Value.ToString())
+                            .Replace("{Mount}",MountandYear[0])
+                            .Replace("{Year}",MountandYear[1]));
+                    if (TypeNo == 1)
+                    {
+                        Class.SQLConnection.InputSQLMSSQL(SQLDefault[7].Replace("{TeacherNo}",TeacherNo)
+                            .Replace("{Amount}",DGV.Rows[x].Cells[2].Value.ToString()));
+                    }
+                    else if (TypeNo == 2)
+                    {
+                        Class.SQLConnection.InputSQLMSSQL(SQLDefault[8].Replace("{TeacherNo}", TeacherNo)
+                             .Replace("{Amount}", DGV.Rows[x].Cells[2].Value.ToString()));
+                    }
+                        MessageBox.Show("การชำระเสร็จสิ้น", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    
+                    }
+                    catch
+                    {
+                        MessageBox.Show("การชำระล้มเหลว", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    }
+            }
+
+
+        }
+        //ค่อยมาแก้
+        public static void ReSearchGuarantor(String TBTeacherNo, DataGridView DGV)
+        {
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[6].Replace("T{TeacherNo}", TBTeacherNo));
+            if (dt.Rows.Count != 0)
+            {
+                DGV.Rows.Add(dt.Rows[0][0], dt.Rows[0][1], dt.Rows[0][3]);
+            }
+            else
+            {
+                MessageBox.Show("รหัสอาจารย์ไม่ถูกต้อง", "System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
 
         //เช็ค ยอดจ่ายของสมาชิกในเดือน อัตโนมัติ
-        public static void AmountpayANDAmountLoanINMonth(string TeacherNo,TextBox Amount,ComboBox SELECTINDAX)
+        public static void AmountpayANDAmountLoanINMonth(string TeacherNo,TextBox Amount,ComboBox SELECTINDEX)
         {
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[3].Replace("{TeacherNo}",TeacherNo));
             if(dt.Rows.Count != 0)
             {
-                if(SELECTINDAX.SelectedItem.ToString() == "สะสม")
+                if(SELECTINDEX.SelectedIndex == 0)
                 {
                     Amount.Text = dt.Rows[0][1].ToString();
                 }
