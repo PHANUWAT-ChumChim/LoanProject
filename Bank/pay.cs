@@ -12,13 +12,13 @@ namespace example.GOODS
 {
     public partial class pay : Form
     {
-       public static int x = 0;
-       public static int SelectIndexRowDelete = -1;
+        public static int x = 0;
+        public static int SelectIndexRowDelete = -1;
         public pay(int TabIndex)
         {
-            InitializeComponent(); 
+            InitializeComponent();
             tabControl1.SelectedIndex = TabIndex;
-            Font F = new Font("TH Sarabun New",16, FontStyle.Regular);
+            Font F = new Font("TH Sarabun New", 16, FontStyle.Regular);
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = F;
             dataGridView2.ColumnHeadersDefaultCellStyle.Font = F;
         }
@@ -101,6 +101,7 @@ namespace example.GOODS
 
                 TBStartAmountShare.Text = "";
                 CBStatus.Text = "";
+                
                 BTAdd.Enabled = false;
             }
         }
@@ -111,6 +112,7 @@ namespace example.GOODS
             if (CBB4Oppay.SelectedIndex != -1)
             {
                 BTsave.Enabled = true;
+                
             }
         }
         //----------------------- End code -------------------- ////////
@@ -147,7 +149,7 @@ namespace example.GOODS
         }
         //----------------------- End code -------------------- ////////
 
-        //------------------------- ClickDelete&Empty ---------
+        //------------------------- ClickDelete&Empty --------- //
         // Comment!
         private void button1_Click_1(object sender, EventArgs e)
         {
@@ -185,8 +187,8 @@ namespace example.GOODS
 
         //----------------------- End code -------------------- ////////
 
-        //------------------------- SUMAmountShare ---------
-        // Comment!
+        //------------------------- SUMAmountShare --------- //
+        // Comment! //
         private void BTAdd_Click(object sender, EventArgs e)
         {
             if (dataGridView1.Rows.ToString() != "")
@@ -199,8 +201,8 @@ namespace example.GOODS
                 }
                 else { TBStartAmountShare.Text = "0"; }
             }
-            dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);
-            
+            dataGridView1.Rows.Add(CByeartap1.SelectedItem.ToString() +" / "+ CBMonth.SelectedItem.ToString(), CBStatus.Text, TBStartAmountShare.Text);
+
 
             //DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[];
             //row.Cells[1].Value = CBStatus.SelectedItem.ToString();
@@ -209,7 +211,6 @@ namespace example.GOODS
         }
         //----------------------- End code -------------------- ////////
 
-        
 
 
 
@@ -218,7 +219,8 @@ namespace example.GOODS
 
 
 
-        // ------------------------ not working --------------
+
+        // ------------------------ not working -------------- //
         private void button3_Click(object sender, EventArgs e)
         {
 
@@ -245,19 +247,31 @@ namespace example.GOODS
 
         private void BTsave_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.Rows.Count != 0)
             {
-                MessageBox.Show("ยืนยันการชำระ", "การเเจ้งเตือนการชำระ", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                MessageBox.Show("การชำระเสร็จสิ้น", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                if (dataGridView1.Rows.Count != 0)
+                {
+                    DialogResult dialogResult = MessageBox.Show("ยืนยันการชำระ", "การเเจ้งเตือนการชำระ", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        //do something 
+                        Class.SQLMethod.InsertBillandUpdateValue(TBTeacherNo.Text,Class.UserInfo.TeacherNo,dataGridView1);
+                    }
+                    else
+                    {
+                        //do something else/
+                        MessageBox.Show("การชำระล้มเหลว", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("รายการชำระไม่ถูกต้อง", "การเเจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            else
-            {
-                MessageBox.Show("รายการชำระไม่ถูกต้อง", "การเเจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+
+
+
+            //----------------------- End code -------------------//
         }
-
-
-
-        //----------------------- End code -------------------
     }
 }

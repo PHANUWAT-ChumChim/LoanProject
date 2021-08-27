@@ -195,6 +195,7 @@ namespace example.Bank
             this.button1.Size = new System.Drawing.Size(43, 43);
             this.button1.TabIndex = 88;
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // TBGuarantorNo
             // 
@@ -630,13 +631,10 @@ namespace example.Bank
             // 
             // BPrintLoanDoc
             // 
-            this.BPrintLoanDoc.Location = new System.Drawing.Point(510, 66);
+            this.BPrintLoanDoc.Location = new System.Drawing.Point(0, 0);
             this.BPrintLoanDoc.Name = "BPrintLoanDoc";
-            this.BPrintLoanDoc.Size = new System.Drawing.Size(224, 66);
-            this.BPrintLoanDoc.TabIndex = 3;
-            this.BPrintLoanDoc.Text = "พิมพ์เอกสาร";
-            this.BPrintLoanDoc.UseVisualStyleBackColor = true;
-            this.BPrintLoanDoc.Click += new System.EventHandler(this.BPrintLoanDoc_Click);
+            this.BPrintLoanDoc.Size = new System.Drawing.Size(75, 23);
+            this.BPrintLoanDoc.TabIndex = 6;
             // 
             // panel7
             // 
@@ -665,7 +663,7 @@ namespace example.Bank
             // 
             this.TBSavingAmount.Enabled = false;
             this.TBSavingAmount.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBSavingAmount.Location = new System.Drawing.Point(819, 75);
+            this.TBSavingAmount.Location = new System.Drawing.Point(816, 86);
             this.TBSavingAmount.Name = "TBSavingAmount";
             this.TBSavingAmount.Size = new System.Drawing.Size(321, 43);
             this.TBSavingAmount.TabIndex = 91;
