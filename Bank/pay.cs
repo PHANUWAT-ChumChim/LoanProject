@@ -101,6 +101,7 @@ namespace example.GOODS
                 if (dialogResult == DialogResult.Yes)
                 {
                     //do something /
+                    Class.SQLMethod.InsertBillandUpdateValue(TBTeacherNo.Text,Class.UserInfo.TeacherName, dataGridView1);
                     MessageBox.Show("การชำระเสร็จสิ้น", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
                 }
                 else if (dialogResult == DialogResult.No)
@@ -267,7 +268,7 @@ namespace example.GOODS
             dataGridView1.Rows.Add(CByeartap1.SelectedItem.ToString() +" / "+ CBMonth.SelectedItem.ToString(), CBStatus.Text, TBStartAmountShare.Text);
 
 
-            dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);
+            //dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);
            
 
 
@@ -314,19 +315,6 @@ namespace example.GOODS
                 e.Handled = true;
             }
         }
-
-      
-
-     
-
-
-
-
-            
-        
-
-        
-
         //----------------------- End code -------------------
 
     }

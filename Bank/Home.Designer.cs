@@ -46,11 +46,11 @@ namespace example.GOODS
             this.label12 = new System.Windows.Forms.Label();
             this.P1 = new System.Windows.Forms.Panel();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.button6 = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button6 = new System.Windows.Forms.Button();
             this.panel7.SuspendLayout();
             this.P1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
@@ -203,17 +203,6 @@ namespace example.GOODS
             this.dataGridView3.Size = new System.Drawing.Size(1133, 554);
             this.dataGridView3.TabIndex = 66;
             // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.White;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(970, 648);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(171, 56);
-            this.button6.TabIndex = 96;
-            this.button6.Text = "จ่ายยอด";
-            this.button6.UseVisualStyleBackColor = false;
-            // 
             // dataGridViewTextBoxColumn1
             // 
             dataGridViewCellStyle2.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -245,6 +234,17 @@ namespace example.GOODS
             this.dataGridViewTextBoxColumn4.HeaderText = "ยอดเงิน";
             this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.White;
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Location = new System.Drawing.Point(970, 648);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(171, 56);
+            this.button6.TabIndex = 96;
+            this.button6.Text = "จ่ายยอด";
+            this.button6.UseVisualStyleBackColor = false;
             // 
             // Home
             // 
