@@ -55,7 +55,70 @@ namespace example.GOODS
 
 
         //----------------------- PullSQL -------------------- ////////
+        // Comment! Pull SQL Member & CheckTBTeacherNo
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
+            if (TBTeacherNo.Text.Length == 6)
+            {
+                Class.SQLMethod.ResearhMerberANDinformation(TBTeacherNo.Text, TBTeacherName, TBTeacherBill, TBTeacherIDNo, TBidno, TBTel, TBstatus, TBStartAmount2);
+                CBStatus.Enabled = true;
+            }
+            else
+            {
+                sum = 0; x = 0;
+                label5.Text = sum.ToString();
+                dataGridView1.Rows.Clear();
+                TBStartAmountShare.Text = "";
+                CBStatus.SelectedIndex = -1;
+                TBTeacherBill.Text = "";
+                TBTeacherName.Text = "";
+                CBStatus.Enabled = false;
+            }
+        }
+        // Comment! Pull SQL Member & CheckTBTeacherNo
+        private void BSearchTeacher_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Bank.Search IN = new Bank.Search(2);
+                IN.ShowDialog();
+                TBTeacherNo.Text = Bank.Search.Return[0];
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x);
+            }
 
+            sum = 0; x = 0;
+            label5.Text = sum.ToString();
+            dataGridView1.Rows.Clear();
+            TBStartAmountShare.Clear();
+            CBStatus.SelectedIndex = -1;
+        }
+        // บันทึกรายการเเล้ว ส่งขึ้นไปบนฐานข้อมูล
+        private void BTsave_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.Rows.Count != 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("ยืนยันการชำระ", "การเเจ้งเตือนการชำระ", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    //do something /
+                    MessageBox.Show("การชำระเสร็จสิ้น", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else/
+                    MessageBox.Show("การชำระล้มเหลว", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("รายการชำระไม่ถูกต้อง", "การเเจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
         //----------------------- End code -------------------- ////////
 
 
@@ -140,49 +203,7 @@ namespace example.GOODS
         }
         //----------------------- End code -------------------- ////////
 
-        //------------------------- Pull SQL Member & CheckTBTeacherNo ---------
-        // Comment!
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
-            if (TBTeacherNo.Text.Length == 6)
-            {
-                Class.SQLMethod.ResearhMerberANDinformation(TBTeacherNo.Text, TBTeacherName, TBTeacherBill, TBTeacherIDNo, TBidno, TBTel, TBstatus, TBStartAmount2);
-                CBStatus.Enabled = true;
-            }
-            else
-            {
-                sum = 0; x = 0;
-                label5.Text = sum.ToString();
-                dataGridView1.Rows.Clear();
-                TBStartAmountShare.Text = "";
-                CBStatus.SelectedIndex = -1;
-                TBTeacherBill.Text = "";
-                TBTeacherName.Text = "";
-                CBStatus.Enabled = false;
-            }
-        }
-        // Comment!
-        private void BSearchTeacher_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Bank.Search IN = new Bank.Search(2);
-                IN.ShowDialog();
-                TBTeacherNo.Text = Bank.Search.Return[0];
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine(x);
-            }
-
-            sum = 0; x = 0;
-            label5.Text = sum.ToString();
-            dataGridView1.Rows.Clear();
-            TBStartAmountShare.Clear();
-            CBStatus.SelectedIndex = -1;
-        }
-        //----------------------- End code -------------------- ////////
+     
 
         //------------------------- ClickDelete&Empty --------- //
         // Comment!
@@ -263,7 +284,7 @@ namespace example.GOODS
 
 
 
-
+     
 
 
 
@@ -297,6 +318,9 @@ namespace example.GOODS
                 e.Handled = true;
             }
         }
+
+      
+
         private void BTsave_Click(object sender, EventArgs e)
         {
             {
@@ -328,6 +352,7 @@ namespace example.GOODS
         }
 
         }
+
         //----------------------- End code -------------------
 
     }
