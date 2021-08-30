@@ -36,7 +36,7 @@ namespace example.Bank
         /// <summary> 
         /// SQLDafaultLoan 
         /// <para>[0] SELECT TeacherName Data INPUT:{TeacherNo} </para> 
-        /// <para>[1] SELECT Guarantor Credit Limit INPUT:{GuarantorNo} </para>
+        /// <para>[1] SELECT MemberNo , Name , RemainCredit INPUT:{TeacherNo} </para>
         /// <para>[2] SELECT Date Data </para>
         /// <para>[3] INSERT Loan and Get LoanNo INPUT: {TeacherNoAdd}, {TeacherNo}, {MonthPay}, {YearPay}, {LoanAmount}, {PayNo}, {InterestRate}</para>
         /// <para>[4] INSERT Guarantor INPUT: {LoanNo},{TeacherNo},{Amount},{RemainsAmount}</para>
@@ -50,14 +50,19 @@ namespace example.Bank
             "left join BaseData.dbo.tblPrefix as c on b.PrefixNo = c.PrefixNo \r\n" +
             "Where a.TeacherNo = '{TeacherNo}'; \r\n\r\n",
 
-            //[1] SELECT CreditLimit Data INPUT:{GuarantorNo}
-            "SELECT a.TeacherNo , d.SavingAmount ,d.SavingAmount - SUM(b.RemainsAmount)\r\n" +
-            "FROM EmployeeBank.dbo.tblMember as a\r\n" +
-            "LEFT JOIN EmployeeBank.dbo.tblGuarantor as b on a.TeacherNo = b.TeacherNo\r\n" +
-            "LEFT JOIN EmployeeBank.dbo.tblLoan as c on b.LoanNo = c.LoanNo\r\n" +
-            "LEFT JOIN EmployeeBank.dbo.tblShare as d on a.TeacherNo = d.TeacherNo\r\n" +
-            "WHERE a.TeacherNo = '{GuarantorNo}'\r\n" +
-            "GROUP BY a.TeacherNo , d.SavingAmount;\r\n"
+            //[1] SELECT MemberNo , Name , RemainCredit INPUT:{TeacherNo}
+            "SELECT TeacherNo, Name, RemainAmount\r\n" +
+            "FROM (SELECT a.TeacherNo , CAST(c.PrefixName+' '+Fname +' '+ Lname as NVARCHAR)AS Name, \r\n" +
+            "ISNULL(e.SavingAmount,0) - ISNULL(SUM(d.RemainsAmount),0) as RemainAmount, Fname\r\n" +
+            "FROM EmployeeBank.dbo.tblMember as a \r\n" +
+            "LEFT JOIN Personal.dbo.tblTeacherHis as b ON a.TeacherNo = b.TeacherNo \r\n" +
+            "LEFT JOIN BaseData.dbo.tblPrefix as c ON b.PrefixNo = c.PrefixNo \r\n" +
+            "LEFT JOIN EmployeeBank.dbo.tblGuarantor as d on a.TeacherNo = d.TeacherNo\r\n" +
+            "LEFT JOIN EmployeeBank.dbo.tblShare as e ON e.TeacherNo = a.TeacherNo\r\n" +
+            "WHERE a.TeacherNo LIKE '{TeacherNo}' and a.MemberStatusNo = 1 \r\n" +
+            "GROUP BY a.TeacherNo , CAST(c.PrefixName+' '+Fname +' '+ Lname as NVARCHAR), e.SavingAmount, Fname) as a\r\n" +
+            "WHERE RemainAmount > 500\r\n" +
+            "ORDER BY a.Fname;\r\n"
             ,
 
             //[2] SELECT Date Data
@@ -161,27 +166,16 @@ namespace example.Bank
                 Class.SQLMethod.ReSearchLoan(TBTeacherNo.Text, TBTeacherName, TBLoanNo, TBLoanStatus, TBSavingAmount);
 
                 DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
-                    //SQLDefaultLoan[0].Replace("{TeacherNo}", TBTeacherNo.Text) +
+                    SQLDefaultLoan[1].Replace("{TeacherNo}", TBTeacherNo.Text));
 
-                    SQLDefaultLoan[1].Replace("{GuarantorNo}", TBTeacherNo.Text));
-
-                //DataTable dtTeacherName = ds.Tables[0];
                 DataTable dtGuarantorCredit = ds.Tables[0];
                 //String aa = dtGuarantorCredit.Rows[0][2].ToString();
                 if(dtGuarantorCredit.Rows.Count != 0/* && dtTeacherName.Rows.Count != 0*/)
                 {
-                    if (dtGuarantorCredit.Rows[0][2].ToString() == "")
-                    {
-                        credit = int.Parse(dtGuarantorCredit.Rows[0][1].ToString());
-                    }
-                    else
-                    {
-                        credit = int.Parse(dtGuarantorCredit.Rows[0][2].ToString());
-                    }
+                    credit = int.Parse(dtGuarantorCredit.Rows[0][2].ToString());
                     DGVGuarantor.Rows.Clear();
                     DGVGuarantor.Rows.Add(dtGuarantorCredit.Rows[0][0], TBTeacherName.Text, credit);
                     TBSavingAmount.Text = credit.ToString();
-                    //RowDGV = DGVGuarantor.Rows.Count;
                 }
                 else
                 {
@@ -214,10 +208,6 @@ namespace example.Bank
                 if(Bank.Search.Return.Length > 1)
                 {
                     TBTeacherNo.Text = Bank.Search.Return[0];
-                    TBTeacherName.Text = Bank.Search.Return[1];
-                    TBLoanNo.Text = Bank.Search.Return[6];
-                    TBLoanStatus.Text = Bank.Search.Return[7];
-                    //TBLoanAmount.Text = Bank.Search.Return[9];
                 }
             }
             catch (Exception x)
@@ -326,26 +316,14 @@ namespace example.Bank
         // Comment!
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(tabControl1.SelectedIndex > 0 && DGVGuarantor.Rows.Count != 4)
-            {
-                MessageBox.Show("โปรดเลือกผู้ค้ำให้ครบตามจำนวน", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                tabControl1.SelectedIndex = 0;
-            }
-            //else if (tabControl1.SelectedIndex == 2 && DGVGuarantor.Rows.Count == 4)
+            //if(tabControl1.SelectedIndex > 0 && DGVGuarantor.Rows.Count != 4)
             //{
-            //    int LoanAmount = 0;
-            //    for (int Count = 0; Count < DGVGuarantor.Rows.Count; Count++)
-            //    {
-            //        LoanAmount += int.Parse(DGVGuarantor.Rows[Count].Cells[2].Value.ToString());
-            //    }
-            //    LLoanAmount.Text = "(" + LoanAmount.ToString() + ")";
+                //MessageBox.Show("โปรดเลือกผู้ค้ำให้ครบตามจำนวน", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //tabControl1.SelectedIndex = 0;
             //}
-            ////else if (tabControl1.SelectedIndex == 2 && (TBLoanAmount.Text == "" || int.Parse(TBLoanAmount.Text) < 1)
-            ////     TBPayNo.Text == "" && TBInterestRate.Text != "" && CBPayMonth.SelectedIndex)
-            //else if(tabControl1.SelectedIndex == 2)
-            else
-            {
-                if (tabControl1.SelectedIndex == 1 && DGVGuarantor.Rows.Count == 4)
+            //else
+            //{
+                if (tabControl1.SelectedIndex == 1 /*&& DGVGuarantor.Rows.Count == 4*/)
                 {
                     int LoanAmount = 0;
                     for (int Count = 0; Count < DGVGuarantor.Rows.Count; Count++)
@@ -385,7 +363,7 @@ namespace example.Bank
                     }
 
                 }
-            }
+            //}
 
 
         }
@@ -418,14 +396,7 @@ namespace example.Bank
                 TBLoanAmount.Focus();
             }
 
-            //if((CBPayYear.SelectedIndex != -1) && )
-            //{
-            //    if(MessageBox.Show("คุณยืนยันที่จะใส่เป็นเดือนที่ผ่านมาหรือไม่", "แจ้งเตือน", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            //    {
-            //        CBPayMonth.Text = "";
-            //        CBPayMonth.Focus();
-            //    }
-            //}
+            
         }
         // เลือกปีจ่าย
         private void CBPayYear_SelectedIndexChanged(object sender, EventArgs e)
@@ -653,16 +624,6 @@ namespace example.Bank
             //*Page Header*
             Header(e, Normal);
 
-            //String Text = "เอกสารสมัครสมาชิกสหกรณ์ครู";
-            //Center(e, Y + (SpacePerRow * CurrentRows++) - 10, "เอกสารสมัครสมาชิกสหกรณ์ครู" + "\r\n" + 
-            //    "aaaaaa" , Header01, Normal);
-
-            //Header(e, Y + (SpacePerRow * CurrentRows++) - 10, Header01, Normal);
-            //SizeF SizeString = e.Graphics.MeasureString(Text, Header01);
-            //float StartLoc = PageX / 2 - SizeString.Width / 2;
-            //e.Graphics.DrawString(Text,
-            //    Header01, Normal, new PointF(StartLoc, Y + (SpacePerRow * CurrentRows++)-10));
-
             //*Rectangle Picture*
             Pen ColorRect = new Pen(Color.Black, 1);
             Rect(e, ColorRect, 125, SpacePerRow * CurrentRows, 50, e.PageBounds.Width - 96 - 125);
@@ -740,23 +701,7 @@ namespace example.Bank
 
             AllCheckBox = new List<string> { "ชาย\r\n" + "Male", "หญิง\r\n" + "Female" };
             PrintCheckBoxList(e, SpaceX + 15, (Y + (SpacePerRow * CurrentRows)) - 45, Normal01, Normal, AllCheckBox, 100);
-            //for (int x = 0; x < 20; x++)
-            //{
-            //    e.Graphics.DrawString("Test",
-            //        Normal01, Normal, new PointF(X, Y + (SpacePerRow * CurrentRows++)));
-
-            //    //KeepRight(e, Y + (SpacePerRow * CurrentRows), "Testasd", Normal01, Normal);
-            //}
-
-            //float gg = e.PageBounds.Width;
-            //SizeF shadowSize = gg;
-            //SizeF a = Convert.ChangeType(50, SizeF);
-            //e.Graphics.DrawString("Testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
-            //    Normal01, Normal, new RectangleF(X, Y + (SpacePerRow * CurrentRows++), 200f, 200f));
-            //e.Graphics.DrawString("Testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
-            //    Normal01, Normal, new PointF(X, Y + (SpacePerRow * CurrentRows++) - 50));
-
-            //e.Graphics.DrawString(DTPStartDate.Text, new Font("TH Sarabun New", 18, FontStyle.Regular), Brushes.Black, new PointF(0, 60));
+            
         }
         //----------------------- End Printf -------------------- ////////
 
@@ -889,16 +834,8 @@ namespace example.Bank
                     IN.ShowDialog();
                     if (Bank.Search.Return.Length > 1)
                     {
-                        //textbox1_KeyDown(sender, new KeyEventArgs(Keys.Enter));
-                        KeyEventArgs aaa;
-                        Keys aa = Keys.Enter;
-                        //aaa.KeyCode
                         TBGuarantorNo.Text = Bank.Search.Return[0];
                         TBGuarantorNo_KeyPress(sender, new KeyPressEventArgs((char)Keys.Enter));
-                        //TBTeacherName.Text = Bank.Search.Return[1];
-                        //TBLoanNo.Text = Bank.Search.Return[6];
-                        //TBLoanStatus.Text = Bank.Search.Return[7];
-                        ////TBLoanAmount.Text = Bank.Search.Return[9];
                     }
                 }
                 catch (Exception x)
@@ -938,6 +875,66 @@ namespace example.Bank
                     }
                 }
                 
+            }
+        }
+
+        private void TBTeacherName_TextChanged(object sender, EventArgs e)
+        {
+            if(TBTeacherName.Text != "")
+            {
+                TBLoanNo.Text = "-";
+                TBLoanStatus.Text = "กำลังดำเนินการ";
+            }
+            else
+            {
+                TBLoanNo.Text = "";
+                TBLoanStatus.Text = "";
+            }
+        }
+
+        private void DGVGuarantor_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.ColumnIndex == 3)
+            {
+                int i;
+                if (!int.TryParse(Convert.ToString(e.FormattedValue), out i))
+                {
+                    e.Cancel = true;
+                    MessageBox.Show("ใส่ได้แต่ตัวเลขครับ.");
+                }
+            }
+        }
+
+        List<int> DGVRow = new List<int> { };
+        private void DGVGuarantor_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            DGVRow.Add(e.RowIndex);
+            float Percent = 0;
+            //int.Parse(DGVGuarantor.Rows[e.RowIndex].Cells[3].Value.ToString());
+            bool CheckRow = false;
+            float Sum = 0;
+            for(int Count = 0; Count < DGVRow.Count; Count++)
+            {
+                Sum += float.Parse(DGVGuarantor.Rows[DGVRow[Count]].Cells[3].Value.ToString());
+            }
+
+            if(DGVRow.Count < 4)
+            {
+                for (int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
+                {
+                    for(int a = 0; a < DGVRow.Count; a++)
+                    {
+                        if(DGVRow[a] == Num)
+                        {
+                            CheckRow = true;
+                            break;
+                        }
+                    }
+                    if(CheckRow == false)
+                    {
+
+                    }
+                }
             }
         }
     }
