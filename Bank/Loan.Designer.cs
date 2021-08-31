@@ -211,7 +211,7 @@ namespace example.Bank
             this.TBGuarantorNo.Name = "TBGuarantorNo";
             this.TBGuarantorNo.Size = new System.Drawing.Size(170, 43);
             this.TBGuarantorNo.TabIndex = 87;
-            this.TBGuarantorNo.TextChanged += new System.EventHandler(this.TBGuarantorNo_TextChanged);
+            //this.TBGuarantorNo.TextChanged += new System.EventHandler(this.TBGuarantorNo_TextChanged);
             this.TBGuarantorNo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TBGuarantorNo_KeyDown);
             this.TBGuarantorNo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TBGuarantorNo_KeyUp);
             // 
@@ -771,7 +771,7 @@ namespace example.Bank
             this.TBTeacherNo.Name = "TBTeacherNo";
             this.TBTeacherNo.Size = new System.Drawing.Size(230, 43);
             this.TBTeacherNo.TabIndex = 82;
-            this.TBTeacherNo.TextChanged += new System.EventHandler(this.TBTeacherNo_TextChanged);
+         
             this.TBTeacherNo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TBTeacherNo_KeyDown);
             // 
             // LB2Ne

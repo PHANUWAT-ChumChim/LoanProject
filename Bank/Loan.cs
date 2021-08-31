@@ -34,7 +34,7 @@ namespace example.Bank
 
         /// <summary> 
         /// SQLDafaultLoan 
-        /// <para>[0] SELECT TeacherName Data INPUT:{TeacherNo} </para> 
+        /// <para>[0] SELECT TeacherName Data INPUT:{TeacherNo} , {TeacherNoNotLike} </para>
 
         /// <para>[1] SELECT Guarantor Credit Limit INPUT:{TeacherNo} </para>
 
@@ -50,7 +50,7 @@ namespace example.Bank
             "LEFT JOIN Personal.dbo.tblTeacherHis as b on a.TeacherNo = b.TeacherNo  \r\n " +
             "LEFT JOIN  BaseData.dbo.tblPrefix as c on b.PrefixNo = c.PrefixNo  \r\n " +
             "LEFT JOIN EmployeeBank.dbo.tblShare as d ON a.TeacherNo = d.TeacherNo \r\n " +
-            "WHERE a.TeacherNo LIKE 'T{TeacherNo}%' and a.MemberStatusNo = 1  \r\n " +
+            "WHERE a.TeacherNo LIKE 'T{TeacherNo}%' and a.MemberStatusNo = 1 {TeacherNoNotLike}\r\n " +
             "ORDER BY b.Fname; "
 
             , 
@@ -177,23 +177,6 @@ namespace example.Bank
         private void TBTeacherNo_TextChanged(object sender, EventArgs e)
         {
 
-            //int credit;
-            //if (TBTeacherNo.Text.Length == 6)
-            //{
-            //    DGVGuarantor.Rows.Clear();
-            //    Class.SQLMethod.ReSearchLoan(TBTeacherNo.Text, TBTeacherName, TBLoanNo, TBLoanStatus, TBSavingAmount);
-
-            //{
-            //    TBTeacherName.Text = "";
-            //    TBLoanNo.Text = "";
-            //    TBLoanStatus.Text = "";
-            //    TBSavingAmount.Text = "";
-            //    if (DGVGuarantor.Rows.Count > 0)
-            //    {
-            //        //DGVGuarantor.Rows.Remove()\
-            //        DGVGuarantor.Rows.Clear();
-            //    }
-            //}
         }
 
         private void TBGuarantorNo_KeyPress(object sender, KeyPressEventArgs e)
@@ -283,9 +266,7 @@ namespace example.Bank
                     }
 
                 }
-            //}
-
-
+            }
         }
         //----------------------- End code -------------------- ////////
 
@@ -315,9 +296,8 @@ namespace example.Bank
                 TBLoanAmount.Text = "";
                 TBLoanAmount.Focus();
             }
-
         }
-        // เลือกปีจ่าย
+            // เลือกปีจ่าย
         private void CBPayYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             int LoanAmount = 0;
@@ -360,7 +340,20 @@ namespace example.Bank
         {
             try
             {
-                Bank.Search IN = new Bank.Search(SQLDefault[0].Replace("{TeacherNo}", ""));
+                Bank.Search IN;
+                String NotLike = "";
+                if (DGVGuarantor.Rows.Count != 0)
+                {
+                    for (int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
+                    {
+                        NotLike += " and a.TeacherNo NOT LIKE " + $"'{DGVGuarantor.Rows[Num].Cells[0].Value.ToString()}' ,";
+                    }
+                    NotLike = NotLike.Remove(NotLike.Length - 1);
+                }
+                IN = new Bank.Search(SQLDefault[0]
+                       .Replace("{TeacherNo}", "")
+                       .Replace("{TeacherNoNotLike}",NotLike));
+
                 IN.ShowDialog();
                 if (Bank.Search.Return[0] != "")
                 {
@@ -378,50 +371,52 @@ namespace example.Bank
         {
             if (e.KeyCode == Keys.Enter)
             {
-                DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("T{TeacherNo}", TBTeacherNo.Text));
+                DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[1].Replace("T{TeacherNo}", TBTeacherNo.Text));
                 if (dt.Rows.Count != 0)
                 {
                     TBTeacherName.Text = dt.Rows[0][1].ToString();
-                    TBLoanNo.Text = "เลขบิลลล";
+                    TBLoanNo.Text = "-";
                     TBLoanStatus.Text = "ดำเนินการ";
                     TBSavingAmount.Text = dt.Rows[0][2].ToString();
 
                     int credit;
 
-                    DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
-                        SQLDefault[1].Replace("T{TeacherNo}", TBTeacherNo.Text));
+                    //DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
+                    //    SQLDefault[1].Replace("T{TeacherNo}", TBTeacherNo.Text));
 
-                    DataTable dtGuarantorCredit = ds.Tables[0];
+                    //DataTable dtGuarantorCredit = ds.Tables[0];
                     //String aa = dtGuarantorCredit.Rows[0][2].ToString();
-                    if (dtGuarantorCredit.Rows.Count != 0/* && dtTeacherName.Rows.Count != 0*/)
-                    {
-                        credit = int.Parse(dtGuarantorCredit.Rows[0][2].ToString());
-                        DGVGuarantor.Rows.Clear();
-                        DGVGuarantor.Rows.Add(dtGuarantorCredit.Rows[0][0], TBTeacherName.Text, credit);
-                        TBSavingAmount.Text = credit.ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("ไม่พบข้อมูล", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        TBTeacherNo.Text = "";
-                        TBTeacherName.Text = "";
-                        TBSavingAmount.Text = "";
-                        TBPayNo.Text = "";
-                        TBLoanNo.Text = "";
-                        TBLoanAmount.Text = "";
-                        TBInterestRate.Text = "";
-                        TBGuarantorNo.Text = "";
-                        TBTeacherNo.Focus();
-                    }
+                    //if (dtGuarantorCredit.Rows.Count != 0/* && dtTeacherName.Rows.Count != 0*/)
+                    //{
+                    credit = int.Parse(dt.Rows[0][2].ToString());
+                    DGVGuarantor.Rows.Clear();
+                    DGVGuarantor.Rows.Add(dt.Rows[0][0], dt.Rows[0][1], credit,25);
+                    TBSavingAmount.Text = credit.ToString();
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("ไม่พบข้อมูล", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //    TBTeacherNo.Text = "";
+                    //    TBTeacherName.Text = "";
+                    //    TBSavingAmount.Text = "";
+                    //    TBPayNo.Text = "";
+                    //    TBLoanNo.Text = "";
+                    //    TBLoanAmount.Text = "";
+                    //    TBInterestRate.Text = "";
+                    //    TBGuarantorNo.Text = "";
+                    //    TBTeacherNo.Focus();
+                    //}
                     Check = 1;
                 }
                 else
                 {
-                    MessageBox.Show("รหัสไม่ถูกต้อง", "ระบบ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("รหัสไม่ถูกต้อง หรือยอดเงินที่ค้ำได้ไม่เพียงพอ", "ระบบ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    TBTeacherNo.Text = "";
+                    TBTeacherNo.Focus();
                 }
 
             }
-            else if (e.KeyCode == Keys.Delete)
+            else if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
             {
                 if (Check == 1)
                 {
@@ -429,6 +424,7 @@ namespace example.Bank
                     TBLoanNo.Text = "";
                     TBLoanStatus.Text = "";
                     TBSavingAmount.Text = "";
+                    DGVGuarantor.Rows.Clear();
                     Check = 0;
                 }
 
@@ -450,39 +446,24 @@ namespace example.Bank
                 if ((DGVGuarantor.Rows.Count < 4) && (CheckTeacherNo == false))
                 {
                     DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
-                        SQLDefault[0]
-                        .Replace("{TeacherNo}", TBGuarantorNo.Text) +
+                        //SQLDefault[0]
+                        //.Replace("{TeacherNo}", TBGuarantorNo.Text) +
 
                         SQLDefault[1]
                         .Replace("{GuarantorNo}", TBGuarantorNo.Text));
-                    DataTable dtGuarantorName = ds.Tables[0];
-                    DataTable dtSavingAmount = ds.Tables[1];
-                    if (dtGuarantorName.Rows.Count != 0 && dtSavingAmount.Rows.Count != 0)
+                    //DataTable dtGuarantorName = ds.Tables[0];
+                    DataTable dtSavingAmount = ds.Tables[0];
+                    if (dtSavingAmount.Rows.Count != 0)
                     {
-                        int credit;
-                        if (dtSavingAmount.Rows[0][2].ToString() == "")
-                        {
-                            credit = int.Parse(dtSavingAmount.Rows[0][1].ToString());
-                        }
-                        else
-                        {
-                            credit = int.Parse(dtSavingAmount.Rows[0][2].ToString());
-                        }
-
-                        if (credit > 0)
-                        {
-                            DGVGuarantor.Rows.Add(dtSavingAmount.Rows[0][0].ToString(),
-                                dtGuarantorName.Rows[0][1].ToString(),
-                                credit);
-                        }
-                        else
-                        {
-                            MessageBox.Show("ไม่มียอดเงินที่ใช้ค้ำได้ โปรดเลือกบุคคลอื่น", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
+                        
+                        DGVGuarantor.Rows.Add(dtSavingAmount.Rows[0][0].ToString(),
+                            dtSavingAmount.Rows[0][1].ToString(),
+                            int.Parse(dtSavingAmount.Rows[0][2].ToString()));
+                       
                     }
                     else
                     {
-                        DialogResult Result = MessageBox.Show("ไม่มีข้อมูล", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult Result = MessageBox.Show("ไม่มีข้อมูล หรือไม่มียอดเงินที่ค้ำได้", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     }
                 }
@@ -771,7 +752,67 @@ namespace example.Bank
             }
         }
 
+        //private void TBGuarantorNo_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.KeyCode == Keys.Enter)
+        //    {
+        //        bool CheckTeacherNo = false;
+        //        for (int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
+        //        {
+        //            String aa = DGVGuarantor.Rows[Num].Cells[1].Value.ToString();
+        //            CheckTeacherNo = TBGuarantorNo.Text.Contains(DGVGuarantor.Rows[Num].Cells[0].Value.ToString());
+        //            if (CheckTeacherNo)
+        //                break;
+        //        }
+        //        if ((DGVGuarantor.Rows.Count < 4) && (CheckTeacherNo == false))
+        //        {
+        //            DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
+        //                SQLDefault[0]
+        //                .Replace("{TeacherNo}", TBGuarantorNo.Text) +
 
+        //                SQLDefault[1]
+        //                .Replace("{GuarantorNo}", TBGuarantorNo.Text));
+        //            DataTable dtGuarantorName = ds.Tables[0];
+        //            DataTable dtSavingAmount = ds.Tables[1];
+        //            if (dtGuarantorName.Rows.Count != 0 && dtSavingAmount.Rows.Count != 0)
+        //            {
+        //                int credit;
+        //                if (dtSavingAmount.Rows[0][2].ToString() == "")
+        //                {
+        //                    credit = int.Parse(dtSavingAmount.Rows[0][1].ToString());
+        //                }
+        //                else
+        //                {
+        //                    credit = int.Parse(dtSavingAmount.Rows[0][2].ToString());
+        //                }
+
+        //                if (credit > 0)
+        //                {
+        //                    DGVGuarantor.Rows.Add(dtSavingAmount.Rows[0][0].ToString(),
+        //                        dtGuarantorName.Rows[0][1].ToString(),
+        //                        credit);
+        //                }
+        //                else
+        //                {
+        //                    MessageBox.Show("ไม่มียอดเงินที่ใช้ค้ำได้ โปรดเลือกบุคคลอื่น", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                DialogResult Result = MessageBox.Show("ไม่มีข้อมูล", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+        //            }
+        //        }
+        //        else if (CheckTeacherNo == true)
+        //            MessageBox.Show("รายชื่อซ้ำ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        else if (DGVGuarantor.Rows.Count >= 4)
+        //        {
+        //            MessageBox.Show("ผู้ค้ำเกินกหนด", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        }
+
+        //        TBGuarantorNo.Text = "";
+        //    }
+        //}
         private void button1_Click(object sender, EventArgs e)
         {
             if (TBTeacherName.Text == "")
@@ -859,25 +900,25 @@ namespace example.Bank
             DGVRow.Add(e.RowIndex);
             float SumPercentEdit = 0;
             float Percent;
-            for (int Num = 0;Num < DGVRow.Count; Num++)
+            for (int Num = 0; Num < DGVRow.Count; Num++)
             {
                 SumPercentEdit += float.Parse(DGVGuarantor.Rows[DGVRow[Num]].Cells[3].Value.ToString());
             }
-            if(DGVGuarantor.Rows.Count - DGVRow.Count > 0)
+            if (DGVGuarantor.Rows.Count - DGVRow.Count > 0)
             {
                 Percent = (100 - SumPercentEdit) / (DGVGuarantor.Rows.Count - DGVRow.Count);
-                for(int Row = 0;Row < DGVGuarantor.Rows.Count; Row++)
+                for (int Row = 0; Row < DGVGuarantor.Rows.Count; Row++)
                 {
                     bool Check = false;
-                    for(int Count = 0; Count < DGVRow.Count; Count++)
+                    for (int Count = 0; Count < DGVRow.Count; Count++)
                     {
-                        if(Row == DGVRow[Count])
+                        if (Row == DGVRow[Count])
                         {
                             Check = true;
                             break;
                         }
                     }
-                    if(Check == false)
+                    if (Check == false)
                     {
                         DGVGuarantor.Rows[Row].Cells[3].Value = Percent;
                         //
@@ -886,7 +927,7 @@ namespace example.Bank
             }
             else
             {
-                if(DGVGuarantor.Rows.Count != 1)
+                if (DGVGuarantor.Rows.Count != 1)
                 {
                     SumPercentEdit = float.Parse(DGVGuarantor.Rows[e.RowIndex].Cells[3].Value.ToString());
                     Percent = (100 - SumPercentEdit) / (DGVGuarantor.Rows.Count - DGVRow.Count);
@@ -907,19 +948,19 @@ namespace example.Bank
                         }
                     }
                 }
-                else if(DGVGuarantor.Rows.Count == 4)
+                else if (DGVGuarantor.Rows.Count == 4)
                 {
                     DGVRow.Clear();
                 }
             }
 
-            
-
-        private void TBGuarantorNo_TextChanged(object sender, EventArgs e)
-        {
-
-
         }
+
+            //private void TBGuarantorNo_TextChanged(object sender, EventArgs e)
+            //{
+
+            //}
+        
     }
 }
 
