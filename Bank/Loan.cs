@@ -909,33 +909,62 @@ namespace example.Bank
         private void DGVGuarantor_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             DGVRow.Add(e.RowIndex);
-            float Percent = 0;
-            //int.Parse(DGVGuarantor.Rows[e.RowIndex].Cells[3].Value.ToString());
-            bool CheckRow = false;
-            float Sum = 0;
-            for(int Count = 0; Count < DGVRow.Count; Count++)
+            float SumPercentEdit = 0;
+            float Percent;
+            for (int Num = 0;Num < DGVRow.Count; Num++)
             {
-                Sum += float.Parse(DGVGuarantor.Rows[DGVRow[Count]].Cells[3].Value.ToString());
+                SumPercentEdit += float.Parse(DGVGuarantor.Rows[DGVRow[Num]].Cells[3].Value.ToString());
             }
-
-            if(DGVRow.Count < 4)
+            if(DGVGuarantor.Rows.Count - DGVRow.Count > 0)
             {
-                for (int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
+                Percent = (100 - SumPercentEdit) / (DGVGuarantor.Rows.Count - DGVRow.Count);
+                for(int Row = 0;Row < DGVGuarantor.Rows.Count; Row++)
                 {
-                    for(int a = 0; a < DGVRow.Count; a++)
+                    bool Check = false;
+                    for(int Count = 0; Count < DGVRow.Count; Count++)
                     {
-                        if(DGVRow[a] == Num)
+                        if(Row == DGVRow[Count])
                         {
-                            CheckRow = true;
+                            Check = true;
                             break;
                         }
                     }
-                    if(CheckRow == false)
+                    if(Check == false)
                     {
-
+                        DGVGuarantor.Rows[Row].Cells[3].Value = Percent;
                     }
                 }
             }
+            else
+            {
+                if(DGVGuarantor.Rows.Count != 1)
+                {
+                    SumPercentEdit = float.Parse(DGVGuarantor.Rows[e.RowIndex].Cells[3].Value.ToString());
+                    Percent = (100 - SumPercentEdit) / (DGVGuarantor.Rows.Count - DGVRow.Count);
+                    for (int Row = 0; Row < DGVGuarantor.Rows.Count; Row++)
+                    {
+                        bool Check = false;
+                        for (int Count = 0; Count < DGVRow.Count; Count++)
+                        {
+                            if (Row == DGVRow[Count])
+                            {
+                                Check = true;
+                                break;
+                            }
+                        }
+                        if (Check == false)
+                        {
+                            DGVGuarantor.Rows[Row].Cells[3].Value = Percent;
+                        }
+                    }
+                }
+                else if(DGVGuarantor.Rows.Count == 4)
+                {
+                    DGVRow.Clear();
+                }
+            }
+
+            
         }
     }
 }
