@@ -227,6 +227,7 @@ namespace example.GOODS
             this.TBTeacherNo.Size = new System.Drawing.Size(154, 43);
             this.TBTeacherNo.TabIndex = 82;
             this.TBTeacherNo.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.TBTeacherNo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TBTeacherNo_KeyDown);
             // 
             // LB3Bi
             // 

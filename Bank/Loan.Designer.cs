@@ -32,11 +32,13 @@ namespace example.Bank
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Loan));
+
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+
             this.panel1 = new System.Windows.Forms.Panel();
             this.BSave = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -209,7 +211,8 @@ namespace example.Bank
             this.TBGuarantorNo.Name = "TBGuarantorNo";
             this.TBGuarantorNo.Size = new System.Drawing.Size(170, 43);
             this.TBGuarantorNo.TabIndex = 87;
-            this.TBGuarantorNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TBGuarantorNo_KeyPress);
+            this.TBGuarantorNo.TextChanged += new System.EventHandler(this.TBGuarantorNo_TextChanged);
+            this.TBGuarantorNo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TBGuarantorNo_KeyDown);
             this.TBGuarantorNo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TBGuarantorNo_KeyUp);
             // 
             // label3
@@ -238,8 +241,10 @@ namespace example.Bank
             // DGVGuarantor
             // 
             this.DGVGuarantor.AllowUserToAddRows = false;
+
             dataGridViewCellStyle1.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DGVGuarantor.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+
             this.DGVGuarantor.BackgroundColor = System.Drawing.Color.White;
             this.DGVGuarantor.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVGuarantor.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -260,6 +265,32 @@ namespace example.Bank
             this.DGVGuarantor.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DGVGuarantor_RowsRemoved);
             this.DGVGuarantor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DGVGuarantor_MouseClick);
             // 
+
+            // Column1
+            // 
+            this.Column1.HeaderText = "รหัส";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "ชื่อ";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 349;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "ยอดเงินค้ำ";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 340;
+            // 
+
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.LLoanAmount);
@@ -436,6 +467,7 @@ namespace example.Bank
             // 
             this.DGVLoanDetail.AllowUserToAddRows = false;
             this.DGVLoanDetail.AllowUserToDeleteRows = false;
+
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -444,6 +476,7 @@ namespace example.Bank
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DGVLoanDetail.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+
             this.DGVLoanDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVLoanDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -646,7 +679,7 @@ namespace example.Bank
             // 
             this.TBSavingAmount.Enabled = false;
             this.TBSavingAmount.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBSavingAmount.Location = new System.Drawing.Point(819, 75);
+            this.TBSavingAmount.Location = new System.Drawing.Point(816, 86);
             this.TBSavingAmount.Name = "TBSavingAmount";
             this.TBSavingAmount.Size = new System.Drawing.Size(321, 43);
             this.TBSavingAmount.TabIndex = 91;
@@ -739,6 +772,7 @@ namespace example.Bank
             this.TBTeacherNo.Size = new System.Drawing.Size(230, 43);
             this.TBTeacherNo.TabIndex = 82;
             this.TBTeacherNo.TextChanged += new System.EventHandler(this.TBTeacherNo_TextChanged);
+            this.TBTeacherNo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TBTeacherNo_KeyDown);
             // 
             // LB2Ne
             // 

@@ -12,16 +12,108 @@ namespace example.GOODS
 {
     public partial class pay : Form
     {
+
         //------------------------- index -----------------
         public static int x = 0;
         public static int sum = 0;
         public static int SelectIndexRowDelete = -1;
         //----------------------- index code -------------------- ////////
+
+
+        /// <summary> 
+        /// SQLDafault 
+        /// <para>[0] SELECT MEMBER INPUT: {TeacherNo} </para> 
+        /// <para>[1] SELECT TIME INPUT : - </para>
+        /// <para>[2] INSERT Bill and BillDetail INPUT: {TeacherAddBy} {TeacherNo} {TypeNo} {LoanNo} {Amount} {Mount} {Year}</para>
+        /// <para>[3] UPDATE SavingAmount INPUT: {TeacherNo} {Amount}</para>
+        /// <para>[4] UPDATE REMAIN INPUT: {TeacherNo} {Amount}</para>
+        /// <para>[5] AmountpayANDAmountLoanINMonth INPUT: {TeacherNo}</para>
+        /// <para>[6] SELECT Detail Member INPUT: {TeacherNo}</para>
+        /// </summary> 
+        private String[] SQLDefault = new String[]
+         { 
+          //[0] SELECT MEMBER INPUT: {TeacherNo} 
+          "SELECT a.TeacherNo ,  CAST(c.PrefixName+' '+Fname +' '+ Lname as NVARCHAR) \r\n " +
+          "FROM EmployeeBank.dbo.tblMember as a \r\n " +
+          "LEFT JOIN Personal.dbo.tblTeacherHis as b ON a.TeacherNo = b.TeacherNo \r\n " +
+          "LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = b.PrefixNo \r\n " +
+          "WHERE a.TeacherNo LIKE 'T{TeacherNo}%' and MemberStatusNo = 1 \r\n " +
+          "ORDER BY Fname; "
+          ,
+          //[1] SELECT TIME INPUT : -
+          "SELECT CONVERT (DATE , CURRENT_TIMESTAMP); "
+             ,
+          //[2] INSERT Bill and BillDetail INPUT: {TeacherAddBy} {TeacherNo} {TypeNo} {LoanNo} {Amount} {Mount} {Year}
+          "DECLARE @BillNo INT; \r\n " +
+          "DECLARE @TeacherNo VARCHAR(20); \r\n " +
+          "DECLARE @TeacherNoAddBy VARCHAR (20); \r\n " +
+          " \r\n " +
+          "SET @TeacherNoAddBy = '{TeacherAddBy}'; \r\n " +
+          "SET @TeacherNo = '{TeacherNo}'; \r\n " +
+          " \r\n " +
+          "INSERT INTO EmployeeBank.dbo.tblBill (TeacherNo, TeacherNoAddBy , DateAdd) \r\n " +
+          "VALUES (@TeacherNo, @TeacherNoAddBy , CURRENT_TIMESTAMP); \r\n " +
+          " \r\n " +
+          "SELECT @BillNo = SCOPE_IDENTITY(); \r\n " +
+          " \r\n " +
+          "INSERT INTO EmployeeBank.dbo.tblBillDetail (BillNo,TypeNo,LoanNo,Amount,Mount,Year) \r\n " +
+          "VALUES (@BillNo,'{TypeNo}','{LoanNo}','{Amount}','{Mount}','{Year}'); "
+             ,
+         //[3] UPDATE SavingAmount INPUT: {TeacherNo} {Amount}
+          "DECLARE @Saving INT; \r\n " +
+          " \r\n " +
+          "SET @Saving = (SELECT SavingAmount \r\n " +
+          "FROM EmployeeBank.dbo.tblShare \r\n " +
+          "WHERE TeacherNo = '{TeacherNo}'); \r\n " +
+          " \r\n " +
+          "UPDATE EmployeeBank.dbo.tblShare \r\n " +
+          "SET SavingAmount = @Saving + '{Amount}' \r\n " +
+          "WHERE TeacherNo = '{TeacherNo}' \r\n " +
+          " \r\n " +
+          " "
+          ,
+         //[4] UPDATE REMAIN INPUT: {TeacherNo} {Amount}
+          "DECLARE @Remain INT; \r\n " +
+          " \r\n " +
+          "SET @Remain = (SELECT Remain \r\n " +
+          "FROM EmployeeBank.dbo.tblLoanPay \r\n " +
+          "WHERE TeacherNo = '{TeacherNo}'); \r\n " +
+          " \r\n " +
+          "UPDATE EmployeeBank.dbo.tblLoanPay \r\n " +
+          "SET Remain = @Remain - '{Amount}' \r\n " +
+          "WHERE TeacherNo = '{TeacherNo}' \r\n " +
+          " \r\n " +
+          " "
+          ,
+          //[5] AmountpayANDAmountLoanINMonth INPUT: {TeacherNo}
+          "SELECT Mb.TeacherNo,Mb.StartAmount AS  Amountpay,Mb.DateAdd AS Datepay,Lp.Amount AS AmountLoan,Ln.DateAdd AS DateLoan \r\n"+
+          "FROM EmployeeBank.dbo.tblMember as Mb\r\n"+
+          "LEFT JOIN EmployeeBank.dbo.tblLoan as Ln on Mb.TeacherNo = Ln.TeacherNo\r\n"+
+          "LEFT JOIN EmployeeBank.dbo.tblLoanPay as Lp  on Ln.TeacherNo = Lp.TeacherNo\r\n" +
+          "WHERE Mb.TeacherNo = '{TeacherNo}';"
+             ,
+          //[6] SELECT Detail Member INPUT: {TeacherNo}
+          "SELECT a.TeacherNo , CAST(c.PrefixName+' '+[Fname] +' '+ [Lname] as NVARCHAR)AS Name, b.IdNo AS TeacherID,   \r\n " +
+          " b.TeacherLicenseNo,b.IdNo AS IDNo,b.TelMobile ,a.StartAmount,CAST(d.MemberStatusName as nvarchar) AS UserStatususing   \r\n " +
+          " FROM EmployeeBank.dbo.tblMember as a   \r\n " +
+          " LEFT JOIN Personal.dbo.tblTeacherHis as b ON a.TeacherNo = b.TeacherNo   \r\n " +
+          " LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = b.PrefixNo  \r\n " +
+          " INNER JOIN EmployeeBank.dbo.tblMemberStatus as d on a.MemberStatusNo = d.MemberStatusNo  \r\n " +
+          " WHERE a.TeacherNo LIKE 'T{TeacherNo}%' and a.MemberStatusNo = 1   \r\n " +
+          " ORDER BY a.TeacherNo;  "
+          ,
+
+
+         };
         public pay(int TabIndex)
         {
-            InitializeComponent(); 
+            InitializeComponent();
             tabControl1.SelectedIndex = TabIndex;
-            Font F = new Font("TH Sarabun New",16, FontStyle.Regular,GraphicsUnit.Point);
+
+            Font F = new Font("TH Sarabun New", 16, FontStyle.Regular);
+
+
+
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = F;
             dataGridView2.ColumnHeadersDefaultCellStyle.Font = F;
         }
@@ -46,7 +138,104 @@ namespace example.GOODS
 
 
         //----------------------- PullSQL -------------------- ////////
+        // Comment! Pull SQL Member & CheckTBTeacherNo
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+        }
+        // Comment! Pull SQL Member & CheckTBTeacherNo
+        private void BSearchTeacher_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Bank.Search IN = new Bank.Search(SQLDefault[0].Replace("{TeacherNo}",""));
+                IN.ShowDialog();
+                TBTeacherNo.Text = Bank.Search.Return[0];
+                TBTeacherNo_KeyDown(sender, new KeyEventArgs(Keys.Enter));
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x);
+            }
 
+            sum = 0; x = 0;
+            label5.Text = sum.ToString();
+            dataGridView1.Rows.Clear();
+            TBStartAmountShare.Clear();
+            CBStatus.SelectedIndex = -1;
+        }
+        // บันทึกรายการเเล้ว ส่งขึ้นไปบนฐานข้อมูล
+        private void BTsave_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.Rows.Count != 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("ยืนยันการชำระ", "การเเจ้งเตือนการชำระ", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    //do something /
+                    String LoanNo = "";
+                    int TypeNo = 0;
+
+                    for (int x = 0; x < dataGridView1.Rows.Count; x++)
+                    {
+                        string[] MountandYear = dataGridView1.Rows[x].Cells[0].Value.ToString().Replace(" ", "").Split('/');
+                        if (dataGridView1.Rows[x].Cells[1].Value.ToString() == "สะสม")
+                        {
+                            DataTable LoanID = Class.SQLConnection.InputSQLMSSQL(SQLDefault[6].Replace("{TeacherNo}", TBTeacherNo.Text));
+                            if (LoanID.Rows.Count == 1)
+                            {
+                                LoanNo = LoanID.Rows[0][0].ToString();
+                            }
+                            else
+                            {
+                                MessageBox.Show("ไม่พบรายการกู้", "การแจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            TypeNo = 1;
+                        }
+                        else if (dataGridView1.Rows[x].Cells[1].Value.ToString() == "กู้")
+                        {
+                            TypeNo = 2;
+                        }
+                        try
+                        {
+                            Class.SQLConnection.InputSQLMSSQL(SQLDefault[2].Replace("{TeacherNo}", TBTeacherNo.Text)
+                                .Replace("{TeacherAddBy}", Class.UserInfo.TeacherName)
+                                .Replace("{TypeNo}", TypeNo.ToString())
+                                .Replace("{LoanNo}", LoanNo)
+                                .Replace("{Amount}", dataGridView1.Rows[x].Cells[2].Value.ToString())
+                                .Replace("{Mount}", MountandYear[1])
+                                .Replace("{Year}", MountandYear[0]));
+                            if (TypeNo == 1)
+                            {
+                                Class.SQLConnection.InputSQLMSSQL(SQLDefault[3].Replace("{TeacherNo}", TBTeacherNo.Text)
+                                    .Replace("{Amount}", dataGridView1.Rows[x].Cells[2].Value.ToString()));
+                            }
+                            else if (TypeNo == 2)
+                            {
+                                Class.SQLConnection.InputSQLMSSQL(SQLDefault[4].Replace("{TeacherNo}", TBTeacherNo.Text)
+                                     .Replace("{Amount}", dataGridView1.Rows[x].Cells[2].Value.ToString()));
+                            }
+                            MessageBox.Show("การชำระเสร็จสิ้น", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+
+                        }
+                        catch
+                        {
+                            MessageBox.Show("การชำระล้มเหลว", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                        }
+                    }
+                    MessageBox.Show("การชำระเสร็จสิ้น", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else/
+                    MessageBox.Show("การชำระล้มเหลว", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("รายการชำระไม่ถูกต้อง", "การเเจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
         //----------------------- End code -------------------- ////////
 
 
@@ -102,7 +291,20 @@ namespace example.GOODS
         {
             if (CBStatus.SelectedIndex != -1 && TBTeacherNo.Text.Length  == 6)
             {
-                Class.SQLMethod.AmountpayANDAmountLoanINMonth(TBTeacherNo.Text, TBStartAmountShare, CBStatus);
+                DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[5].Replace("{TeacherNo}", TBTeacherNo.Text));
+                if (dt.Rows.Count != 0)
+                {
+                    if (CBStatus.SelectedIndex == 0)
+                    {
+                        TBStartAmountShare.Text = dt.Rows[0][1].ToString();
+                    }
+                    else
+                    {
+                        TBStartAmountShare.Text = dt.Rows[0][3].ToString();
+                    }
+
+
+                }
                 BTAdd.Enabled = true;
             }
             else
@@ -110,6 +312,7 @@ namespace example.GOODS
 
                 TBStartAmountShare.Text = "";
                 CBStatus.Text = "";
+                
                 BTAdd.Enabled = false;
             }
         }
@@ -124,56 +327,15 @@ namespace example.GOODS
             if (CBB4Oppay.SelectedIndex != -1)
             {
                 BTsave.Enabled = true;
+                
             }
             else { BTsave.Enabled = false; }
         }
         //----------------------- End code -------------------- ////////
 
-        //------------------------- Pull SQL Member & CheckTBTeacherNo ---------
-        // Comment!
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
-            if (TBTeacherNo.Text.Length == 6)
-            {
-                Class.SQLMethod.ResearhMerberANDinformation(TBTeacherNo.Text, TBTeacherName, TBTeacherBill, TBTeacherIDNo, TBidno, TBTel, TBstatus, TBStartAmount2);
-                CBStatus.Enabled = true;
-            }
-            else
-            {
-                sum = 0; x = 0;
-                label5.Text = sum.ToString();
-                dataGridView1.Rows.Clear();
-                TBStartAmountShare.Text = "";
-                CBStatus.SelectedIndex = -1;
-                TBTeacherBill.Text = "";
-                TBTeacherName.Text = "";
-                CBStatus.Enabled = false;
-            }
-        }
-        // Comment!
-        private void BSearchTeacher_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Bank.Search IN = new Bank.Search(2);
-                IN.ShowDialog();
-                TBTeacherNo.Text = Bank.Search.Return[0];
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine(x);
-            }
+     
 
-            sum = 0; x = 0;
-            label5.Text = sum.ToString();
-            dataGridView1.Rows.Clear();
-            TBStartAmountShare.Clear();
-            CBStatus.SelectedIndex = -1;
-        }
-        //----------------------- End code -------------------- ////////
-
-        //------------------------- ClickDelete&Empty ---------
+        //------------------------- ClickDelete&Empty --------- //
         // Comment!
         private void button1_Click_1(object sender, EventArgs e)
         {
@@ -220,8 +382,8 @@ namespace example.GOODS
         }
         //----------------------- End code -------------------- ////////
 
-        //------------------------- SUMAmountShare ---------
-        // Comment!
+        //------------------------- SUMAmountShare --------- //
+        // Comment! //
         private void BTAdd_Click(object sender, EventArgs e)
         {
             if (dataGridView1.Rows.ToString() != "")
@@ -235,8 +397,13 @@ namespace example.GOODS
                 }
                 else { TBStartAmountShare.Text = "0"; }
             }
-            dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);
+            String Time = Convert.ToDateTime(Class.SQLConnection.InputSQLMSSQL(SQLDefault[1]).Rows[0][0]).ToString("yyyy/MM");
+            dataGridView1.Rows.Add(Time, CBStatus.Text, TBStartAmountShare.Text);
+
+
+            //dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);
            
+
 
             //DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[];
             //row.Cells[1].Value = CBStatus.SelectedItem.ToString();
@@ -247,9 +414,17 @@ namespace example.GOODS
 
 
 
+     
 
 
-        // ------------------------ not working --------------
+
+
+
+
+
+
+
+        // ------------------------ not working -------------- //
         private void button3_Click(object sender, EventArgs e)
         {
 
@@ -273,18 +448,45 @@ namespace example.GOODS
                 e.Handled = true;
             }
         }
-        private void BTsave_Click(object sender, EventArgs e)
+
+        private void TBTeacherNo_KeyDown(object sender, KeyEventArgs e)
         {
-            if (dataGridView1.Rows.Count != 0)
+            if(e.KeyCode == Keys.Enter)
             {
-                MessageBox.Show("ยืนยันการชำระ", "การเเจ้งเตือนการชำระ", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                MessageBox.Show("การชำระเสร็จสิ้น", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[6].Replace("T{TeacherNo}", TBTeacherNo.Text));
+                if (dt.Rows.Count != 0)
+                {
+                    TBTeacherName.Text = dt.Rows[0][1].ToString();
+                    TBTeacherBill.Text = dt.Rows[0][2].ToString();
+                    TBTeacherIDNo.Text = dt.Rows[0][3].ToString();
+                    TBidno.Text = dt.Rows[0][4].ToString();
+                    TBTel.Text = dt.Rows[0][5].ToString();
+                    TBStartAmount2.Text = dt.Rows[0][6].ToString();
+                    TBstatus.Text = dt.Rows[0][7].ToString();
+                }
+                CBStatus.Enabled = true;
             }
             else
             {
-                MessageBox.Show("รายการชำระไม่ถูกต้อง", "การเเจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                sum = 0; x = 0;
+                label5.Text = sum.ToString();
+                dataGridView1.Rows.Clear();
+                TBStartAmountShare.Text = "";
+                CBStatus.SelectedIndex = -1;
+                TBTeacherBill.Text = "";
+                TBTeacherName.Text = "";
+                CBStatus.Enabled = false;
             }
         }
-        //----------------------- End code -------------------
+
+
+
+
+
+        //----------------------- End code -------------------//
+
+
+
+
     }
 }

@@ -207,6 +207,8 @@ namespace example.Bank
             this.TBTeacherNo.Size = new System.Drawing.Size(310, 43);
             this.TBTeacherNo.TabIndex = 18;
             this.TBTeacherNo.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.TBTeacherNo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TBTeacherNo_KeyDown);
+            this.TBTeacherNo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TBTeacherNo_MouseDown);
             // 
             // BSearchTeacher
             // 
@@ -332,6 +334,7 @@ namespace example.Bank
             this.BTOpenfile.TabIndex = 20;
             this.BTOpenfile.Text = "เปิดไฟล์";
             this.BTOpenfile.UseVisualStyleBackColor = false;
+            this.BTOpenfile.Click += new System.EventHandler(this.BTOpenfile_Click);
             // 
             // label5
             // 
