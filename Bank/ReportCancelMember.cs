@@ -15,7 +15,7 @@ namespace example.Bank
         public ReportCancelMember()
         {
             InitializeComponent();
-            Class.SQLMethod.SearchINNserDataGridView(dataGridView1, 3);
+            
         }
 
         private void panel7_Paint(object sender, PaintEventArgs e)
@@ -40,15 +40,15 @@ namespace example.Bank
 
         private void TBTeacherNo_TextChanged(object sender, EventArgs e)
         {
-            if (TBTeacherNo.Text.Length == 6)
-            {
-                Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBTeacherBill,2);
-            }
-            else
-            {
-                TBTeacherBill.Text = "";
-                TBTeacherName.Text = "";
-            }
+            //if (TBTeacherNo.Text.Length == 6)
+            //{
+            //    Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBTeacherBill,2);
+            //}
+            //else
+            //{
+            //    TBTeacherBill.Text = "";
+            //    TBTeacherName.Text = "";
+            //}
         }
     }
 }

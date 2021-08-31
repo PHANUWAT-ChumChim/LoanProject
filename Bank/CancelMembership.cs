@@ -14,6 +14,23 @@ namespace example.Bank
     public partial class CancelMembership : Form
     {
         static String PathFile = "";
+
+        /// <summary>
+        /// <para> SQLDefault </para>
+        /// <para> [0] Change Status Member INPUT: {TeacherNoAddBy} {TeacherNo} {Note} {DocStatusNo} {DocUploadPath} {Status} {TeacherNo} </para>
+        /// </summary>
+        private String[] SQLDefault = new String[]
+        {
+            //[0] Change Status Member INPUT: {TeacherNoAddBy} {TeacherNo} {Note} {DocStatusNo} {DocUploadPath} {Status} {TeacherNo}
+              "INSERT INTO EmployeeBank.dbo.tblMemberResignation (TeacherNoAddBy,TeacherNo,Date,Note,DocStatusNo,DocUploadPath) \r\n " +
+              "VALUES ('{TeacherNoAddBy}','{TeacherNo}',CURRENT_TIMESTAMP,'{Note}','{DocStatusNo}','{DocUploadPath}'); \r\n " +
+              " \r\n " +
+              "UPDATE EmployeeBank.dbo.tblMember \r\n " +
+              "SET MemberStatusNo = '{Status}' \r\n " +
+              "WHERE TeacherNo = '{TeacherNo}' "
+            ,
+        };
+
         public CancelMembership()
         {
             InitializeComponent();
@@ -31,30 +48,30 @@ namespace example.Bank
 
         private void BSearchTeacher_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Bank.Search IN = new Bank.Search(2);
-                IN.ShowDialog();
-                TBTeacherNo.Text = Bank.Search.Return[0];
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine(x);
-            }
+            //try
+            //{
+            //    Bank.Search IN = new Bank.Search(2);
+            //    IN.ShowDialog();
+            //    TBTeacherNo.Text = Bank.Search.Return[0];
+            //}
+            //catch (Exception x)
+            //{
+            //    Console.WriteLine(x);
+            //}
         }
 
         private void TBTeacherNo_TextChanged(object sender, EventArgs e)
         {
-            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
-            if (TBTeacherNo.Text.Length == 6)
-            {
-                Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBIDNo,1);
-            }
-            else
-            {
-                TBIDNo.Text = "";
-                TBTeacherName.Text = "";
-            }
+            ////ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
+            //if (TBTeacherNo.Text.Length == 6)
+            //{
+            //    Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBIDNo,1);
+            //}
+            //else
+            //{
+            //    TBIDNo.Text = "";
+            //    TBTeacherName.Text = "";
+            //}
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -78,7 +95,14 @@ namespace example.Bank
                 }
 
 
-                Class.SQLMethod.ChangeStatusMember(Class.UserInfo.TeacherNo,TBTeacherNo.Text,textBox1.Text, DocStaTus , example.Class.ProtocolSharing.ConnectSMB.SmbFileContainer.PathFile + @"\"+ TBTeacherName.Text + " Cancel.pdf", 2);
+                String DocUpLoadPath = example.Class.ProtocolSharing.ConnectSMB.SmbFileContainer.PathFile + @"\" + TBTeacherName.Text + " Cancel.pdf";
+                if (DocUpLoadPath == "") { DocUpLoadPath = "Null"; }
+                Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("{TeacherNoAddBy}", Class.UserInfo.TeacherNo)
+                    .Replace("{TeacherNo}", TBTeacherNo.Text)
+                    .Replace("{Note}", textBox1.Text)
+                    .Replace("{DocStatusNo}", DocStaTus.ToString())
+                    .Replace("{DocUploadPath}", DocUpLoadPath.ToString())
+                    .Replace("{Status}", 2.ToString()));
                 MessageBox.Show("ยกเลิกผู้ใช้เรียบร้อย","System",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 TBIDNo.Text = "";
                 TBTeacherName.Text = "";
