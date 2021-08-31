@@ -939,6 +939,7 @@ namespace example.Bank
                     if(Check == false)
                     {
                         DGVGuarantor.Rows[Row].Cells[3].Value = Percent;
+                        //
                     }
                 }
             }
