@@ -345,48 +345,21 @@ namespace example.Class
         /// <para>ใส่ 2 จะหาอาจารย์ที่สมัครสมาชิกแล้ว แต่มีข้อมูลสำหรับการกู้เพิ่มเข้ามา (สถาณะใช้งานเท่านั้น) Return : รหัสอาจารย์ ชื่อ เลขบัตรปชช. สถาณะ เลขที่สัญญากู้ หุ้นสะสม</para>
         /// <para>ใส่ 3 จะหาแค่อาจารยฺ์ที่สมัครสมาชิกแล้ว ( สถาณะ ไม่ใช้งาน ) Return : รหัสอาจารย์ ชื่อ เลขบัตรปชช.</para>
         ///</summary>
-        public static void SearchINNserDataGridView(DataGridView G , int AllTeacher_or_Member)
+
+        public static void SearchINNserDataGridViewLoan(DataGridView G, int AllTeacher_or_Member)
         {
-            int y = 0;
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[2].Replace("{TeacherNo}", ""));
+            for (int x = 0; x < dt.Rows.Count; x++)
+            {
+                G.Rows.Add(dt.Rows[x][0], dt.Rows[x][1], dt.Rows[x][2], dt.Rows[x][3], dt.Rows[x][4], dt.Rows[x][5]);
 
-            if (AllTeacher_or_Member == 1)
-            {
-                y = 0;
-            }
-            else if(AllTeacher_or_Member == 2)
-            {
-                y = 2;
-            }
-            else if (AllTeacher_or_Member == 3)
-            {
-                y = 0;
-            }
-            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[y].Replace("{TeacherNo}",""));
-            if (y == 0)
-            {
-                for (int x = 0; x < dt.Rows.Count; x++)
+                if (x % 2 == 1)
                 {
-                    G.Rows.Add(dt.Rows[x][0], dt.Rows[x][1], dt.Rows[x][2],"","","","");
-
-                    if (x % 2 == 1)
-                    {
-                        G.Rows[x].DefaultCellStyle.BackColor = Color.AliceBlue;
-                    }
-                }
-            }
-            else if (y == 2)
-            {
-                for (int x = 0; x < dt.Rows.Count; x++)
-                {
-                    G.Rows.Add(dt.Rows[x][0], dt.Rows[x][1], dt.Rows[x][2], dt.Rows[x][3], dt.Rows[x][4], dt.Rows[x][5]);
-
-                    if (x % 2 == 1)
-                    {
-                        G.Rows[x].DefaultCellStyle.BackColor = Color.AliceBlue;
-                    }
+                    G.Rows[x].DefaultCellStyle.BackColor = Color.AliceBlue;
                 }
             }
         }
+
         // สมัครสมาชิกสหกร์ครู
         public static void INERApplyTeacher(string TeacherNo,string TeacherAddBy, int StartAmount, string DocUploadPath)
         {

@@ -13,6 +13,20 @@ namespace example.GOODS
     public partial class Home : Form
     {
         public static Font F = new Font("TH Sarabun New",16,FontStyle.Regular);
+        int Check = 0;
+
+        /// <summary> 
+        /// SQLDafault 
+        /// <para>[0] INPUT: </para> 
+        /// </summary> 
+        private String[] SQLDefault = new String[]
+         { 
+          //[] INPUT: 
+          " "
+          ,
+
+         };
+
         public Home()
         {
             InitializeComponent();
@@ -26,23 +40,13 @@ namespace example.GOODS
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         { 
-            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
-            if (TBTeacherNo.Text.Length == 6)
-            {
-                Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBTeacherBill,1);
-            }
-            else
-            {
-                TBTeacherBill.Text = "";
-                TBTeacherName.Text = "";
-            }
         }
 
         private void BSearchTeacher_Click(object sender, EventArgs e)
         {
             try
             {
-                Bank.Search IN = new Bank.Search(2);
+                Bank.Search IN = new Bank.Search(SQLDefault[0].Replace("{TeacherNo}",""));
                 IN.ShowDialog();
                 TBTeacherNo.Text = Bank.Search.Return[0];
                 TBTeacherName.Text = Bank.Search.Return[1];
@@ -55,6 +59,41 @@ namespace example.GOODS
 
         }
 
-        
+        private void TBTeacherNo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (TBTeacherNo.Text.Length == 6)
+                {
+                    DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("{TeacherNo}", TBTeacherNo.Text));
+                    if (dt.Rows.Count != 0)
+                    {
+                        TBTeacherName.Text = dt.Rows[0][0].ToString();
+                        TBTeacherBill.Text = "บิลจ้า";
+                        Check = 1;
+                    }
+                    else
+                    {
+                        MessageBox.Show("รหัสไม่ถูกต้อง", "ระบบ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("รหัสไม่ถูกต้อง","ระบบ",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                }
+            }
+            else if (e.KeyCode == Keys.Delete)
+            {
+                if (Check == 1)
+                {
+                    TBTeacherName.Text = "";
+                    TBTeacherBill.Text = "";
+                    Check = 0;
+                }
+
+            }
+
+        }
     }
 }

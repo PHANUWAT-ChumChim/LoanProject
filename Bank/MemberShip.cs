@@ -35,11 +35,11 @@ namespace example.Bank
         }
         //----------------------- End code -------------------- ////////
 
-        // <summary>
-        // SQLDafault
-        // <para>[0] Insert Teacher Data INPUT:{TeacherNo},{TeacherAddBy}, {StartAmount} </para>
-        // <para>[1] SELECT Member  INPUT:{TeacherNo} </para>
-        // </summary>
+        /// <summary>
+        /// SQLDafault
+        /// <para>[0] Insert Teacher Data INPUT:{TeacherNo}{TeacherAddBy}, {StartAmount} </para>
+        /// <para>[1] SELECT Member  INPUT:{TeacherNo} </para>
+        /// </summary>
         private String[] SQLDefault = new String[]
         {
 			//[0] Insert Teacher Data INPUT:{TeacherNo},{TeacherAddBy},{StartAmount} 
@@ -47,10 +47,12 @@ namespace example.Bank
             "VALUES('{TeacherNo}','{TeacherAddBy}',{StartAmount}, CURRENT_TIMESTAMP); \r\n\r\n",
    
             //[1] SELECT Member  INPUT:{TeacherNo}
-          "SELECT *  \r\n " +
-          "FROM EmployeeBank.dbo.tblMember \r\n " +
-          "WHERE TeacherNo = '{TeacherNo}' \r\n " +
-          "ORDER BY TeacherNo; "
+          "SELECT a.TeacherNo ,  CAST(b.PrefixName+' '+Fname +' '+ Lname as NVARCHAR) \r\n " +
+          "FROM Personal.dbo.tblTeacherHis as a \r\n " +
+          "LEFT JOIN BaseData.dbo.tblPrefix as b ON a.PrefixNo = b.PrefixNo  \r\n " +
+          "WHERE NOT a.TeacherNo IN(SELECT TeacherNo FROM EmployeeBank.dbo.tblMember) and a.TeacherNo LIKE 'T{TeacherNo}%' \r\n " +
+          "ORDER BY Fname "
+
           ,
 
         };
@@ -60,16 +62,16 @@ namespace example.Bank
         // Available values| ResearchUserAllTLC / TB /
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
-            if (TBTeacherNo.Text.Length == 6)
-            {
-                Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBIDNo , 0);
-            }
-            else
-            {
-                TBIDNo.Text = "";
-                TBTeacherName.Text = "";
-            }
+            ////ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
+            //if (TBTeacherNo.Text.Length == 6)
+            //{
+            //    Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBIDNo , 0);
+            //}
+            //else
+            //{
+            //    TBIDNo.Text = "";
+            //    TBTeacherName.Text = "";
+            //}
 
         }
         // Comment!
@@ -78,9 +80,14 @@ namespace example.Bank
         {
             try
             {
-                Search IN = new Search(0);
+                Search IN = new Search(SQLDefault[1].Replace("{TeacherNo}" , ""));
                 IN.ShowDialog();
-                TBTeacherNo.Text = Search.Return[0];
+                if(Search.Return[0] != "")
+                {
+                   TBTeacherNo.Text = Search.Return[0];
+                    TBTeacherNo_KeyDown(sender, new KeyEventArgs(Keys.Enter));                   
+                }
+
             }
             catch (Exception x)
             {
@@ -355,7 +362,22 @@ namespace example.Bank
 
         private void BTOpenfile_Click(object sender, EventArgs e)
         {
+            
+        }
 
+        private void TBTeacherNo_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void TBTeacherNo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+               DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[1].Replace("T{TeacherNo}",TBTeacherNo.Text));
+                TBTeacherName.Text = dt.Rows[0][1].ToString();
+                TBIDNo.Text = "รอใส่จ้าาา";
+            }
         }
         //----------------------- End code -------------------- ////////
 
