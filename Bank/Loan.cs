@@ -127,15 +127,22 @@ namespace example.Bank
                 DataTable dtGetLoanNo = dsInsertLoan.Tables[0];
                 LoanNo = int.Parse(dtGetLoanNo.Rows[0][0].ToString());
 
-                float credit = int.Parse(TBLoanAmount.Text) / 4;
-                bool CheckInt = IsInt(credit);
-                int GuarantorCredit = int.Parse(credit.ToString());
-                if (!CheckInt)
-                {
-                    GuarantorCredit += 1;
-                }
+                
+                //bool CheckInt = IsInt(credit);
+                //int GuarantorCredit = int.Parse(credit.ToString());
+                //if (!CheckInt)
+                //{
+                //    GuarantorCredit += 1;
+                //}
                 for (int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
                 {
+                    float Percent = int.Parse(TBLoanAmount.Text) * (float.Parse(DGVGuarantor.Rows[Num].Cells[3].Value.ToString()) / 100);
+                    bool CheckInt = IsInt(Percent);
+                    int GuarantorCredit = int.Parse(Percent.ToString());
+                    if (!CheckInt)
+                    {
+                        GuarantorCredit += 1;
+                    }
                     DataSet dsInsertGuarantor = Class.SQLConnection.InputSQLMSSQLDS(SQLDefaultLoan[4]
                     .Replace("{LoanNo}", LoanNo.ToString())
                     .Replace("{TeacherNo}", DGVGuarantor.Rows[Num].Cells[0].Value.ToString())
