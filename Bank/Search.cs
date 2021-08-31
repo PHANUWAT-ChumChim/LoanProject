@@ -54,7 +54,15 @@ namespace example.Bank
                         dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString()
                     };
                 }
-
+                else
+                {
+                    Return = new String[]
+                   {
+                        dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(),
+                        dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString(),
+                        dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString()
+                   };
+                }
                 this.Dispose();
 
             }

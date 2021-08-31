@@ -20,19 +20,18 @@ namespace example.Class
         /// <para> [2] Search LoanMember INPUT: {TeacherNo} แก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วยแก้ด้วย </para>
         /// <para> [3]  AmountpayANDAmountLoanINMonth INPUT: {TeacherNo}  </para>
         /// <para> [4] CheckAmount INPUT: -  </para>
-        /// <para> [5] INSERT Bill and BillDetail INPUT: {TeacherAddBy} {TeacherNo} {TypeNo} {LoanNo} {Amount} {Mount} {Year}</para>
+        /// <para> [5] INSERT Bill and BillDetail INPUT: {TeacherAddBy} {TeacherNo} {TypeNo} {LoanNo} {Amount} {Mount} {Year} </para>
         /// <para> [6] SELECT Loan INPUT : {TeacherNo} </para>
         /// <para> [7] UPDATE SavingAmount INPUT: {TeacherNo} {Amount} </para>
-
         /// <para> [8] UPDATE REMAIN INPUT: {TeacherNo} {Amount} </para>
         /// <para> [9] Check Time Server INPUT: - </para>
-        /// <para> [10] Change Status Member INPUT: {TeacherNoAddBy} {TeacherNo} {Note} {DocStatusNo} {DocUploadPath} {Status} {TeacherNo}</para>
-
+        /// <para> [10] Change Status Member INPUT: {TeacherNoAddBy} {TeacherNo} {Note} {DocStatusNo} {DocUploadPath} {Status} {TeacherNo} </para>
         /// </para>[11] CheckAmountpayINPUT: {TeacherNo}  </para>
         /// </para> [12] INSERT Member To Member  Bill BillDetail  INPUT: {TeacherNo} </para> 
+        /// </para>[13]SELECT UserTLC INPUT: {TeacherNo} </para>
         /// </summary>
         private static String[] SQLDefault = new String[]
-         { 
+        { 
 
           //[0] Write to Search & Search All ID Teacher INPUT: {TeacherNo} {MemberStatus}
           "SELECT a.TeacherNo,CAST(c.PrefixName+' '+[Fname] +' '+ [Lname] as NVARCHAR),[IdNo]  \r\n " +
@@ -42,7 +41,6 @@ namespace example.Class
           "LEFT JOIN EmployeeBank.dbo.tblMember as d ON a.TeacherNo = d.TeacherNo \r\n " +
           "WHERE a.TeacherNo LIKE 'T{TeacherNo}%' and {d.MemberStatusNo = '{MemberStatus}}' \r\n " +
           "ORDER BY a.TeacherNo;  "
-
           ,
          //[1] INSERT Register Member INPUT:  {TeacherNo} {TeacherAddBy} {StartAmount} {DocPath}
           "INSERT INTO EmployeeBank.dbo.tblMember(TeacherNo,TeacherAddBy,StartAmount,DocUploadPath,DateAdd) \r\n " +
@@ -154,6 +152,17 @@ namespace example.Class
           "VALUES({TeacherNo},{TeacherNoAddBy},{DateAdd}) \r\n"+
           "INSERT INTO EmployeeBank.dbo.tblBillDetail(BillNo, TypeNo, Amount, Mount, Year) \r\n"+
           "VALUES(@BillNo,{TypeNo},{Amount},{Mount},{Year}) "
+           ,
+          //[13]SELECT UserTLC INPUT: {TeacherNo} 
+          "SELECT a.TeacherNo,CAST(c.PrefixName+' '+[Fname] +' '+ [Lname] as NVARCHAR),[IdNo] \r\n" +
+          "FROM[Personal].[dbo].[tblTeacherHis] as a \r\n" +
+          "LEFT JOIN Personal.dbo.tblGroupPosition as b ON a.GroupPositionNo = b.GroupPositionNo \r\n" +
+          "LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = a.PrefixNo \r\n" +
+          "LEFT JOIN EmployeeBank.dbo.tblMember as d ON a.TeacherNo = d.TeacherNo \r\n" +
+          "WHERE a.TeacherNo LIKE 'T{TeacherNo}%' AND d.TeacherNo IS NULL \r\n" +
+          "ORDER BY a.TeacherNo;"
+           ,
+        
 
 
         };
@@ -269,6 +278,10 @@ namespace example.Class
                 else
                 {
                     Amount.Text = dt.Rows[0][3].ToString();
+                    if (Amount.Text.Length < 1)
+                    {
+                        Amount.Text = "ไม่ได้ทำรายการ";
+                    }
                 }
                
                
@@ -357,9 +370,9 @@ namespace example.Class
             {
                 y = 2;
             }
-            else if (AllTeacher_or_Member == 3)
+            else
             {
-                y = 0;
+                y = 13;
             }
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[y].Replace("{TeacherNo}",""));
             if (y == 0)
@@ -379,6 +392,18 @@ namespace example.Class
                 for (int x = 0; x < dt.Rows.Count; x++)
                 {
                     G.Rows.Add(dt.Rows[x][0], dt.Rows[x][1], dt.Rows[x][2], dt.Rows[x][3], dt.Rows[x][4], dt.Rows[x][5]);
+
+                    if (x % 2 == 1)
+                    {
+                        G.Rows[x].DefaultCellStyle.BackColor = Color.AliceBlue;
+                    }
+                }
+            }
+            else
+            {
+                for (int x = 0; x < dt.Rows.Count; x++)
+                {
+                    G.Rows.Add(dt.Rows[x][0], dt.Rows[x][1], dt.Rows[x][2],"","","","");
 
                     if (x % 2 == 1)
                     {

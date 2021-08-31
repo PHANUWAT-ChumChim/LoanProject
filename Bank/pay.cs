@@ -59,7 +59,10 @@ namespace example.GOODS
             if (TBTeacherNo.Text.Length == 6)
             {
                 Class.SQLMethod.ResearhMerberANDinformation(TBTeacherNo.Text, TBTeacherName, TBTeacherBill, TBTeacherIDNo, TBidno, TBTel, TBstatus, TBStartAmount2);
-                CBStatus.Enabled = true;
+                if (TBTeacherName.Text != "")
+                {
+                  CBStatus.Enabled = true;  
+                }
             }
             else
             {
@@ -210,6 +213,7 @@ namespace example.GOODS
             CByeartap1.SelectedIndex = -1;
             CBMonth.SelectedIndex = -1;
             CBStatus.SelectedIndex = -1;
+            dataGridView1.Rows.Clear();
             TBStartAmountShare.Text = string.Empty;
         }
         // Comment!
@@ -254,7 +258,7 @@ namespace example.GOODS
         // Comment! //
         private void BTAdd_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.Rows.ToString() != "")
+            if (dataGridView1.Rows.ToString() != "" && TBStartAmountShare.Text != "ไม่ได้ทำรายการ")
             {
                 CBB4Oppay.Enabled = true;
                 if (TBStartAmountShare.Text != "")
@@ -264,9 +268,13 @@ namespace example.GOODS
                     label5.Text = sum.ToString();
                 }
                 else { TBStartAmountShare.Text = "0"; }
+                dataGridView1.Rows.Add(Class.SQLMethod.CheckTimeServer(), CBStatus.Text, TBStartAmountShare.Text);
             }
-
-            dataGridView1.Rows.Add(Class.SQLMethod.CheckTimeServer(), CBStatus.Text, TBStartAmountShare.Text);
+            else
+            {
+                MessageBox.Show("ไม่สามารถเพิ่มรายการนี้ได้ \r\n ผู้ใช้ยังไม่ได้ดำเนินการ", "การเเจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+          
 
 
             //dataGridView1.Rows.Add(DateTime.Today.Date.ToString(), CBStatus.Text, TBStartAmountShare.Text);

@@ -17,8 +17,8 @@ namespace example.Bank
     public partial class MemberShip : Form
     {
         //------------------------- index -----------------
-
-
+            public static string TeacherNo;
+            public static int SELECT;
         //----------------------- index code -------------------- ////////
 
         public MemberShip()
@@ -35,11 +35,14 @@ namespace example.Bank
         }
         //----------------------- End code -------------------- ////////
 
-        // <summary>
-        // SQLDafault
-        // <para>[0] Insert Teacher Data INPUT:{TeacherNo},{TeacherAddBy}, {StartAmount} </para>
-        // <para>[1] SELECT Member  INPUT:{TeacherNo} </para>
-        // </summary>
+        /// <summary>
+        /// SQLDafault
+        /// <para>[0] Insert Teacher Data INPUT:{TeacherNo},{TeacherAddBy}, {StartAmount} </para>
+        /// <para>[1] SELECT Member  INPUT:{TeacherNo} </para>
+        /// <para>[2] SELECT UserTLC INPUT:{TeacherNo} </para>
+        /// <para>[3] UPDATE UserTLCStatus  INPUT:{status} {TeacherNo} </para>
+        /// <para>[4] SELECT Member  INPUT: {TeacherNo}   </para>
+        /// </summary>
         private String[] SQLDefault = new String[]
         {
 			//[0] Insert Teacher Data INPUT:{TeacherNo},{TeacherAddBy},{StartAmount} 
@@ -47,38 +50,32 @@ namespace example.Bank
             "VALUES('{TeacherNo}','{TeacherAddBy}',{StartAmount}, CURRENT_TIMESTAMP); \r\n\r\n",
    
             //[1] SELECT Member  INPUT:{TeacherNo}
-          "SELECT *  \r\n " +
-          "FROM EmployeeBank.dbo.tblMember \r\n " +
-          "WHERE TeacherNo = '{TeacherNo}' \r\n " +
-          "ORDER BY TeacherNo; "
-          ,
+            "SELECT *  \r\n " +
+            "FROM EmployeeBank.dbo.tblMember \r\n " +
+            "WHERE TeacherNo = '{TeacherNo}' \r\n " +
+            "ORDER BY TeacherNo; ",
 
+            //[2] SELECT UserTLC  INPUT:{TeacherNo}
+            "SELECT a.TeacherNo,CAST(c.PrefixName+' '+[Fname] +' '+ [Lname] as NVARCHAR),[IdNo] \r\n" +
+            "FROM[Personal].[dbo].[tblTeacherHis] as a \r\n" +
+            "LEFT JOIN Personal.dbo.tblGroupPosition as b ON a.GroupPositionNo = b.GroupPositionNo \r\n" +
+            "LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = a.PrefixNo \r\n" +
+            "LEFT JOIN EmployeeBank.dbo.tblMember as d ON a.TeacherNo = d.TeacherNo \r\n" +
+            "WHERE a.TeacherNo LIKE 'T{TeacherNo}%' AND d.TeacherNo IS NULL \r\n" +
+            "ORDER BY a.TeacherNo;",
         };
 
         //----------------------- PullSQL -------------------- ////////
         // Comment!
         // Available values| ResearchUserAllTLC / TB /
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
-            if (TBTeacherNo.Text.Length == 6)
-            {
-                Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBIDNo , 0);
-            }
-            else
-            {
-                TBIDNo.Text = "";
-                TBTeacherName.Text = "";
-            }
-
-        }
+     
         // Comment!
         // Available values|  BSearchTeacher / TB /
         private void BSearchTeacher_Click(object sender, EventArgs e)
         {
             try
             {
-                Search IN = new Search(0);
+                Search IN = new Search(3);
                 IN.ShowDialog();
                 TBTeacherNo.Text = Search.Return[0];
             }
@@ -91,33 +88,32 @@ namespace example.Bank
         // Available values|  SQLDefault[1] / TB /
         private void BSave_Click_1(object sender, EventArgs e)
         {
-            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[1].Replace("{TeacherNo}", TBTeacherNo.Text));
-            if (TBTeacherName.Text != "")
-            {
-                if (Convert.ToInt32(TBStartAmountShare.Text) >= example.GOODS.Menu.startAmountMin && Convert.ToInt32(TBStartAmountShare.Text) <= example.GOODS.Menu.startAmountMax)
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[2].Replace("T{TeacherNo}%", TBTeacherNo.Text));
+           
+                if (dt.Rows.Count != 0)
                 {
-                    if (dt.Rows.Count == 0)
+                    if (Convert.ToInt32(TBStartAmountShare.Text) >= example.GOODS.Menu.startAmountMin && Convert.ToInt32(TBStartAmountShare.Text) <= example.GOODS.Menu.startAmountMax)
                     {
-                        Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("{TeacherNo}", TBTeacherNo.Text)
-                            .Replace("{TeacherAddBy}", "Teacher")
-                            .Replace("{StartAmount}", TBStartAmountShare.Text)
-                            .Replace("{DocPath}", "file"));
-                        MessageBox.Show("สมัครเสร็จสิ้น", "การยืนยันการสมัคร", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (dt.Rows.Count != 0)
+                        {
+                            Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("{TeacherNo}", TBTeacherNo.Text)
+                                .Replace("{TeacherAddBy}", "Teacher")
+                                .Replace("{StartAmount}", TBStartAmountShare.Text)
+                                .Replace("{DocPath}", "file"));
+                            MessageBox.Show("สมัครเสร็จสิ้น", "การยืนยันการสมัคร", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("ไม่พบรายชื่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("รายชื่อซ้ำ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("ไม่สามารถสมัครสมาชิกได้เนื่องจาก \r\n ราคาหุ้นเริ่มต้นต่ำหรือสูงเกินไป \r\n โปรดแก้ไข ราคาหุ้นขั้นต่ำ หรือ สูงสุด ที่หน้าตั้งค่า", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
-                else
-                {
-                    MessageBox.Show("ไม่สามารถสมัครสมาชิกได้เนื่องจาก \r\n ราคาหุ้นเริ่มต้นต่ำหรือสูงเกินไป \r\n โปรดแก้ไข ราคาหุ้นขั้นต่ำ หรือ สูงสุด ที่หน้าตั้งค่า", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else
-            {
-                MessageBox.Show("โปรดเลือกสมาชิกในการสมัคร", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            
+         
         }
         //----------------------- End code -------------------- ////////
 
@@ -152,8 +148,8 @@ namespace example.Bank
             if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
             {
                 printDocument1.Print();
-
             }
+            BTOpenfile.Enabled = true;
         }
         //----------------------- End code -------------------- ////////
         
@@ -355,7 +351,47 @@ namespace example.Bank
 
         private void BTOpenfile_Click(object sender, EventArgs e)
         {
+            Image File;
+            String imgeLocation = "";
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "pdf files(*.pdf)|*.pdf";
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    imgeLocation = dialog.FileName;
+                    File = Image.FromFile(dialog.FileName);
+                    //pictureBox1.Image = File;
 
+
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void TBTeacherNo_TextChanged(object sender, EventArgs e)
+        {
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[2].Replace("T{TeacherNo}%",TBTeacherNo.Text));
+            if(dt.Rows.Count != -1)
+            {
+                if (dt.Rows.Count != 0)
+                {
+                    TBTeacherName.Text = dt.Rows[0][1].ToString();
+                    //TBIDNo.Text = dt.Rows[0][2].ToString();
+                    BSave.Enabled = true;
+                }
+                else
+                {
+                    TBTeacherName.Clear();
+                    TBIDNo.Clear();
+                    BSave.Enabled = false;
+                }
+            }
+       
+        
         }
         //----------------------- End code -------------------- ////////
 

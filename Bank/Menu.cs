@@ -52,17 +52,6 @@ namespace example.GOODS
             F.WindowState = FormWindowState.Maximized;
             F.Show();
         }
-        public void shareinformation(object sender, EventArgs e)
-        {
-            pay Mn = new pay(1);
-            CloseFrom(Mn);
-        }
-
-        private void จายยอดToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            pay Mn = new pay(0);
-            CloseFrom(Mn);
-        }
 
         private void menuStrip1_ItemAdded(object sender, ToolStripItemEventArgs e)
         {
@@ -74,17 +63,7 @@ namespace example.GOODS
             Home Hm = new Home();
             CloseFrom(Hm);
         }
-        private void loaninformation(object sender, EventArgs e)
-        {
-            pay Mn = new pay(2);
-            CloseFrom(Mn);
-        }
-
-        private void member(object sender, EventArgs e)
-        {
-            pay Mn = new pay(3);
-            CloseFrom(Mn);
-        }
+    
 
         private void สมครสมาชกToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -102,27 +81,17 @@ namespace example.GOODS
             Bank.Setting St = new Bank.Setting();
             St.Show();
         }
-        private void TMLCancelMembers_Click(object sender, EventArgs e)
-        {
-            Bank.CancelMembership Cm = new Bank.CancelMembership();
-            CloseFrom(Cm);
-        }
-
-        private void ReportCancelMember_Click(object sender, EventArgs e)
-        {
-            Bank.ReportCancelMember Rc = new Bank.ReportCancelMember();
-            CloseFrom(Rc);
-        }
-
-        private void pay_Click(object sender, EventArgs e)
-        {
-
-        }
-
+     
         private void Loan_Click(object sender, EventArgs e)
         {
             Bank.Loan Ln = new Bank.Loan();
             CloseFrom(Ln);
+        }
+
+        private void pay_Click(object sender, EventArgs e)
+        {
+            pay Mn = new pay(0);
+            CloseFrom(Mn);
         }
     }
 }
