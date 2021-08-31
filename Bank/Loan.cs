@@ -35,11 +35,13 @@ namespace example.Bank
         /// <summary> 
         /// SQLDafaultLoan 
         /// <para>[0] SELECT TeacherName Data INPUT:{TeacherNo} </para> 
+
         /// <para>[1] SELECT Guarantor Credit Limit INPUT:{TeacherNo} </para>
+
         /// <para>[2] SELECT Date Data </para>
         /// <para>[3] INSERT Loan and Get LoanNo INPUT: {TeacherNoAdd}, {TeacherNo}, {MonthPay}, {YearPay}, {LoanAmount}, {PayNo}, {InterestRate}</para>
         /// <para>[4] INSERT Guarantor INPUT: {LoanNo},{TeacherNo},{Amount},{RemainsAmount}</para>
-        /// </summary> 
+        /// </summary>
         private String[] SQLDefault = new String[]
         {
             //[0] SELECT TeacherName Data INPUT:{TeacherNo}  
@@ -67,6 +69,7 @@ namespace example.Bank
             "WHERE RemainAmount > 1000 \r\n " +
             "ORDER BY a.Fname; "
             , 
+
 
 
             //[2] SELECT Date Data
@@ -131,16 +134,25 @@ namespace example.Bank
                 DataTable dtGetLoanNo = dsInsertLoan.Tables[0];
                 LoanNo = int.Parse(dtGetLoanNo.Rows[0][0].ToString());
 
-                float credit = int.Parse(TBLoanAmount.Text) / 4;
-                bool CheckInt = IsInt(credit);
-                int GuarantorCredit = int.Parse(credit.ToString());
-                if (!CheckInt)
-                {
-                    GuarantorCredit += 1;
-                }
+                
+                //bool CheckInt = IsInt(credit);
+                //int GuarantorCredit = int.Parse(credit.ToString());
+                //if (!CheckInt)
+                //{
+                //    GuarantorCredit += 1;
+                //}
                 for (int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
                 {
+
+                    float Percent = int.Parse(TBLoanAmount.Text) * (float.Parse(DGVGuarantor.Rows[Num].Cells[3].Value.ToString()) / 100);
+                    bool CheckInt = IsInt(Percent);
+                    int GuarantorCredit = int.Parse(Percent.ToString());
+                    if (!CheckInt)
+                    {
+                        GuarantorCredit += 1;
+                    }
                     DataSet dsInsertGuarantor = Class.SQLConnection.InputSQLMSSQLDS(SQLDefault[4]
+
                     .Replace("{LoanNo}", LoanNo.ToString())
                     .Replace("{TeacherNo}", DGVGuarantor.Rows[Num].Cells[0].Value.ToString())
                     .Replace("{Amount}", GuarantorCredit.ToString())
@@ -171,38 +183,6 @@ namespace example.Bank
             //    DGVGuarantor.Rows.Clear();
             //    Class.SQLMethod.ReSearchLoan(TBTeacherNo.Text, TBTeacherName, TBLoanNo, TBLoanStatus, TBSavingAmount);
 
-            //    DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
-            //        //SQLDefaultLoan[0].Replace("{TeacherNo}", TBTeacherNo.Text) +
-
-            //        SQLDefault[1].Replace("{GuarantorNo}", TBTeacherNo.Text));
-
-            //    //DataTable dtTeacherName = ds.Tables[0];
-            //    DataTable dtGuarantorCredit = ds.Tables[0];
-            //    //String aa = dtGuarantorCredit.Rows[0][2].ToString();
-            //    if (dtGuarantorCredit.Rows.Count != 0/* && dtTeacherName.Rows.Count != 0*/)
-            //    {
-            //        if (dtGuarantorCredit.Rows[0][2].ToString() == "")
-            //        {
-            //            credit = int.Parse(dtGuarantorCredit.Rows[0][1].ToString());
-            //        }
-            //        else
-            //        {
-            //            credit = int.Parse(dtGuarantorCredit.Rows[0][2].ToString());
-            //        }
-            //        DGVGuarantor.Rows.Clear();
-            //        DGVGuarantor.Rows.Add(dtGuarantorCredit.Rows[0][0], TBTeacherName.Text, credit);
-            //        TBSavingAmount.Text = credit.ToString();
-            //        //RowDGV = DGVGuarantor.Rows.Count;
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("ไม่พบข้อมูล", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //        TBTeacherNo.Text = "";
-            //        TBTeacherNo.Focus();
-            //    }
-
-            //}
-            //else
             //{
             //    TBTeacherName.Text = "";
             //    TBLoanNo.Text = "";
@@ -254,6 +234,7 @@ namespace example.Bank
         // Comment!
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             if (tabControl1.SelectedIndex > 0 && DGVGuarantor.Rows.Count != 4)
             {
                 MessageBox.Show("โปรดเลือกผู้ค้ำให้ครบตามจำนวน", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -262,6 +243,7 @@ namespace example.Bank
             else
             {
                 if (tabControl1.SelectedIndex == 1 && DGVGuarantor.Rows.Count == 4)
+
                 {
                     int LoanAmount = 0;
                     for (int Count = 0; Count < DGVGuarantor.Rows.Count; Count++)
@@ -301,7 +283,7 @@ namespace example.Bank
                     }
 
                 }
-            }
+            //}
 
 
         }
@@ -333,6 +315,7 @@ namespace example.Bank
                 TBLoanAmount.Text = "";
                 TBLoanAmount.Focus();
             }
+
         }
         // เลือกปีจ่าย
         private void CBPayYear_SelectedIndexChanged(object sender, EventArgs e)
@@ -668,16 +651,6 @@ namespace example.Bank
             //*Page Header*
             Header(e, Normal);
 
-            //String Text = "เอกสารสมัครสมาชิกสหกรณ์ครู";
-            //Center(e, Y + (SpacePerRow * CurrentRows++) - 10, "เอกสารสมัครสมาชิกสหกรณ์ครู" + "\r\n" + 
-            //    "aaaaaa" , Header01, Normal);
-
-            //Header(e, Y + (SpacePerRow * CurrentRows++) - 10, Header01, Normal);
-            //SizeF SizeString = e.Graphics.MeasureString(Text, Header01);
-            //float StartLoc = PageX / 2 - SizeString.Width / 2;
-            //e.Graphics.DrawString(Text,
-            //    Header01, Normal, new PointF(StartLoc, Y + (SpacePerRow * CurrentRows++)-10));
-
             //*Rectangle Picture*
             Pen ColorRect = new Pen(Color.Black, 1);
             Rect(e, ColorRect, 125, SpacePerRow * CurrentRows, 50, e.PageBounds.Width - 96 - 125);
@@ -755,23 +728,7 @@ namespace example.Bank
 
             AllCheckBox = new List<string> { "ชาย\r\n" + "Male", "หญิง\r\n" + "Female" };
             PrintCheckBoxList(e, SpaceX + 15, (Y + (SpacePerRow * CurrentRows)) - 45, Normal01, Normal, AllCheckBox, 100);
-            //for (int x = 0; x < 20; x++)
-            //{
-            //    e.Graphics.DrawString("Test",
-            //        Normal01, Normal, new PointF(X, Y + (SpacePerRow * CurrentRows++)));
-
-            //    //KeepRight(e, Y + (SpacePerRow * CurrentRows), "Testasd", Normal01, Normal);
-            //}
-
-            //float gg = e.PageBounds.Width;
-            //SizeF shadowSize = gg;
-            //SizeF a = Convert.ChangeType(50, SizeF);
-            //e.Graphics.DrawString("Testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
-            //    Normal01, Normal, new RectangleF(X, Y + (SpacePerRow * CurrentRows++), 200f, 200f));
-            //e.Graphics.DrawString("Testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
-            //    Normal01, Normal, new PointF(X, Y + (SpacePerRow * CurrentRows++) - 50));
-
-            //e.Graphics.DrawString(DTPStartDate.Text, new Font("TH Sarabun New", 18, FontStyle.Regular), Brushes.Black, new PointF(0, 60));
+            
         }
         //----------------------- End Printf -------------------- ////////
 
@@ -832,7 +789,9 @@ namespace example.Bank
                     if (Bank.Search.Return[0] != "")
                     {
                         TBGuarantorNo.Text = Bank.Search.Return[0];
+
                         TBGuarantorNo_KeyDown(sender, new KeyEventArgs(Keys.Enter));
+
                     }
                 }
                 catch (Exception x)
@@ -875,8 +834,90 @@ namespace example.Bank
             }
         }
 
+
+        private void TBTeacherName_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void DGVGuarantor_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.ColumnIndex == 3)
+            {
+                int i;
+                if (!int.TryParse(Convert.ToString(e.FormattedValue), out i))
+                {
+                    e.Cancel = true;
+                    MessageBox.Show("ใส่ได้แต่ตัวเลขครับ.");
+                }
+            }
+        }
+
+        List<int> DGVRow = new List<int> { };
+        private void DGVGuarantor_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            DGVRow.Add(e.RowIndex);
+            float SumPercentEdit = 0;
+            float Percent;
+            for (int Num = 0;Num < DGVRow.Count; Num++)
+            {
+                SumPercentEdit += float.Parse(DGVGuarantor.Rows[DGVRow[Num]].Cells[3].Value.ToString());
+            }
+            if(DGVGuarantor.Rows.Count - DGVRow.Count > 0)
+            {
+                Percent = (100 - SumPercentEdit) / (DGVGuarantor.Rows.Count - DGVRow.Count);
+                for(int Row = 0;Row < DGVGuarantor.Rows.Count; Row++)
+                {
+                    bool Check = false;
+                    for(int Count = 0; Count < DGVRow.Count; Count++)
+                    {
+                        if(Row == DGVRow[Count])
+                        {
+                            Check = true;
+                            break;
+                        }
+                    }
+                    if(Check == false)
+                    {
+                        DGVGuarantor.Rows[Row].Cells[3].Value = Percent;
+                        //
+                    }
+                }
+            }
+            else
+            {
+                if(DGVGuarantor.Rows.Count != 1)
+                {
+                    SumPercentEdit = float.Parse(DGVGuarantor.Rows[e.RowIndex].Cells[3].Value.ToString());
+                    Percent = (100 - SumPercentEdit) / (DGVGuarantor.Rows.Count - DGVRow.Count);
+                    for (int Row = 0; Row < DGVGuarantor.Rows.Count; Row++)
+                    {
+                        bool Check = false;
+                        for (int Count = 0; Count < DGVRow.Count; Count++)
+                        {
+                            if (Row == DGVRow[Count])
+                            {
+                                Check = true;
+                                break;
+                            }
+                        }
+                        if (Check == false)
+                        {
+                            DGVGuarantor.Rows[Row].Cells[3].Value = Percent;
+                        }
+                    }
+                }
+                else if(DGVGuarantor.Rows.Count == 4)
+                {
+                    DGVRow.Clear();
+                }
+            }
+
+            
+
         private void TBGuarantorNo_TextChanged(object sender, EventArgs e)
         {
+
 
         }
     }
