@@ -116,5 +116,10 @@ namespace example.Bank
                 e.Handled = true;
             }
         }
+
+        private void B_Save_Click(object sender, EventArgs e)
+        {
+            B_Save_Click_1(sender, e);
+        }
     }
 }

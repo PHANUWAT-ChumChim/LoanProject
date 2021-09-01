@@ -322,6 +322,7 @@ namespace example.Bank
             this.BTdeletefile.TabIndex = 21;
             this.BTdeletefile.Text = "ลบไฟล์";
             this.BTdeletefile.UseVisualStyleBackColor = false;
+            this.BTdeletefile.Click += new System.EventHandler(this.BTdeletefile_Click);
             // 
             // BTOpenfile
             // 

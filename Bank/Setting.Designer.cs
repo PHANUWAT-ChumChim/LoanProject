@@ -200,6 +200,7 @@ namespace example.Bank
             this.B_Save.TabIndex = 16;
             this.B_Save.Text = "บันทึก";
             this.B_Save.UseVisualStyleBackColor = true;
+            this.B_Save.Click += new System.EventHandler(this.B_Save_Click);
             // 
             // TB_Max
             // 
