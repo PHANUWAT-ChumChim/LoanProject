@@ -119,6 +119,7 @@ namespace example.Bank
 
         private void B_Save_Click(object sender, EventArgs e)
         {
+
             if (TB_Min.Text != Min.ToString() || TB_Max.Text != Max.ToString() || CHB_edittime.Checked != chb)
             {
                 if (Convert.ToInt32(TB_Min.Text) <= Convert.ToInt32(TB_Max.Text))
@@ -151,6 +152,7 @@ namespace example.Bank
         private void B_Cancel_Click(object sender, EventArgs e)
         {
             this.Hide();
+
         }
     }
 }

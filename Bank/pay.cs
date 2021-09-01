@@ -491,6 +491,26 @@ namespace example.GOODS
             }
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pay_Load(object sender, EventArgs e)
+        {
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[1]);
+            int Year = Convert.ToInt32((Convert.ToDateTime(dt.Rows[0][0])).ToString("yyyy"));
+            for(int x = 0; x < 4; x++)
+            {
+                CByeartap1.Items.Add(Year);
+                CByeartap2.Items.Add(Year);
+                CByeartap3.Items.Add(Year);
+                Year--;
+            }
+
+
+        }
+
 
 
 

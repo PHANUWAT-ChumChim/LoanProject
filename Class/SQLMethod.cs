@@ -23,11 +23,9 @@ namespace example.Class
         /// <para> [5] INSERT Bill and BillDetail INPUT: {TeacherAddBy} {TeacherNo} {TypeNo} {LoanNo} {Amount} {Mount} {Year}</para>
         /// <para> [6] SELECT Loan INPUT : {TeacherNo} </para>
         /// <para> [7] UPDATE SavingAmount INPUT: {TeacherNo} {Amount} </para>
-
         /// <para> [8] UPDATE REMAIN INPUT: {TeacherNo} {Amount} </para>
         /// <para> [9] Check Time Server INPUT: - </para>
         /// <para> [10] Change Status Member INPUT: {TeacherNoAddBy} {TeacherNo} {Note} {DocStatusNo} {DocUploadPath} {Status} {TeacherNo}</para>
-
         /// </para>[11] CheckAmountpayINPUT: {TeacherNo}  </para>
        
         /// </summary>
