@@ -17,6 +17,7 @@ namespace example.GOODS
         public static int x = 0;
         public static int sum = 0;
         public static int SelectIndexRowDelete = -1;
+        int Check = 0;
         //----------------------- index code -------------------- ////////
 
 
@@ -33,12 +34,12 @@ namespace example.GOODS
         private String[] SQLDefault = new String[]
          { 
           //[0] SELECT MEMBER INPUT: {TeacherNo} 
-          "SELECT a.TeacherNo ,  CAST(c.PrefixName+' '+Fname +' '+ Lname as NVARCHAR) \r\n " +
-          "FROM EmployeeBank.dbo.tblMember as a \r\n " +
-          "LEFT JOIN Personal.dbo.tblTeacherHis as b ON a.TeacherNo = b.TeacherNo \r\n " +
-          "LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = b.PrefixNo \r\n " +
-          "WHERE a.TeacherNo LIKE 'T{TeacherNo}%' and MemberStatusNo = 1 \r\n " +
-          "ORDER BY Fname; "
+          "SELECT a.TeacherNo ,  CAST(c.PrefixName+' '+Fname +' '+ Lname as NVARCHAR),a.StartAmount \r\n"+
+          "FROM EmployeeBank.dbo.tblMember as a \r\n"+
+          "LEFT JOIN Personal.dbo.tblTeacherHis as b ON a.TeacherNo = b.TeacherNo \r\n"+
+          "LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = b.PrefixNo \r\n"+
+          "WHERE a.TeacherNo LIKE 'T%' and MemberStatusNo = 1 \r\n"+
+          "ORDER BY Fname;"
           ,
           //[1] SELECT TIME INPUT : -
           "SELECT CONVERT (DATE , CURRENT_TIMESTAMP); "
@@ -139,23 +140,21 @@ namespace example.GOODS
 
         //----------------------- PullSQL -------------------- ////////
         // Comment! Pull SQL Member & CheckTBTeacherNo
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-        }
+       
         // Comment! Pull SQL Member & CheckTBTeacherNo
         private void BSearchTeacher_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 Bank.Search IN = new Bank.Search(SQLDefault[0].Replace("{TeacherNo}",""));
                 IN.ShowDialog();
                 TBTeacherNo.Text = Bank.Search.Return[0];
                 TBTeacherNo_KeyDown(sender, new KeyEventArgs(Keys.Enter));
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine(x);
-            }
+            //}
+            //catch (Exception x)
+            //{
+            //    Console.WriteLine(x);
+            //}
 
             sum = 0; x = 0;
             label5.Text = sum.ToString();
@@ -305,6 +304,8 @@ namespace example.GOODS
 
 
                 }
+                if (TBStartAmountShare.Text == "")
+                    TBStartAmountShare.Text = "0";
                 BTAdd.Enabled = true;
             }
             else
@@ -343,6 +344,8 @@ namespace example.GOODS
             CBMonth.SelectedIndex = -1;
             CBStatus.SelectedIndex = -1;
             TBStartAmountShare.Text = string.Empty;
+            dataGridView1.Rows.Clear();
+            label5.Text = "0";
         }
         // Comment!
         private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
@@ -453,29 +456,38 @@ namespace example.GOODS
         {
             if(e.KeyCode == Keys.Enter)
             {
-                DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[6].Replace("T{TeacherNo}", TBTeacherNo.Text));
-                if (dt.Rows.Count != 0)
+                if (TBTeacherNo.Text.Length == 6)
                 {
-                    TBTeacherName.Text = dt.Rows[0][1].ToString();
-                    TBTeacherBill.Text = dt.Rows[0][2].ToString();
-                    TBTeacherIDNo.Text = dt.Rows[0][3].ToString();
-                    TBidno.Text = dt.Rows[0][4].ToString();
-                    TBTel.Text = dt.Rows[0][5].ToString();
-                    TBStartAmount2.Text = dt.Rows[0][6].ToString();
-                    TBstatus.Text = dt.Rows[0][7].ToString();
+                    DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[6].Replace("T{TeacherNo}", TBTeacherNo.Text));
+                    if (dt.Rows.Count != 0)
+                    {
+                        TBTeacherName.Text = dt.Rows[0][1].ToString();
+                        TBTeacherBill.Text = dt.Rows[0][2].ToString();
+                        TBTeacherIDNo.Text = dt.Rows[0][3].ToString();
+                        TBidno.Text = dt.Rows[0][4].ToString();
+                        TBTel.Text = dt.Rows[0][5].ToString();
+                        TBStartAmount2.Text = dt.Rows[0][6].ToString();
+                        TBstatus.Text = dt.Rows[0][7].ToString();
+                        Check = 1;
+                    }
+                    CBStatus.Enabled = true;
                 }
-                CBStatus.Enabled = true;
+
             }
-            else
+            else if(e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
             {
-                sum = 0; x = 0;
-                label5.Text = sum.ToString();
-                dataGridView1.Rows.Clear();
-                TBStartAmountShare.Text = "";
-                CBStatus.SelectedIndex = -1;
-                TBTeacherBill.Text = "";
-                TBTeacherName.Text = "";
-                CBStatus.Enabled = false;
+                if(Check == 1)
+                {
+                    sum = 0; x = 0;
+                    label5.Text = sum.ToString();
+                    dataGridView1.Rows.Clear();
+                    TBStartAmountShare.Text = "";
+                    CBStatus.SelectedIndex = -1;
+                    TBTeacherBill.Text = "";
+                    TBTeacherName.Text = "";
+                    CBStatus.Enabled = false;
+                    Check = 0;
+                }
             }
         }
 

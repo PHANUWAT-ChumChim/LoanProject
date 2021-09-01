@@ -189,6 +189,7 @@ namespace example.Bank
             this.B_Cancel.TabIndex = 17;
             this.B_Cancel.Text = "ยกเลิก";
             this.B_Cancel.UseVisualStyleBackColor = true;
+            this.B_Cancel.Click += new System.EventHandler(this.B_Cancel_Click);
             // 
             // B_Save
             // 
