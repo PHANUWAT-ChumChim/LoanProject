@@ -58,6 +58,7 @@ namespace example.Bank
             this.BSave = new System.Windows.Forms.Button();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -144,15 +145,19 @@ namespace example.Bank
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(490, 104);
+            this.label1.Location = new System.Drawing.Point(553, 107);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 37);
+            this.label1.Size = new System.Drawing.Size(68, 37);
             this.label1.TabIndex = 52;
-            this.label1.Text = "label1";
+            this.label1.Text = "สถานะ";
             // 
             // CBStatus
             // 
             this.CBStatus.FormattingEnabled = true;
+            this.CBStatus.Items.AddRange(new object[] {
+            "สมัครสมาชิก",
+            "ปิดใช้งาน",
+            "เปิดใช้งาน"});
             this.CBStatus.Location = new System.Drawing.Point(651, 101);
             this.CBStatus.Name = "CBStatus";
             this.CBStatus.Size = new System.Drawing.Size(193, 39);
@@ -285,6 +290,7 @@ namespace example.Bank
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label6);
             this.tabPage3.Controls.Add(this.BTPrintfShare);
             this.tabPage3.Controls.Add(this.BTdeletefile);
             this.tabPage3.Controls.Add(this.BTOpenfile);
@@ -303,11 +309,11 @@ namespace example.Bank
             this.BTPrintfShare.BackColor = System.Drawing.Color.White;
             this.BTPrintfShare.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BTPrintfShare.Cursor = System.Windows.Forms.Cursors.Default;
-            this.BTPrintfShare.Location = new System.Drawing.Point(27, 134);
+            this.BTPrintfShare.Location = new System.Drawing.Point(439, 46);
             this.BTPrintfShare.Name = "BTPrintfShare";
-            this.BTPrintfShare.Size = new System.Drawing.Size(191, 47);
+            this.BTPrintfShare.Size = new System.Drawing.Size(256, 47);
             this.BTPrintfShare.TabIndex = 22;
-            this.BTPrintfShare.Text = "เอกสารการสมัคร";
+            this.BTPrintfShare.Text = "Print";
             this.BTPrintfShare.UseVisualStyleBackColor = false;
             this.BTPrintfShare.Click += new System.EventHandler(this.BTPrintfShare_Click);
             // 
@@ -316,9 +322,9 @@ namespace example.Bank
             this.BTdeletefile.BackColor = System.Drawing.Color.White;
             this.BTdeletefile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BTdeletefile.Cursor = System.Windows.Forms.Cursors.Default;
-            this.BTdeletefile.Location = new System.Drawing.Point(270, 90);
+            this.BTdeletefile.Location = new System.Drawing.Point(612, 99);
             this.BTdeletefile.Name = "BTdeletefile";
-            this.BTdeletefile.Size = new System.Drawing.Size(131, 47);
+            this.BTdeletefile.Size = new System.Drawing.Size(83, 47);
             this.BTdeletefile.TabIndex = 21;
             this.BTdeletefile.Text = "ลบไฟล์";
             this.BTdeletefile.UseVisualStyleBackColor = false;
@@ -328,9 +334,9 @@ namespace example.Bank
             this.BTOpenfile.BackColor = System.Drawing.Color.White;
             this.BTOpenfile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BTOpenfile.Cursor = System.Windows.Forms.Cursors.Default;
-            this.BTOpenfile.Location = new System.Drawing.Point(270, 22);
+            this.BTOpenfile.Location = new System.Drawing.Point(439, 99);
             this.BTOpenfile.Name = "BTOpenfile";
-            this.BTOpenfile.Size = new System.Drawing.Size(131, 47);
+            this.BTOpenfile.Size = new System.Drawing.Size(167, 70);
             this.BTOpenfile.TabIndex = 20;
             this.BTOpenfile.Text = "เปิดไฟล์";
             this.BTOpenfile.UseVisualStyleBackColor = false;
@@ -340,13 +346,13 @@ namespace example.Bank
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(4, 3);
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(149, 83);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(259, 37);
+            this.label5.Size = new System.Drawing.Size(251, 37);
             this.label5.TabIndex = 18;
-            this.label5.Text = "*เอกสารในการสมัครชิกสหกร์ครู";
+            this.label5.Text = "เอกสารในการสมัครชิกสหกร์ครู";
             // 
             // DTPStartDate
             // 
@@ -397,6 +403,16 @@ namespace example.Bank
             this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(264, 120);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(136, 37);
+            this.label6.TabIndex = 53;
+            this.label6.Text = "Scan(  ไม่พบ  )";
             // 
             // MemberShip
             // 
@@ -454,5 +470,6 @@ namespace example.Bank
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
         private System.Windows.Forms.Button BTdeletefile;
         private System.Windows.Forms.Button BTPrintfShare;
+        private System.Windows.Forms.Label label6;
     }
 }

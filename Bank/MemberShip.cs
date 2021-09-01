@@ -17,7 +17,9 @@ namespace example.Bank
     public partial class MemberShip : Form
     {
         //------------------------- index -----------------
-
+        public static string Day;
+        public static string Month;
+        public static string Year;
 
         //----------------------- index code -------------------- ////////
 
@@ -39,21 +41,37 @@ namespace example.Bank
         /// SQLDafault
         /// <para>[0] Insert Teacher Data INPUT:{TeacherNo}{TeacherAddBy}, {StartAmount} </para>
         /// <para>[1] SELECT Member  INPUT:{TeacherNo} </para>
+        /// <para>[2] INSERT Member To Member  Bill BillDetail  INPUT: {TeacherNo} {TeacherNoAddBy} {StartAmount} {Mount} {Year}  </para>
+        /// <para>[3] DATE  INPUT: - </para>
         /// </summary>
         private String[] SQLDefault = new String[]
         {
 			//[0] Insert Teacher Data INPUT:{TeacherNo},{TeacherAddBy},{StartAmount} 
 			"INSERT INTO EmployeeBank.dbo.tblMember(TeacherNo,TeacherAddBy,StartAmount,DateAdd) \r\n"+
-            "VALUES('{TeacherNo}','{TeacherAddBy}',{StartAmount}, CURRENT_TIMESTAMP); \r\n\r\n",
-   
+            "VALUES('{TeacherNo}','{TeacherAddBy}',{StartAmount}, CURRENT_TIMESTAMP); \r\n\r\n"
+            ,
             //[1] SELECT Member  INPUT:{TeacherNo}
           "SELECT a.TeacherNo ,  CAST(b.PrefixName+' '+Fname +' '+ Lname as NVARCHAR) \r\n " +
           "FROM Personal.dbo.tblTeacherHis as a \r\n " +
           "LEFT JOIN BaseData.dbo.tblPrefix as b ON a.PrefixNo = b.PrefixNo  \r\n " +
           "WHERE NOT a.TeacherNo IN(SELECT TeacherNo FROM EmployeeBank.dbo.tblMember) and a.TeacherNo LIKE 'T{TeacherNo}%' \r\n " +
           "ORDER BY Fname "
-
           ,
+           //[2] INSERT Member To Member  Bill BillDetail  INPUT: {TeacherNo} {TeacherNoAddBy} {StartAmount} {Mount} {Year}
+          "DECLARE @BillNo INT; \r\n"+
+          "INSERT INTO EmployeeBank.dbo.tblMember(TeacherNo, TeacherAddBy, StartAmount, DateAdd) \r\n"+
+          "VALUES('{TeacherNo}','{TeacherNoAddBy}',{StartAmount},CURRENT_TIMESTAMP)  \r\n"+
+          "INSERT INTO EmployeeBank.dbo.tblShare(TeacherNo, SavingAmount) \r\n"+
+          "VALUES('{TeacherNo}',{StartAmount}) \r\n"+
+          "INSERT INTO EmployeeBank.dbo.tblBill(TeacherNo, TeacherNoAddBy, DateAdd) \r\n"+
+          "VALUES('{TeacherNo}','{TeacherNoAddBy}', CURRENT_TIMESTAMP) \r\n"+
+          "SELECT @BillNo = SCOPE_IDENTITY(); \r\n"+
+          "INSERT INTO EmployeeBank.dbo.tblBillDetail(BillNo, TypeNo, Amount, Mount, Year) \r\n"+
+          "VALUES(@BillNo,1,{StartAmount},{Month},{Year})"
+          ,
+           //[3] DATE  INPUT: -
+           "SELECT CAST(CURRENT_TIMESTAMP as DATE);"
+
 
         };
 
@@ -62,16 +80,22 @@ namespace example.Bank
         // Available values| ResearchUserAllTLC / TB /
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            ////ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
-            //if (TBTeacherNo.Text.Length == 6)
-            //{
-            //    Class.SQLMethod.ResearchUserAllTLC(TBTeacherNo.Text, TBTeacherName, TBIDNo , 0);
-            //}
-            //else
-            //{
-            //    TBIDNo.Text = "";
-            //    TBTeacherName.Text = "";
-            //}
+            //ต้องพิมพ์รหัสอาจารย์ถึง 6 ตัวถึงจะเข้าเงื่อนไข if
+            if (TBTeacherNo.Text.Length == 6)
+            {
+                DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[1].Replace("T{TeacherNo}%", TBTeacherNo.Text));
+                if(dt.Rows.Count != 0)
+                {
+                    TBTeacherName.Text = dt.Rows[0][1].ToString();
+                    TBIDNo.Text = "รอใส่ครับ";
+                }
+
+            }
+            else
+            {
+                TBIDNo.Text = "";
+                TBTeacherName.Text = "";
+            }
 
         }
         // Comment!
@@ -105,11 +129,22 @@ namespace example.Bank
                 {
                     if (dt.Rows.Count == 0)
                     {
-                        Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("{TeacherNo}", TBTeacherNo.Text)
-                            .Replace("{TeacherAddBy}", "Teacher")
-                            .Replace("{StartAmount}", TBStartAmountShare.Text)
-                            .Replace("{DocPath}", "file"));
-                        MessageBox.Show("สมัครเสร็จสิ้น", "การยืนยันการสมัคร", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult dialogResult = MessageBox.Show("ยืนยันการสมัคร", "สมัครสมาชิก", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            Class.SQLConnection.InputSQLMSSQL(SQLDefault[2].Replace("{TeacherNo}", TBTeacherNo.Text)
+                            .Replace("{TeacherNoAddBy}", "Teacher")
+                            .Replace("{StartAmount}",TBStartAmountShare.Text)
+                            .Replace("{Month}", Month)
+                            .Replace("{Year}", Year));
+                            MessageBox.Show("สมัครเสร็จสิ้น", "สมัครสมาชิก", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            TBTeacherNo.Clear();
+                            TBTeacherName.Clear();
+                        }
+                        else
+                        {
+                            MessageBox.Show("ยกเลิกการสมัคร", "สมัครสมาชิก", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
                     else
                     {
@@ -166,9 +201,17 @@ namespace example.Bank
         
         private void membership_Load(object sender, EventArgs e)
         {
-            //Method.SQLMethod.ExecuteMSSQL(SQLDefault[0]
-            //    .Replace("{TeacherNo}", "T00000")
-            //    .Replace("{StartAmount}", "500"));
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[3]);
+            if(dt.Rows.Count != 0)
+            {
+                //DateTime a = DateTime.Parse(dt.Rows[0][0].ToString());
+                String[] date = dt.Rows[0][0].ToString().Split('-');
+                //DTPStartDate.Value = a;
+                DTPStartDate.Value = new DateTime(Convert.ToInt32(date[0]), Convert.ToInt32(date[1]), Convert.ToInt32(date[2]));
+                Day = date[2].ToString();
+                Month = date[1].ToString();
+                Year = date[0].ToString();
+            }
         }
 
 
