@@ -26,7 +26,6 @@ namespace example.Bank
         public MemberShip()
         {
             InitializeComponent();
-            TBStartAmountShare.Text = example.GOODS.Menu.startAmountMin.ToString();
         }
 
         //------------------------- FormSize -----------------
@@ -442,6 +441,18 @@ namespace example.Bank
         private void BTdeletefile_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void TBStartAmountShare_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 1)
+            {
+                TBStartAmountShare.Text = example.GOODS.Menu.startAmountMin.ToString();
+            }
         }
         //----------------------- End code -------------------- ////////
 
