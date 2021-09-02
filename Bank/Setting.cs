@@ -154,5 +154,14 @@ namespace example.Bank
             this.Hide();
 
         }
+
+        private void Setting_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
+        }
+
+        private static void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
     }
 }

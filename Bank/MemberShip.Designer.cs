@@ -49,6 +49,7 @@ namespace example.Bank
             this.label4 = new System.Windows.Forms.Label();
             this.TBStartAmountShare = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
             this.BTPrintfShare = new System.Windows.Forms.Button();
             this.BTdeletefile = new System.Windows.Forms.Button();
             this.BTOpenfile = new System.Windows.Forms.Button();
@@ -58,7 +59,6 @@ namespace example.Bank
             this.BSave = new System.Windows.Forms.Button();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -174,6 +174,7 @@ namespace example.Bank
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(787, 265);
             this.tabControl1.TabIndex = 50;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -286,6 +287,7 @@ namespace example.Bank
             this.TBStartAmountShare.Size = new System.Drawing.Size(262, 43);
             this.TBStartAmountShare.TabIndex = 16;
             this.TBStartAmountShare.Text = "0";
+            this.TBStartAmountShare.TextChanged += new System.EventHandler(this.TBStartAmountShare_TextChanged);
             this.TBStartAmountShare.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TBStartAmountShare_KeyPress);
             // 
             // tabPage3
@@ -303,6 +305,16 @@ namespace example.Bank
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "เอกสาร";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(264, 120);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(136, 37);
+            this.label6.TabIndex = 53;
+            this.label6.Text = "Scan(  ไม่พบ  )";
             // 
             // BTPrintfShare
             // 
@@ -405,16 +417,6 @@ namespace example.Bank
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(264, 120);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(136, 37);
-            this.label6.TabIndex = 53;
-            this.label6.Text = "Scan(  ไม่พบ  )";
-            // 
             // MemberShip
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
@@ -463,7 +465,6 @@ namespace example.Bank
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button BExit;
-        private System.Windows.Forms.TextBox TBStartAmountShare;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button BTOpenfile;
@@ -472,5 +473,6 @@ namespace example.Bank
         private System.Windows.Forms.Button BTdeletefile;
         private System.Windows.Forms.Button BTPrintfShare;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox TBStartAmountShare;
     }
 }
