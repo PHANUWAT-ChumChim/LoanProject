@@ -186,7 +186,7 @@ namespace example.GOODS
                             }
                             else
                             {
-                                MessageBox.Show("ไม่พบรายการ", "การแจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show("ไม่พบผู้ใช้", "การแจ้งเตือนการชำระ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                             TypeNo = 1;
                         }
