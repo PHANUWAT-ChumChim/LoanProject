@@ -99,9 +99,6 @@ namespace example.Bank
             this.LB1Id = new System.Windows.Forms.Label();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.label6 = new System.Windows.Forms.Label();
-            this.BTdeletefile = new System.Windows.Forms.Button();
-            this.BTOpenfile = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -252,7 +249,7 @@ namespace example.Bank
             this.Column2,
             this.Column3,
             this.Column7});
-            this.DGVGuarantor.Location = new System.Drawing.Point(-4, 78);
+            this.DGVGuarantor.Location = new System.Drawing.Point(4, 78);
             this.DGVGuarantor.Name = "DGVGuarantor";
             this.DGVGuarantor.RowHeadersVisible = false;
             this.DGVGuarantor.RowHeadersWidth = 51;
@@ -299,6 +296,7 @@ namespace example.Bank
             dataGridViewCellStyle5.Font = new System.Drawing.Font("TH Sarabun New", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Column7.DefaultCellStyle = dataGridViewCellStyle5;
             this.Column7.HeaderText = "เปอร์เซ็นต์การค้ำ";
+            this.Column7.MaxInputLength = 6;
             this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
             this.Column7.Width = 220;
@@ -493,7 +491,7 @@ namespace example.Bank
             this.Column4,
             this.Column5,
             this.Column6});
-            this.DGVLoanDetail.Location = new System.Drawing.Point(6, 42);
+            this.DGVLoanDetail.Location = new System.Drawing.Point(3, 78);
             this.DGVLoanDetail.Name = "DGVLoanDetail";
             this.DGVLoanDetail.ReadOnly = true;
             this.DGVLoanDetail.RowHeadersVisible = false;
@@ -613,9 +611,6 @@ namespace example.Bank
             // 
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.label6);
-            this.panel4.Controls.Add(this.BTdeletefile);
-            this.panel4.Controls.Add(this.BTOpenfile);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.label15);
             this.panel4.Controls.Add(this.BLoanDocUpload);
@@ -836,40 +831,6 @@ namespace example.Bank
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(56, 229);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(136, 37);
-            this.label6.TabIndex = 58;
-            this.label6.Text = "Scan(  ไม่พบ  )";
-            // 
-            // BTdeletefile
-            // 
-            this.BTdeletefile.BackColor = System.Drawing.Color.White;
-            this.BTdeletefile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.BTdeletefile.Cursor = System.Windows.Forms.Cursors.Default;
-            this.BTdeletefile.Location = new System.Drawing.Point(285, 300);
-            this.BTdeletefile.Name = "BTdeletefile";
-            this.BTdeletefile.Size = new System.Drawing.Size(80, 47);
-            this.BTdeletefile.TabIndex = 56;
-            this.BTdeletefile.Text = "ลบไฟล์";
-            this.BTdeletefile.UseVisualStyleBackColor = false;
-            // 
-            // BTOpenfile
-            // 
-            this.BTOpenfile.BackColor = System.Drawing.Color.White;
-            this.BTOpenfile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.BTOpenfile.Cursor = System.Windows.Forms.Cursors.Default;
-            this.BTOpenfile.Location = new System.Drawing.Point(198, 224);
-            this.BTOpenfile.Name = "BTOpenfile";
-            this.BTOpenfile.Size = new System.Drawing.Size(167, 70);
-            this.BTOpenfile.TabIndex = 55;
-            this.BTOpenfile.Text = "เปิดไฟล์";
-            this.BTOpenfile.UseVisualStyleBackColor = false;
-            // 
             // Loan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -973,8 +934,5 @@ namespace example.Bank
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button BTdeletefile;
-        private System.Windows.Forms.Button BTOpenfile;
     }
 }

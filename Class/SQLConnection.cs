@@ -23,13 +23,22 @@ namespace example.Class
 
         public static DataSet InputSQLMSSQLDS(string SQLCode)
         {
-            if (con.State == ConnectionState.Closed)
-                con.Open();
-            OleDbDataAdapter da = new OleDbDataAdapter(SQLCode, con);
-            con.Close();
             DataSet ds = new DataSet();
-            da.Fill(ds, "Info");
+            try
+            {
+                if (con.State == ConnectionState.Closed)
+                    con.Open();
+                OleDbDataAdapter da = new OleDbDataAdapter(SQLCode, con);
+                con.Close();
+                da.Fill(ds, "Info");
+                return ds;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
             return ds;
+
         }
         public static DataTable InputSQLMSSQL(string SQLCode)
         {
