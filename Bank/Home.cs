@@ -96,7 +96,7 @@ namespace example.GOODS
         }
 
         private void TBTeacherNo_KeyDown(object sender, KeyEventArgs e)
-        {
+        {   
             if (e.KeyCode == Keys.Enter)
             {
                 if (TBTeacherNo.Text.Length == 6)

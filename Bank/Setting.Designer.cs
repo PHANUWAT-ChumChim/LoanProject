@@ -84,7 +84,6 @@ namespace example.Bank
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(678, 535);
             this.tabControl1.TabIndex = 98;
-            //this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -222,6 +221,7 @@ namespace example.Bank
             this.TB_Min.Name = "TB_Min";
             this.TB_Min.Size = new System.Drawing.Size(238, 43);
             this.TB_Min.TabIndex = 13;
+            this.TB_Min.TextChanged += new System.EventHandler(this.TB_Min_TextChanged);
             this.TB_Min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TB_Min_KeyPress);
             // 
             // ตั้งการเเก้ไขเวลา

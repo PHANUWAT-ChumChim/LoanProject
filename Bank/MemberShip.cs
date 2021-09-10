@@ -26,6 +26,8 @@ namespace example.Bank
         public MemberShip()
         {
             InitializeComponent();
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[4]);
+            MessageBox.Show((Convert.ToDateTime(dt.Rows[0][0])).ToString("yyyy/MM/dd"));
         }
 
         //------------------------- FormSize -----------------
@@ -52,7 +54,7 @@ namespace example.Bank
             "VALUES('{TeacherNo}','{TeacherAddBy}',{StartAmount}, CURRENT_TIMESTAMP); \r\n\r\n"
             ,
             //[1] SELECT Member  INPUT:{TeacherNo}
-          "SELECT a.TeacherNo ,  CAST(b.PrefixName+' '+Fname +' '+ Lname as NVARCHAR) \r\n " +
+          "SELECT a.TeacherNo ,  CAST(b.PrefixName+' '+Fname +' '+ Lname as NVARCHAR) , null \r\n " +
           "FROM Personal.dbo.tblTeacherHis as a \r\n " +
           "LEFT JOIN BaseData.dbo.tblPrefix as b ON a.PrefixNo = b.PrefixNo  \r\n " +
           "WHERE NOT a.TeacherNo IN(SELECT TeacherNo FROM EmployeeBank.dbo.tblMember) and a.TeacherNo LIKE 'T{TeacherNo}%' \r\n " +
@@ -79,8 +81,8 @@ namespace example.Bank
           "INSERT INTO EmployeeBank.dbo.tblBill(TeacherNo, TeacherNoAddBy, DateAdd) \r\n"+
           "VALUES('{TeacherNo}','{TeacherNoAddBy}', CURRENT_TIMESTAMP) \r\n"+
           "SELECT @BillNo = SCOPE_IDENTITY(); \r\n"+
-          "INSERT INTO EmployeeBank.dbo.tblBillDetail(BillNo, TypeNo, Amount, Mount, Year) \r\n"+
-          "VALUES(@BillNo,1,{StartAmount},{Month},{Year})"
+          "INSERT INTO EmployeeBank.dbo.tblBillDetail(BillNo, TypeNo, Amount, Mount, Year,BillDetailPaymentNo) \r\n"+
+          "VALUES(@BillNo,1,{StartAmount},{Month},{Year},1)"
           ,
            //[4] DATE  INPUT: -
            "SELECT CAST(CURRENT_TIMESTAMP as DATE);"
@@ -144,7 +146,7 @@ namespace example.Bank
                         DialogResult dialogResult = MessageBox.Show("ยืนยันการสมัคร", "สมัครสมาชิก", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (dialogResult == DialogResult.Yes)
                         {
-                            Class.SQLConnection.InputSQLMSSQL(SQLDefault[2].Replace("{TeacherNo}", TBTeacherNo.Text)
+                            Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("{TeacherNo}", TBTeacherNo.Text)
                             .Replace("{TeacherNoAddBy}", "Teacher")
                             .Replace("{StartAmount}",TBStartAmountShare.Text)
                             .Replace("{Month}", Month)

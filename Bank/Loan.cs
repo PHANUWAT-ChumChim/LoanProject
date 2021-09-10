@@ -96,6 +96,7 @@ namespace example.Bank
         {
             DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(SQLDefault[2]);
             DataTable dt = ds.Tables[0];
+            this.DGVGuarantor.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(DGVGuarantor_EditingControlShowing);
             DateTime = DateTime.Parse(dt.Rows[0][0].ToString());
             int Year = int.Parse(DateTime.ToString("yyyy"));
             int Month = int.Parse(DateTime.ToString("MM"));
@@ -108,8 +109,6 @@ namespace example.Bank
             {
                 CBPayMonth.Items.Add(a);
             }
-
-            this.DGVGuarantor.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(DGVGuarantor_EditingControlShowing);
         }
         //----------------------- End code -------------------- ////////
 
@@ -906,28 +905,37 @@ namespace example.Bank
 
         
 
-        List<int> DGVRow = new List<int> { };
+        List<int> ListRowDGV = new List<int> { };
         private void DGVGuarantor_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            DGVRow.Add(e.RowIndex);
-            Double SumPercentEdit = 0;
-            //float Percent;
-            Double Percent;
-            bool CheckDouble;
-            try
+            float SumPercent = 0;
+            ListRowDGV.Add(e.RowIndex);
+            float Percent;
+            //ลองแปลงเป็น float ถ้าแปลงได้ให้ไปใส่ใน ตัวแปร Percent
+            if(float.TryParse(DGVGuarantor.Rows[e.RowIndex].Cells[3].Value.ToString(), out Percent))
             {
-                Percent = Double.Parse(DGVGuarantor.Rows[e.RowIndex].Cells[3].Value.ToString());
-                CheckDouble = true;
+                //ค่า Percent จะเก็บแค่เลขจำนวนเต็ม 3 ตัว ทศนิยม 2 ตัว และไม่เท่ากับว่างเปล่า
+                if (Percent.ToString("###.##") != "")
+                {   //Percent ต้องไม่น้อยกว่า 0 หรือ ไม่มากกว่า 100 และในตารางค้ำต้องมีมากกว่า 1 คน
+                    if (Percent > 0 || Percent < 100 && DGVGuarantor.Rows.Count != 1)
+                    {   //สร้างตัวแปรมา Num มา loop เงื่อนไข Num ต้องน้อยกว่า แถวของ DGV
+                        for (int Num = 0; Num < ListRowDGV.Count; Num++)
+                        {
+                            SumPercent = SumPercent + float.Parse(DGVGuarantor.Rows[ListRowDGV[Num]].Cells[3].Value.ToString());
+                        }
+                    }
+                    else if (Percent <= 0 || Percent >= 100 && DGVGuarantor.Rows.Count != 1)
+                    {
+                        MessageBox.Show("ห้ามใส่จำนวนเท่ากับ 100 หรือมากกว่า และ ห้ามใส่จำนวนเท่ากับ 0 หรือน้อยกว่า", "ระบบ");
+                        //ใส่สูครให้กลับไปเลขเดิม
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("iyawgd");
+                }
             }
-            catch
-            {
-                CheckDouble = false;
-            }
-            
-            if (!String.IsNullOrEmpty(DGVGuarantor.Rows[e.RowIndex].Cells[3].Value as String) && CheckDouble == true /*&& !(Percent <= 100 || Percent > 0)*/)
-            {
-                MessageBox.Show("sdfsdf");
-            }
+
 
         }
 
@@ -945,10 +953,10 @@ namespace example.Bank
             
 
         }
-        DataGridViewRow RowGuarantor;
+        DataGridViewRow RowDGVGuarntor;
         private void DGVGuarantor_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            RowGuarantor = DGVGuarantor.CurrentRow;
+            RowDGVGuarntor = DGVGuarantor.CurrentRow;
             if (DGVGuarantor.CurrentCell.ColumnIndex == 3)
             {
                 TextBox tb = (TextBox)e.Control;
@@ -957,10 +965,10 @@ namespace example.Bank
         }
         void TBCellGuarantor_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if ((!Char.IsNumber(e.KeyChar)) && (!Char.IsControl(e.KeyChar)) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+           if ((!Char.IsNumber(e.KeyChar)) && (!Char.IsControl(e.KeyChar)) && (e.KeyChar != '.'))
+           {
+                    e.Handled = true;
+           }
         }
     }
 }

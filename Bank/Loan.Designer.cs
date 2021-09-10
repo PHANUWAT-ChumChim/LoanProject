@@ -249,7 +249,7 @@ namespace example.Bank
             this.Column2,
             this.Column3,
             this.Column7});
-            this.DGVGuarantor.Location = new System.Drawing.Point(-4, 78);
+            this.DGVGuarantor.Location = new System.Drawing.Point(4, 78);
             this.DGVGuarantor.Name = "DGVGuarantor";
             this.DGVGuarantor.RowHeadersVisible = false;
             this.DGVGuarantor.RowHeadersWidth = 51;
@@ -296,6 +296,7 @@ namespace example.Bank
             dataGridViewCellStyle5.Font = new System.Drawing.Font("TH Sarabun New", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Column7.DefaultCellStyle = dataGridViewCellStyle5;
             this.Column7.HeaderText = "เปอร์เซ็นต์การค้ำ";
+            this.Column7.MaxInputLength = 6;
             this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
             this.Column7.Width = 220;
@@ -490,7 +491,7 @@ namespace example.Bank
             this.Column4,
             this.Column5,
             this.Column6});
-            this.DGVLoanDetail.Location = new System.Drawing.Point(6, 42);
+            this.DGVLoanDetail.Location = new System.Drawing.Point(3, 78);
             this.DGVLoanDetail.Name = "DGVLoanDetail";
             this.DGVLoanDetail.ReadOnly = true;
             this.DGVLoanDetail.RowHeadersVisible = false;

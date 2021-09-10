@@ -47,7 +47,7 @@ namespace example.Bank
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLCode);
             for (int x = 0; x < dt.Rows.Count; x++)
             {
-                dataGridView1.Rows.Add(dt.Rows[x][0], dt.Rows[x][1],dt.Rows[0][2]);
+                dataGridView1.Rows.Add(dt.Rows[x][0], dt.Rows[x][1],dt.Rows[x][2]);
 
                 if (x % 2 == 1)
                 {
