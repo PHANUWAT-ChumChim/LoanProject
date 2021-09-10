@@ -76,6 +76,7 @@ namespace example.GOODS
         public Home()
         {
             InitializeComponent();
+            /
           
         }
      
