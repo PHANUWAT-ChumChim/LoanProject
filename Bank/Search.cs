@@ -33,7 +33,7 @@ namespace example.Bank
           " LEFT JOIN Personal.dbo.tblTeacherHis as b ON a.TeacherNo = b.TeacherNo   \r\n " +
           " LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = b.PrefixNo  \r\n " +
           " INNER JOIN EmployeeBank.dbo.tblMemberStatus as d on a.MemberStatusNo = d.MemberStatusNo  \r\n " +
-          "  WHERE a.TeacherNo LIKE '%T{TeacherNo}%'  or CAST(c.PrefixName+' '+[Fname] +' '+ [Lname] as NVARCHAR) LIKE '%{Name}%'   and a.MemberStatusNo = 1      \r\n " +
+          " WHERE a.TeacherNo LIKE '%T{TeacherNo}%'  or Fname LIKE '%{Name}%'   and a.MemberStatusNo = 1   \r\n " +
           " ORDER BY a.TeacherNo;  "
           ,
         };

@@ -377,6 +377,7 @@ namespace example.Bank
             this.DTPStartDate.Name = "DTPStartDate";
             this.DTPStartDate.Size = new System.Drawing.Size(199, 43);
             this.DTPStartDate.TabIndex = 48;
+            this.DTPStartDate.Value = new System.DateTime(2021, 9, 10, 10, 16, 0, 0);
             // 
             // label7
             // 
