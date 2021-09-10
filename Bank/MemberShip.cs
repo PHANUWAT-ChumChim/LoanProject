@@ -147,7 +147,7 @@ namespace example.Bank
                         DialogResult dialogResult = MessageBox.Show("ยืนยันการสมัคร", "สมัครสมาชิก", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (dialogResult == DialogResult.Yes)
                         {
-                            Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("{TeacherNo}", TBTeacherNo.Text)
+                            //Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("{TeacherNo}", TBTeacherNo.Text)
                             Class.SQLConnection.InputSQLMSSQL(SQLDefault[3].Replace("{TeacherNo}", TBTeacherNo.Text)
                             .Replace("{TeacherNoAddBy}", "Teacher")
                             .Replace("{StartAmount}",TBStartAmountShare.Text)
@@ -218,7 +218,7 @@ namespace example.Bank
 
         private void membership_Load(object sender, EventArgs e)
         {
-            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[3]);
+            //DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[3]);
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[4]);
             if(dt.Rows.Count != 0)
             {
@@ -421,7 +421,7 @@ namespace example.Bank
 
             //CenterRight(e, "ผู้สมัคร", Normal01, Normal, X + 550, Y + (SpacePerRow * CurrentRows++) + 50, XP, XD);
 
-            example.Class.Print.PrintPreviewDialog.PrintMember(e);
+            //example.Class.Print.PrintPreviewDialog.PrintMember(e);
         }
 
         private void BTOpenfile_Click(object sender, EventArgs e)
