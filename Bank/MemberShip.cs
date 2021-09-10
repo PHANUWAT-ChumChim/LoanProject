@@ -55,6 +55,7 @@ namespace example.Bank
             ,
             //[1] SELECT Member  INPUT:{TeacherNo}
           "SELECT a.TeacherNo ,  CAST(b.PrefixName+' '+Fname +' '+ Lname as NVARCHAR) , null \r\n " +
+          "SELECT a.TeacherNo ,  CAST(b.PrefixName+' '+Fname +' '+ Lname as NVARCHAR), null \r\n " +
           "FROM Personal.dbo.tblTeacherHis as a \r\n " +
           "LEFT JOIN BaseData.dbo.tblPrefix as b ON a.PrefixNo = b.PrefixNo  \r\n " +
           "WHERE NOT a.TeacherNo IN(SELECT TeacherNo FROM EmployeeBank.dbo.tblMember) and a.TeacherNo LIKE 'T{TeacherNo}%' \r\n " +
@@ -147,6 +148,7 @@ namespace example.Bank
                         if (dialogResult == DialogResult.Yes)
                         {
                             Class.SQLConnection.InputSQLMSSQL(SQLDefault[0].Replace("{TeacherNo}", TBTeacherNo.Text)
+                            Class.SQLConnection.InputSQLMSSQL(SQLDefault[3].Replace("{TeacherNo}", TBTeacherNo.Text)
                             .Replace("{TeacherNoAddBy}", "Teacher")
                             .Replace("{StartAmount}",TBStartAmountShare.Text)
                             .Replace("{Month}", Month)
@@ -217,6 +219,7 @@ namespace example.Bank
         private void membership_Load(object sender, EventArgs e)
         {
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[3]);
+            DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[4]);
             if(dt.Rows.Count != 0)
             {
                 //DateTime a = DateTime.Parse(dt.Rows[0][0].ToString());
@@ -418,6 +421,7 @@ namespace example.Bank
 
             //CenterRight(e, "ผู้สมัคร", Normal01, Normal, X + 550, Y + (SpacePerRow * CurrentRows++) + 50, XP, XD);
 
+            example.Class.Print.PrintPreviewDialog.PrintMember(e);
         }
 
         private void BTOpenfile_Click(object sender, EventArgs e)
