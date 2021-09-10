@@ -163,5 +163,10 @@ namespace example.Bank
         private static void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
+
+        private void TB_Min_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
