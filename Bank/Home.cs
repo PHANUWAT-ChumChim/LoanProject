@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace example.GOODS
 {
     public partial class Home : Form
@@ -43,7 +42,7 @@ namespace example.GOODS
             "LEFT JOIN Personal.dbo.tblTeacherHis as d on a.TeacherNo = d.TeacherNo \r\n"+
             "LEFT JOIN BaseData.dbo.tblPrefix as e on d.PrefixNo = e.PrefixNo \r\n"+
             "LEFT JOIN EmployeeBank.dbo.tblBillDetailType as f on c.TypeNo = f.TypeNo \r\n"+
-            "WHERE a.TeacherNo LIKE 'T{TeacherNo}%' AND a.TeacherNo NOT IN  \r\n"+
+            "WHERE a.TeacherNo LIKE 'T{TeacherNo}%' AND DATEADD(YYYY,0,'{CByear}-{CBMonth}-10') >= a.DateAdd AND a.TeacherNo NOT IN  \r\n"+
             "(SELECT aa.TeacherNo FROM EmployeeBank.dbo.tblBill as aa \r\n"+
             "LEFT JOIN EmployeeBank.dbo.tblBillDetail as bb on aa.BillNo = bb.BillNo \r\n"+
             "WHERE  bb.Mount = {CBMonth} and bb.Year = {CByear}) \r\n"+
@@ -54,11 +53,11 @@ namespace example.GOODS
           "SELECT CONVERT (DATE , CURRENT_TIMESTAMP); "
           ,
           //[3] SELECT MEMBER INPUT: {TeacherNo} 
-          "SELECT a.TeacherNo ,  CAST(c.PrefixName+' '+Fname +' '+ Lname as NVARCHAR),a.StartAmount \r\n"+
+          "SELECT a.TeacherNo ,  CAST(c.PrefixName+' '+Fname +' '+ Lname as NVARCHAR),a.StartAmount,a.DateAdd \r\n"+
           "FROM EmployeeBank.dbo.tblMember as a \r\n"+
           "LEFT JOIN Personal.dbo.tblTeacherHis as b ON a.TeacherNo = b.TeacherNo \r\n"+
           "LEFT JOIN BaseData.dbo.tblPrefix as c ON c.PrefixNo = b.PrefixNo \r\n"+
-          "WHERE a.TeacherNo LIKE 'T%' and MemberStatusNo = 1 \r\n"+
+          "WHERE a.TeacherNo LIKE 'T{TeacherNo}%' and MemberStatusNo = 1 \r\n"+
           "ORDER BY Fname;"
           ,
           //[4] SELECT pay IN Mont INPUT: {TeacherNo} {CByear} {CBMonth}
@@ -112,11 +111,11 @@ namespace example.GOODS
             {
                 if (TBTeacherNo.Text.Length == 6)
                 {
-                    DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[3].Replace("{TeacherNo}", TBTeacherNo.Text));
+                    DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[3].Replace("T{TeacherNo}%", TBTeacherNo.Text));
                     if (dt.Rows.Count != 0)
                     {
                         TBTeacherName.Text = dt.Rows[0][1].ToString();
-                        TBTeacherBill.Text = "บิลจ้า";
+                        TBTeacherBill.Text = dt.Rows[0][3].ToString().Remove(8,8);
                         Check = 1;
                     }
                     else
@@ -140,16 +139,19 @@ namespace example.GOODS
         }
         private void Home_Load(object sender, EventArgs e)
         {
+
             DataTable date = Class.SQLConnection.InputSQLMSSQL(SQLDefault[2]);
             int Year = Convert.ToInt32((Convert.ToDateTime(date.Rows[0][0])).ToString("yyyy"));
+            int Y = Year;
             for (int x = 0; x < 4; x++)
             {
                 CByear.Items.Add(Year);
                 Year--; 
             }
             DataTable dt = Class.SQLConnection.InputSQLMSSQL(SQLDefault[1]
-                .Replace("yaer", Year.ToString())
-                .Replace("Month",(Convert.ToDateTime(date.Rows[0][0])).ToString("MM")));
+                .Replace("{TeacherNo}","")
+                .Replace("{CByear}",Y.ToString())
+                .Replace("{CBMonth}", (Convert.ToDateTime(date.Rows[0][0])).ToString("MM")));
             for (int num = 0; num < dt.Rows.Count; num++)
             {
                 dataGridView3.Rows.Add(dt.Rows[num][0], dt.Rows[num][1], "สะสม", dt.Rows[num][3]);

@@ -519,68 +519,7 @@ namespace example.Bank
 
         //----------------------- End code -------------------- ////////
 
-        //----------------------- MedtodPrint -------------------- ////////
-        public int CurrentRows = 0;
-        // Comment!
-        public void StartCenter(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
-        {
-            SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
-            float StartLoc = e.PageBounds.Width / 2;
-            e.Graphics.DrawString(Text,
-                fontText, brush, new PointF(StartLoc, LocY));
-        }
-        // Comment!
-        public void Center(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
-        {
-            SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
-            float StartLoc = e.PageBounds.Width / 2 - SizeString.Width / 2;
-            e.Graphics.DrawString(Text,
-                fontText, brush, new PointF(StartLoc, LocY));
-        }
-        // Comment!
-        public void KeepRight(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
-        {
-            SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
-            float StartLoc = (e.PageBounds.Width - 50) - SizeString.Width;
-            e.Graphics.DrawString(Text,
-                fontText, brush, new PointF(StartLoc, LocY));
-        }
-        // Comment!
-        public void KeepLeft(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
-        {
-            SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
-            float StartLoc = 50;
-            e.Graphics.DrawString(Text,
-                fontText, brush, new PointF(StartLoc, LocY));
-        }
-        // Comment!
-        public void CenterKeepRight(System.Drawing.Printing.PrintPageEventArgs e, float LocY, String Text, Font fontText, Brush brush)
-        {
-            SizeF SizeString = e.Graphics.MeasureString(Text, fontText);
-            float StartLoc = ((e.PageBounds.Width / 2) + (e.PageBounds.Width / 2) / 2) - SizeString.Width;
-            e.Graphics.DrawString(Text,
-                fontText, brush, new PointF(StartLoc, LocY));
-        }
-        // Comment!
-        public void Header(System.Drawing.Printing.PrintPageEventArgs e, Brush brush)
-        {
-            int Y = 50;
-            int SpacePerRow = 25;
-            //int CurrentRows = 0;
-            Font Header01 = new Font("TH Sarabun New", 20, FontStyle.Bold);
-            //Font Normal01 = new Font("TH Sarabun New", 18, FontStyle.Regular);
-            String[] Head = new String[] { "APPLICATION FOR EMPLOYMENT", "ใบสมัครงาน", "กรอกข้อมูลด้วยตัวท่านเอง", "(To be completed in own handwriting)" };
-
-            for (int Num = 0; Num < 4; Num++)
-            {
-                if (Num == 2)
-                    Header01 = new Font("TH Sarabun New", 18, FontStyle.Regular);
-                SizeF SizeString = e.Graphics.MeasureString(Head[Num], Header01);
-                float StartLoc = e.PageBounds.Width / 2 - SizeString.Width / 2;
-                e.Graphics.DrawString(Head[Num],
-                Header01, brush, new PointF(StartLoc, Y + (SpacePerRow * CurrentRows++)));
-            }
-        }
+   
         // Comment!
         public void Rect(System.Drawing.Printing.PrintPageEventArgs e, Pen ColorRect, int WidthSize, int HeightSize, float LocY, float LocX)
         {
@@ -617,7 +556,6 @@ namespace example.Bank
             if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
             {
                 printDocument1.Print();
-
             }
         }
         // อัพเอกสารส่ง เซิร์ฟเวอร์
@@ -628,99 +566,11 @@ namespace example.Bank
         // กระดาษปริ้น
         private void printDocument1_PrintPage_1(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            int PageX = (e.PageBounds.Width);
-            int PageY = (e.PageBounds.Height);
-            int X = 96;
-            int Y = 50;
-            int SpacePerRow = 25;
-            //int CurrentRows = 0;
+            Class.Print.PrintPreviewDialog.PrintLoan(e);
+            //e.HasMorePages = true;
+            //Class.Print.PrintPreviewDialog.ExamplePrint(sender,e);
 
-            Font Header01 = new Font("TH Sarabun New", 30, FontStyle.Bold);
-            Font Normal01 = new Font("TH Sarabun New", 16, FontStyle.Regular);
-            Font Toppic = new Font("TH Sarabun New", 18, FontStyle.Bold);
-            Brush Normal = Brushes.Black;
 
-            //*Page Header*
-            Header(e, Normal);
-
-            //*Rectangle Picture*
-            Pen ColorRect = new Pen(Color.Black, 1);
-            Rect(e, ColorRect, 125, SpacePerRow * CurrentRows, 50, e.PageBounds.Width - 96 - 125);
-
-            //*NameText And PositionText*
-            CurrentRows++;
-            String NameTextPrint = "ชื่อ       : ................................................................................................................................................\r\n" +
-                "Name\r\n" + "ตำแหน่งที่ต้องการ       1…………………………………………………... เงินเดือน ..........................บาท / เดือน\r\n" +
-                "Position applied for       2 …………………………………………… Salary                   Bath / month";
-            PrintBody(e, Y + (SpacePerRow * CurrentRows++), NameTextPrint, Normal01, Normal);
-
-            CurrentRows += 4;
-
-            //**Toppic Personal**
-            PrintBody(e, Y + (SpacePerRow * CurrentRows++), "Personal information (ประวัติส่วนตัว)", Toppic, Normal);
-
-            //**Detail Personal**
-            PrintBody(e, Y + (SpacePerRow * CurrentRows++),
-                "ที่อยู่ปัจจุบันเลขที่ ..............หมู่ที่ ........... ถนน ........................................... ตำบล/แขวง.........................\r\n" +
-                "Present address           Moo          Road                                 District\r\n" +
-                "อำเภอ/เขต ............................................. จังหวัด ........................................ รหัสไปรษณีย์ ....................\r\n" +
-                "Amphur                                       Province                            Post code\r\n" +
-                "โทรศัพท์ .................................................. เพจเจอร์ .................................... มือถือ .................................\r\n" +
-                "Tel.                                             Pager                                Mobile\r\n" +
-                "อีเมล์ .........................................................................................................................................................\r\n" +
-                "E-mail", Normal01, Normal);
-
-            CurrentRows += 8;
-
-            //**Print Checkbox List**
-            List<String> AllCheckBox = new List<string> {
-                "อาศัยกับครอบครัว\r\n" + "Living with parent" , "บ้านตัวเอง\r\n" + "Own home", "บ้านเช่า\r\n" + "Hired house", "ห้องเช่า\r\n" + "Hiredflat / Hostel"};
-            float SpaceX = X + 15;
-            //for (int Num = 0;Num < AllCheckBox.Count; Num++)
-            //{
-            //    SizeF SizeText = e.Graphics.MeasureString(AllCheckBox[Num], Normal01);
-            //    PrintCheckBoxList(e, SpaceX + (37 * (Num + 1)), Y + (SpacePerRow * CurrentRows), AllCheckBox[Num], Normal01, Normal);
-            //    SpaceX += SizeText.Width;
-            //}
-            PrintCheckBoxList(e, SpaceX, Y + (SpacePerRow * CurrentRows), Normal01, Normal, AllCheckBox, 37);
-
-            CurrentRows += 3;
-            //**Print Personal02**
-            PrintBody(e, Y + (SpacePerRow * CurrentRows),
-                "วัน เดือน ปีเกิด ............................................. อายุ ...................... ปี          เชื้อชาติ...............................\r\n" +
-                "Date of birth                                     Age                  Yrs.     Race\r\n" +
-                "สัญชาติ ...................................................................... ศาสนา.................................................\r\n" +
-                "Nationality                                                 Religion\r\n" +
-                "บัตรประชาชนเลขที่ ................................................... บัตรหมดอายุ .....................................\r\n" +
-                "Identity card no.                                         Expiration date\r\n" +
-                "ส่วนสูง ............................ ชม.                            น้ำหนัก ........................... กก.\r\n" +
-                "Height                       cm.                           Weight                      kgs.\r\n" +
-                "ภาวะทางทหาร\r\n" +
-                "Military status\r\n" +
-                "สถานภาพ\r\n" +
-                "Marital status\r\n" +
-                "เพศ\r\n" +
-                "Sex", Normal01, Normal);
-
-            CurrentRows += 10;
-
-            //**CheckBox Military status**
-            AllCheckBox = new List<string> {
-                "ได้รับการยกเว้น\r\n" + "Exempted" , "ปลดเป็นทหารกองหนุน\r\n" + "Served" , "ยังไม่ได้รับการเกณฑ์\r\n" + "Not yet served"};
-            PrintCheckBoxList(e, SpaceX + 40, (Y + (SpacePerRow * CurrentRows)) - 10, Normal01, Normal, AllCheckBox, 74);
-
-            CurrentRows += 3;
-
-            //**CheckBox Marital status**
-            AllCheckBox = new List<string> {
-                "โสด\r\n" + "Single", "แต่งงาน\r\n" + "Married" , "หม้าย\r\n" + "Widowed" , "แยกกัน\r\n" + "Separated"};
-            PrintCheckBoxList(e, SpaceX + 40, (Y + (SpacePerRow * CurrentRows)) - 25, Normal01, Normal, AllCheckBox, 74);
-
-            CurrentRows += 3;
-
-            AllCheckBox = new List<string> { "ชาย\r\n" + "Male", "หญิง\r\n" + "Female" };
-            PrintCheckBoxList(e, SpaceX + 15, (Y + (SpacePerRow * CurrentRows)) - 45, Normal01, Normal, AllCheckBox, 100);
-            
         }
         //----------------------- End Printf -------------------- ////////
 
@@ -763,67 +613,7 @@ namespace example.Bank
             }
         }
 
-        //private void TBGuarantorNo_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.KeyCode == Keys.Enter)
-        //    {
-        //        bool CheckTeacherNo = false;
-        //        for (int Num = 0; Num < DGVGuarantor.Rows.Count; Num++)
-        //        {
-        //            String aa = DGVGuarantor.Rows[Num].Cells[1].Value.ToString();
-        //            CheckTeacherNo = TBGuarantorNo.Text.Contains(DGVGuarantor.Rows[Num].Cells[0].Value.ToString());
-        //            if (CheckTeacherNo)
-        //                break;
-        //        }
-        //        if ((DGVGuarantor.Rows.Count < 4) && (CheckTeacherNo == false))
-        //        {
-        //            DataSet ds = Class.SQLConnection.InputSQLMSSQLDS(
-        //                SQLDefault[0]
-        //                .Replace("{TeacherNo}", TBGuarantorNo.Text) +
-
-        //                SQLDefault[1]
-        //                .Replace("{GuarantorNo}", TBGuarantorNo.Text));
-        //            DataTable dtGuarantorName = ds.Tables[0];
-        //            DataTable dtSavingAmount = ds.Tables[1];
-        //            if (dtGuarantorName.Rows.Count != 0 && dtSavingAmount.Rows.Count != 0)
-        //            {
-        //                int credit;
-        //                if (dtSavingAmount.Rows[0][2].ToString() == "")
-        //                {
-        //                    credit = int.Parse(dtSavingAmount.Rows[0][1].ToString());
-        //                }
-        //                else
-        //                {
-        //                    credit = int.Parse(dtSavingAmount.Rows[0][2].ToString());
-        //                }
-
-        //                if (credit > 0)
-        //                {
-        //                    DGVGuarantor.Rows.Add(dtSavingAmount.Rows[0][0].ToString(),
-        //                        dtGuarantorName.Rows[0][1].ToString(),
-        //                        credit);
-        //                }
-        //                else
-        //                {
-        //                    MessageBox.Show("ไม่มียอดเงินที่ใช้ค้ำได้ โปรดเลือกบุคคลอื่น", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //                }
-        //            }
-        //            else
-        //            {
-        //                DialogResult Result = MessageBox.Show("ไม่มีข้อมูล", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-        //            }
-        //        }
-        //        else if (CheckTeacherNo == true)
-        //            MessageBox.Show("รายชื่อซ้ำ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //        else if (DGVGuarantor.Rows.Count >= 4)
-        //        {
-        //            MessageBox.Show("ผู้ค้ำเกินกหนด", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //        }
-
-        //        TBGuarantorNo.Text = "";
-        //    }
-        //}
+    
         private void button1_Click(object sender, EventArgs e)
         {
             if(DGVGuarantor.Rows.Count == 0)

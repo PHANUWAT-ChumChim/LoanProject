@@ -101,9 +101,9 @@ namespace example.GOODS
             // 
             this.TBTeacherBill.Enabled = false;
             this.TBTeacherBill.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBTeacherBill.Location = new System.Drawing.Point(761, 15);
+            this.TBTeacherBill.Location = new System.Drawing.Point(787, 15);
             this.TBTeacherBill.Name = "TBTeacherBill";
-            this.TBTeacherBill.Size = new System.Drawing.Size(360, 43);
+            this.TBTeacherBill.Size = new System.Drawing.Size(334, 43);
             this.TBTeacherBill.TabIndex = 84;
             // 
             // TBTeacherName
@@ -131,11 +131,11 @@ namespace example.GOODS
             this.label3.BackColor = System.Drawing.Color.White;
             this.label3.Font = new System.Drawing.Font("TH Sarabun New", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(686, 15);
+            this.label3.Location = new System.Drawing.Point(686, 17);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 37);
+            this.label3.Size = new System.Drawing.Size(95, 37);
             this.label3.TabIndex = 69;
-            this.label3.Text = "เลขบิล";
+            this.label3.Text = "วันที่สมัคร";
             // 
             // label2
             // 
